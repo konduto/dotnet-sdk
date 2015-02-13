@@ -41,7 +41,7 @@ All entities involved in Konduto's analysis process (e.g customer, shopping cart
 from KondutoModel and are under the models package.
 
 ```c#
-KondutoOrder = new KondutoOrder
+KondutoOrder order = new KondutoOrder
 {
   Id = "123",
   TotalAmount = 123.4,

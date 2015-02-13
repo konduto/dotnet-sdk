@@ -60,16 +60,6 @@ order.Customer = customer;
 Another way of initializing an instance of KondutoModel is to call KondutoModel's fromMap method 
 and pass a Map and the instance class as arguments.
 
-```java (TODO)
-Map<String, Object> attributes = new HashMap<>();
-attributes.put("id", "123"); 
-attributes.put("totalAmount", 123.4);
-attributes.put("customer", customer);
-
-KondutoOrder order = (KondutoOrder) KondutoModel.fromMap(attributes, KondutoOrder.class);
-```
-(end TODO)
-
 >
 **NOTICE**: the order created above is really, really simple. The more detail you provide, more accurate Konduto's analysis will be.
 >

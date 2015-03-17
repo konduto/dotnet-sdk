@@ -20,13 +20,17 @@ namespace KdtSdk.Models
             s.MissingMemberHandling = MissingMemberHandling.Ignore;
             s.NullValueHandling = NullValueHandling.Ignore;
             s.MissingMemberHandling = MissingMemberHandling.Ignore;
-            JsonConvert.SerializeObject(this, Formatting.Indented, s);
             
             try
             {
+                JsonConvert.SerializeObject(this, Formatting.Indented, s);
                 return JsonConvert.SerializeObject(this, Formatting.Indented);
             }
             catch (JsonSerializationException e)
+            {
+                throw new KondutoInvalidEntityException(this);
+            }
+            catch (Exception e)
             {
                 throw new KondutoInvalidEntityException(this);
             }

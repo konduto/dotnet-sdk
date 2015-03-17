@@ -81,12 +81,16 @@
     <Compile Include="Models\KondutoCreditCardPaymentStatus.cs" />
     <Compile Include="Models\KondutoCustomer.cs" />
     <Compile Include="Models\KondutoDevice.cs" />
+    <Compile Include="Models\KondutoFlight.cs" />
+    <Compile Include="Models\KondutoFlightInformation.cs" />
     <Compile Include="Models\KondutoGeolocation.cs" />
     <Compile Include="Models\KondutoItem.cs" />
+    <Compile Include="Models\KondutoLoyaltyProgram.cs" />
     <Compile Include="Models\KondutoModel.cs" />
     <Compile Include="Models\KondutoNavigationInfo.cs" />
     <Compile Include="Models\KondutoOrder.cs" />
     <Compile Include="Models\KondutoOrderStatus.cs" />
+    <Compile Include="Models\KondutoPassenger.cs" />
     <Compile Include="Models\KondutoPayment.cs" />
     <Compile Include="Models\KondutoPaymentType.cs" />
     <Compile Include="Models\KondutoRecommendation.cs" />

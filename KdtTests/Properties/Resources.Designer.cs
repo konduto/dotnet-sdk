@@ -117,6 +117,37 @@ namespace KdtTests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
+        ///  &quot;departure&quot;: {
+        ///    &quot;origin&quot;: &quot;GRU&quot;,
+        ///    &quot;destination&quot;: &quot;SFO&quot;,
+        ///    &quot;date&quot;: &quot;2018-12-25T18:00Z&quot;,
+        ///    &quot;number_of_connections&quot;: 1,
+        ///    &quot;class&quot;: &quot;economy&quot;,
+        ///    &quot;fare_basis&quot;: &quot;Y&quot;
+        ///  },
+        ///  &quot;return&quot;: {
+        ///    &quot;origin&quot;: &quot;SFO&quot;,
+        ///    &quot;destination&quot;: &quot;GRU&quot;,
+        ///    &quot;date&quot;: &quot;2018-12-30T18:00Z&quot;,
+        ///    &quot;number_of_connections&quot;: 1,
+        ///    &quot;class&quot;: &quot;business&quot;
+        ///  },
+        ///  &quot;passengers&quot;: [
+        ///    {
+        ///      &quot;name&quot;: &quot;Julia da Silva&quot;,
+        ///      &quot;document&quot;: &quot;A1B2C3D4&quot;,
+        ///      &quot;document_type&quot;: &quot;id&quot;,
+        ///      &quot;dob&quot;: &quot;1970-01-01&quot;,
+        ///      &quot;nati [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string flight {
+            get {
+                return ResourceManager.GetString("flight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
         ///	&quot;city&quot;:&quot;Sao Paulo&quot;,
         ///	&quot;state&quot;:&quot;SP&quot;,
         ///	&quot;country&quot;:&quot;BR&quot;
@@ -227,6 +258,27 @@ namespace KdtTests.Properties {
         internal static string order {
             get {
                 return ResourceManager.GetString("order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;name&quot;: &quot;Carlos Siqueira&quot;,
+        ///  &quot;document&quot;: &quot;AB11223344&quot;,
+        ///  &quot;document_type&quot;: &quot;passport&quot;,
+        ///  &quot;dob&quot;: &quot;1970-12-01&quot;,
+        ///  &quot;nationality&quot;: &quot;US&quot;,
+        ///  &quot;frequent_flyer&quot;: false,
+        ///  &quot;special_needs&quot;: true,
+        ///  &quot;loyalty&quot;: {
+        ///    &quot;program&quot;: &quot;skymiles&quot;,
+        ///    &quot;category&quot;: &quot;silver&quot;
+        ///  }
+        ///}.
+        /// </summary>
+        internal static string passenger {
+            get {
+                return ResourceManager.GetString("passenger", resourceCulture);
             }
         }
         

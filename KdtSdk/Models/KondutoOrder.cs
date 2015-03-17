@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Runtime.Serialization;
+using KdtSdk.Exceptions;
 
 namespace KdtSdk.Models
 {
@@ -72,6 +74,9 @@ namespace KdtSdk.Models
         [JsonProperty("navigation")]
         public KondutoNavigationInfo NavigationInfo { get; set; }
 
+        [JsonProperty("flight")]
+        public KondutoFlight Flight { get; set; }
+
 	    /* Constructors */
 	    public KondutoOrder() {}
 
@@ -114,12 +119,23 @@ namespace KdtSdk.Models
 
             if (!object.Equals(Analyze, that.Analyze)) return false;
 
+            if (!object.Equals(Flight, that.Flight)) return false;
+
             return true;
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        [OnSerializing]
+        internal void OnSerializedMethod(StreamingContext context)
+        {
+            if (ShoppingCart != null && Flight != null)
+            {
+                throw new JsonSerializationException("Shopping cart and flight object cannnot exist in same order.");
+            }
         }
     }
 }

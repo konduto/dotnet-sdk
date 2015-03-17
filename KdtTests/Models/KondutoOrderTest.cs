@@ -47,6 +47,28 @@ namespace KdtTests.Models
 
 	    }
 
+        [TestMethod]
+        public void SerializationTestWithShoppingAndFlight()
+        {
+            KondutoOrder order = KondutoOrderFactory.completeOrder();
+            order.Flight = KondutoFlightFactory.CreateFlight();
+
+            try
+            {
+                order.ToJson();
+                Assert.Fail("order should be invalid");
+            }
+            catch (KondutoInvalidEntityException e)
+            {
+                //ok
+            }
+
+            order = KondutoOrderFactory.completeOrder();
+            order.Flight = KondutoFlightFactory.CreateFlight();
+            order.ShoppingCart = null;
+            //ok
+        }
+
 	    [TestMethod, ExpectedException(typeof(KondutoInvalidEntityException))]
 	    public void invalidOrderSerializationThrowsExceptionTest() 
         {

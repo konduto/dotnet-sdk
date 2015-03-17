@@ -85,20 +85,24 @@
     <Compile Include="Factories\KondutoAddressFactory.cs" />
     <Compile Include="Factories\KondutoCustomerFactory.cs" />
     <Compile Include="Factories\KondutoDeviceFactory.cs" />
+    <Compile Include="Factories\KondutoFlightFactory.cs" />
     <Compile Include="Factories\KondutoGeolocationFactory.cs" />
     <Compile Include="Factories\KondutoItemFactory.cs" />
     <Compile Include="Factories\KondutoNavigationInfoFactory.cs" />
     <Compile Include="Factories\KondutoOrderFactory.cs" />
+    <Compile Include="Factories\KondutoPassengerFactory.cs" />
     <Compile Include="Factories\KondutoPaymentFactory.cs" />
     <Compile Include="KondutoTest.cs" />
     <Compile Include="Models\KondutoAddressTest.cs" />
     <Compile Include="Models\KondutoCreditCardPaymentTest.cs" />
     <Compile Include="Models\KondutoCustomerTest.cs" />
     <Compile Include="Models\KondutoDeviceTest.cs" />
+    <Compile Include="Models\KondutoFlightTest.cs" />
     <Compile Include="Models\KondutoGeolocationTest.cs" />
     <Compile Include="Models\KondutoItemTest.cs" />
     <Compile Include="Models\KondutoNavigationInfoTest.cs" />
     <Compile Include="Models\KondutoOrderTest.cs" />
+    <Compile Include="Models\KondutoPassengerTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,6 +153,12 @@
       <Project>{10bdebe8-3ab2-4867-931e-2e352b1e2b72}</Project>
       <Name>KdtSdk</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\passenger.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flight.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

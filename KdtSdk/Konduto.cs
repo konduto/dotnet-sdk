@@ -198,7 +198,18 @@ namespace KdtSdk
 
                 String responseString = responseContent.ReadAsStringAsync().Result;
                 this.responseBody = responseString;
-                return KondutoOrder.FromJson<KondutoOrder>(responseString);
+
+                JObject getResponse = JsonConvert.DeserializeObject<JObject>(responseString);
+
+                KondutoOrder order = null;
+
+                JToken jt;
+                if (getResponse.TryGetValue("order", out jt))
+                {
+                    order = KondutoModel.FromJson<KondutoOrder>(jt.ToString());
+                }
+
+                return order;
             }
             else
             {
@@ -219,7 +230,7 @@ namespace KdtSdk
         {
             HttpClient httpClient = CreateHttpClient();
             
-            var response = httpClient.PostAsync(KondutoPostOrderUrl(), 
+            var response = httpClient.PostAsync(KondutoPostOrderUrl(),
                 new StringContent(order.ToJson(),
                     Encoding.UTF8,
                     "application/json"));
@@ -237,7 +248,8 @@ namespace KdtSdk
                 this.responseBody = responseString;
 
                 if (order.Analyze)
-                    return KondutoOrder.FromJson<KondutoOrder>(responseString);
+                    order.MergeKondutoOrderResponse(KondutoAPIFullResponse.FromJson<KondutoAPIFullResponse>(responseString).Order);
+
                 return order;
             }
             else
@@ -246,6 +258,14 @@ namespace KdtSdk
                 throw KondutoHTTPExceptionFactory.buildException((int)response.Result.StatusCode,
                     responseContentError);
             }
+        }
+
+        private class KondutoAPIFullResponse : KondutoModel
+        {
+            [JsonProperty("status")]
+            public string Status { get; set; }
+            [JsonProperty("order")]
+            public KondutoOrderResponse Order { get; set; }
         }
 
         /// <summary>

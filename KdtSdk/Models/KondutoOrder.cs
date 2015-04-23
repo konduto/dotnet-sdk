@@ -14,67 +14,64 @@ namespace KdtSdk.Models
         [JsonProperty("id", Required = Required.Always)]
         public String Id { get; set; }
 
-        [JsonProperty("visitor")]
+        [JsonProperty("visitor"), DefaultValue(null)]
         public String Visitor { get; set; }
 
-        [JsonProperty("timestamp")]
+        [JsonProperty("timestamp", DefaultValueHandling=DefaultValueHandling.Ignore), DefaultValue(0)]
         public long Timestamp { get; set; }
 
         [JsonProperty("total_amount", Required = Required.Always)]
         public Double TotalAmount { get; set; }
 
-        [JsonProperty("shipping_amount")]
+        [JsonProperty("shipping_amount", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(-1)]
         public Double ShippingAmount { get; set; }
 
-        [JsonProperty("tax_amount")]
+        [JsonProperty("tax_amount", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(0)]
         public Double TaxAmount { get; set; }
 
         [JsonProperty("customer", Required = Required.Always)]
         public KondutoCustomer Customer { get; set; }
 
-        [JsonProperty("currency")]
+        [JsonProperty("currency", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
         public String Currency { get; set; }
 
-        [JsonProperty("installments")]
+        [JsonProperty("installments", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(0)]
         public int Installments { get; set; }
 
-        [JsonProperty("ip")]
+        [JsonProperty("ip", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
         public String Ip { get; set; }
 
-        [JsonProperty("score"), DefaultValue(null)]
-        public Double Score { get; set; }
+        [JsonProperty("score", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Double? Score { get; set; }
 
-        [JsonProperty("shipping")]
+        [JsonProperty("shipping", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoAddress ShippingAddress { get; set; }
 
-        [JsonProperty("billing")]
+        [JsonProperty("billing", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoAddress BillingAddress { get; set; }
 
-        [JsonProperty("recommendation"), DefaultValue(KondutoRecommendation.none)]
+        [JsonProperty("recommendation", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(KondutoRecommendation.none)]
         public KondutoRecommendation Recommendation { get; set; }
 
-        [JsonProperty("status"), DefaultValue(KondutoOrderStatus.not_analyzed)]
-        public KondutoOrderStatus Status { get; set; }
-
-        [JsonProperty("geolocation")]
+        [JsonProperty("geolocation", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoGeolocation Geolocation { get; set; }
 
         [JsonProperty("analyze"), DefaultValue(true)]
         public bool Analyze { get; set; }
 
-        [JsonProperty("payment")]
+        [JsonProperty("payment", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public List<KondutoPayment> Payments { get; set; }
 
-        [JsonProperty("shopping_cart")]
+        [JsonProperty("shopping_cart", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public List<KondutoItem> ShoppingCart { get; set; }
-        
-        [JsonProperty("device")]
+
+        [JsonProperty("device", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoDevice Device { get; set; }
 
-        [JsonProperty("navigation")]
+        [JsonProperty("navigation", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoNavigationInfo NavigationInfo { get; set; }
 
-        [JsonProperty("flight")]
+        [JsonProperty("flight", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoFlight Flight { get; set; }
 
 	    /* Constructors */
@@ -104,7 +101,6 @@ namespace KdtSdk.Models
 
             if (!object.Equals(ShippingAddress, that.ShippingAddress)) return false;
             if (!object.Equals(ShippingAmount, that.ShippingAmount)) return false;
-            if (!object.Equals(Status, that.Status)) return false;
             if (!object.Equals(TaxAmount, that.TaxAmount)) return false;
             if (!object.Equals(Timestamp, that.Timestamp)) return false;
 
@@ -136,6 +132,20 @@ namespace KdtSdk.Models
             {
                 throw new JsonSerializationException("Shopping cart and flight object cannnot exist in same order.");
             }
+        }
+
+        /// <summary>
+        /// Merges a konduto response of order to current KondutoOrder
+        /// </summary>
+        /// <param name="response">KondutoOrder response from API</param>
+        public void MergeKondutoOrderResponse(KondutoOrderResponse response)
+        {
+            this.Device = response.Device;
+            this.Recommendation = response.Recommendation;
+            this.Score= response.Score;
+            this.NavigationInfo = response.NavigationInfo;
+            this.Geolocation = response.Geolocation;
+            this.Timestamp = response.Timestamp;
         }
     }
 }

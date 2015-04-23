@@ -65,7 +65,7 @@ namespace KdtTests
 
             var fakeResponseHandler = new FakeResponseHandler();
             var message = new HttpResponseMessage(HttpStatusCode.OK);
-            message.Content = new StringContent(ORDER_FROM_FILE.ToJson());
+            message.Content = new StringContent(ANALYZE_ORDER_RESPONSE.ToString());
 
             var c = kdt.KondutoGetOrderUrl(ORDER_ID);
 
@@ -111,17 +111,18 @@ namespace KdtTests
         {
             var fakeResponseHandler = new FakeResponseHandler();
             var message = new HttpResponseMessage(HttpStatusCode.OK);
-            message.Content = new StringContent(ORDER_FROM_FILE.ToJson());
+
+            message.Content = new StringContent(ANALYZE_ORDER_RESPONSE.ToString());
 
             fakeResponseHandler.AddFakeResponse(konduto.KondutoPostOrderUrl(), message);
             konduto.__MessageHandler = fakeResponseHandler;
 
             KondutoOrder orderToSend = KondutoOrderFactory.basicOrder();
+            String s = orderToSend.ToJson();
             KondutoOrder orderResponse = null;
 
             Assert.IsTrue(orderToSend.Recommendation == KondutoRecommendation.none, "basic order should have no recommendation");
-            Assert.IsTrue(orderToSend.Score == 0, "basic order should have no score");
-            Assert.IsTrue(orderToSend.Status == KondutoOrderStatus.not_analyzed, "basic order should have no status");
+            Assert.IsTrue(orderToSend.Score == null, "basic order should have no score");
             Assert.IsNull(orderToSend.Geolocation, "basic order should have no geolocation");
             Assert.IsNull(orderToSend.Device, "basic order should have no device");
             Assert.IsNull(orderToSend.NavigationInfo, "basic order should have no navigation info");
@@ -144,20 +145,117 @@ namespace KdtTests
                 Assert.Fail("server should respond with status 200");
             }
 
-            Double actualScore = ORDER_FROM_FILE.Score;
-            KondutoRecommendation actualRecommendation = ORDER_FROM_FILE.Recommendation;
+            Double? actualScore = ORDER_FROM_FILE.Score;
+            KondutoRecommendation? actualRecommendation = ORDER_FROM_FILE.Recommendation;
             KondutoGeolocation actualGeolocation = ORDER_FROM_FILE.Geolocation;
-            KondutoOrderStatus actualStatus = ORDER_FROM_FILE.Status;
             KondutoDevice actualDevice = ORDER_FROM_FILE.Device;
             KondutoNavigationInfo actualNavigationInfo = ORDER_FROM_FILE.NavigationInfo;
 
             Assert.IsTrue(orderResponse.Geolocation.Equals(actualGeolocation));
             Assert.AreEqual(orderResponse.Recommendation, actualRecommendation);
-            Assert.AreEqual(orderResponse.Status, actualStatus);
             Assert.AreEqual(orderResponse.Device, actualDevice);
             Assert.AreEqual(orderResponse.NavigationInfo, actualNavigationInfo);
             Assert.AreEqual(orderResponse.Score, actualScore);
 	    }
+
+        [TestMethod]
+        public void PostIntegrationTest()
+        {
+            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+
+            KondutoCustomer Customer = new KondutoCustomer
+            {
+                Id = "28372",
+                Name = "KdtUser",
+                Email = "developer@example.com"
+            };
+
+            KondutoOrder order = new KondutoOrder
+            {
+                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
+                TotalAmount = 100.00,
+                Customer = Customer,
+                Analyze=true
+            };
+            
+            try
+            {
+                konduto.Analyze(order);
+                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+        }
+
+        [TestMethod]
+        public void GetIntegrationTest()
+        {
+            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+
+            try
+            {
+                KondutoOrder order = konduto.GetOrder("1429744771");
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+        }
+
+        [TestMethod]
+        public void PutIntegrationTest()
+        {
+            String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
+
+            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+
+            KondutoCustomer Customer = new KondutoCustomer
+            {
+                Id = "28372",
+                Name = "KdtUser",
+                Email = "developer@example.com"
+            };
+
+            KondutoOrder order = new KondutoOrder
+            {
+                Id = id,
+                Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
+                TotalAmount = 100.00,
+                Customer = Customer,
+                Analyze = true
+            };
+
+            try
+            {
+                konduto.Analyze(order);
+                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+
+            try
+            {
+                konduto.UpdateOrderStatus(id, KondutoOrderStatus.fraud, "Manual Review");
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+
+            try
+            {
+                KondutoOrder updatedOrder = konduto.GetOrder(id);
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+        }
 
         [TestMethod]
         public void SendOrderToKondutoButDoNotAnalyzeTest() 
@@ -190,7 +288,7 @@ namespace KdtTests
                 Assert.Fail("server should respond with status 200");
             }
 
-            Assert.IsTrue(orderToSend.Score == 0);
+            Assert.IsTrue(orderToSend.Score == null);
             Assert.IsTrue(orderToSend.Recommendation == KondutoRecommendation.none);
 
         }

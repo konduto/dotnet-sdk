@@ -8,13 +8,13 @@ namespace KdtSdk.Models
     /// </summary>
     public enum KondutoRecommendation
     {
+        [JsonProperty("none")]
+	    none,
         [JsonProperty("approve")]
 	    approve,
 	    [JsonProperty("review")]
 	    review,
 	    [JsonProperty("decline")]
-	    decline,
-	    [JsonProperty("none")]
-	    none
+	    decline
     }
 }

@@ -89,6 +89,7 @@
     <Compile Include="Models\KondutoModel.cs" />
     <Compile Include="Models\KondutoNavigationInfo.cs" />
     <Compile Include="Models\KondutoOrder.cs" />
+    <Compile Include="Models\KondutoOrderResponse.cs" />
     <Compile Include="Models\KondutoOrderStatus.cs" />
     <Compile Include="Models\KondutoPassenger.cs" />
     <Compile Include="Models\KondutoPayment.cs" />

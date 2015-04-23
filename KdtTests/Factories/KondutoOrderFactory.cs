@@ -24,7 +24,6 @@ namespace KdtTests.Factories
                 BillingAddress = KondutoAddressFactory.Create(),
                 Geolocation = KondutoGeolocationFactory.Create(),
 
-                Status = KondutoOrderStatus.approved,
                 Recommendation = KondutoRecommendation.approve,
                 Payments = KondutoPaymentFactory.CreatePayments(),
                 ShoppingCart = KondutoItemFactory.CreateShoppingCart(),
@@ -41,7 +40,6 @@ namespace KdtTests.Factories
                 TotalAmount = 120.5,
                 Customer = KondutoCustomerFactory.BasicCustomer(),
                 Recommendation = KondutoRecommendation.none,
-                Status = KondutoOrderStatus.not_analyzed,
                 Analyze = true
             };
         }

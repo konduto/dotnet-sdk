@@ -1,9 +1,13 @@
 [
 	{
-	   "bin":"123",
+	   "bin":"1234",
 	   "last4":"1234",
-	   "expiration_date":"012014",
+	   "expiration_date":"010214",
 	   "status":"approved",
 	   "type":"credit"
+	},
+	{
+		"expiration_date":"010214",
+		"type": "boleto"
 	}
 ]

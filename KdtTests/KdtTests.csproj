@@ -94,7 +94,8 @@
     <Compile Include="Factories\KondutoPaymentFactory.cs" />
     <Compile Include="KondutoTest.cs" />
     <Compile Include="Models\KondutoAddressTest.cs" />
-    <Compile Include="Models\KondutoCreditCardPaymentTest.cs" />
+    <Compile Include="Models\KondutoBoletoPaymentTest.cs" />
+    <Compile Include="Models\KondutoPaymentTest.cs" />
     <Compile Include="Models\KondutoCustomerTest.cs" />
     <Compile Include="Models\KondutoDeviceTest.cs" />
     <Compile Include="Models\KondutoFlightTest.cs" />

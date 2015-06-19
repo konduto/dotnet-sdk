@@ -20,6 +20,7 @@ namespace KdtSdk.Models
             s.MissingMemberHandling = MissingMemberHandling.Ignore;
             s.NullValueHandling = NullValueHandling.Ignore;
             s.MissingMemberHandling = MissingMemberHandling.Ignore;
+            s.TypeNameHandling = TypeNameHandling.Auto;
             
             try
             {

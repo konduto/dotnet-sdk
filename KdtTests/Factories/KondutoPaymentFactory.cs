@@ -9,11 +9,20 @@ namespace KdtTests.Factories
         {
             return new KondutoCreditCardPayment
             {
-                Bin = "123",
-                ExpirationDate = "012014",
+                Bin = "1234",
+                ExpirationDate = "010214",
                 Last4 = "1234",
                 Status = KondutoCreditCardPaymentStatus.approved,
                 Type = KondutoPaymentType.credit
+            };
+        }
+
+        public static KondutoBoletoPayment CreateBoletoPayment() 
+        {
+            return new KondutoBoletoPayment
+            {
+                Type = KondutoPaymentType.boleto,
+                ExpirationDate = "010214"
             };
         }
 

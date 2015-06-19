@@ -77,6 +77,7 @@
     <Compile Include="Exceptions\KondutoUnexpectedAPIRespondeException.cs" />
     <Compile Include="Konduto.cs" />
     <Compile Include="Models\KondutoAddress.cs" />
+    <Compile Include="Models\KondutoBoletoPayment.cs" />
     <Compile Include="Models\KondutoCreditCardPayment.cs" />
     <Compile Include="Models\KondutoCreditCardPaymentStatus.cs" />
     <Compile Include="Models\KondutoCustomer.cs" />

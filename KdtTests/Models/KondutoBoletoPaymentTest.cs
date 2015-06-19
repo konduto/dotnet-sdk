@@ -7,8 +7,7 @@ using System;
 
 namespace KdtTests.Models
 {
-    [TestClass]
-    public class KondutoCreditCardPaymentTest
+    public class KondutoBoletoPaymentTest
     {
         [TestMethod]
         public void SerializeTest()

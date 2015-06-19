@@ -15,7 +15,7 @@ This document refers to the **.NET SDK** used for our API.
 
 ## Installation
 
-Install our package avaiable at Nuget: (TODO)
+Install our package avaiable at Nuget: https://www.nuget.org/packages/KdtSdk/
 
 ## Getting Started
 

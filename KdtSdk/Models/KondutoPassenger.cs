@@ -15,14 +15,14 @@ namespace KdtSdk.Models
         [JsonProperty("document_type", Required = Required.Always)]
         public String DocumentType { get; set; }
 
-        [JsonProperty("dob")]
+        [JsonProperty("dob", Required = Required.Always)]
         public String Dob { get; set; }
 
         [JsonProperty("nationality")]
         public String Nationality { get; set; }
 
-        [JsonProperty("frequent_flyer", Required = Required.Always)]
-        public bool FrequentFlyer { get; set; }
+        [JsonProperty("frequent_passenger")]
+        public bool FrequentPassenger { get; set; }
 
         [JsonProperty("special_needs")]
         public bool SpecialNeeds { get; set; }
@@ -49,7 +49,7 @@ namespace KdtSdk.Models
             if (!object.Equals(DocumentType, that.DocumentType)) return false;
             if (!object.Equals(Dob, that.Dob)) return false;
             if (!object.Equals(Nationality, that.Nationality)) return false;
-            if (!object.Equals(FrequentFlyer, that.FrequentFlyer)) return false;
+            if (!object.Equals(FrequentPassenger, that.FrequentPassenger)) return false;
             if (!object.Equals(SpecialNeeds, that.SpecialNeeds)) return false;
             if (!object.Equals(Loyalty, that.Loyalty)) return false;
 

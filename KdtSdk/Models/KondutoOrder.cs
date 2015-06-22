@@ -72,7 +72,7 @@ namespace KdtSdk.Models
         public KondutoNavigationInfo NavigationInfo { get; set; }
 
         [JsonProperty("flight", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
-        public KondutoFlight Flight { get; set; }
+        public KondutoTravel Flight { get; set; }
 
 	    /* Constructors */
 	    public KondutoOrder() {}

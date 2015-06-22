@@ -98,7 +98,7 @@
     <Compile Include="Models\KondutoPaymentTest.cs" />
     <Compile Include="Models\KondutoCustomerTest.cs" />
     <Compile Include="Models\KondutoDeviceTest.cs" />
-    <Compile Include="Models\KondutoFlightTest.cs" />
+    <Compile Include="Models\KondutoTravelTest.cs" />
     <Compile Include="Models\KondutoGeolocationTest.cs" />
     <Compile Include="Models\KondutoItemTest.cs" />
     <Compile Include="Models\KondutoNavigationInfoTest.cs" />

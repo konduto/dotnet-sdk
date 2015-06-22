@@ -1,13 +1,13 @@
 {
   "name": "Carlos Siqueira",
-  "document": "AB11223344",
+  "document": "XYZ1234",
   "document_type": "passport",
   "dob": "1970-12-01",
   "nationality": "US",
-  "frequent_flyer": false,
+  "frequent_passenger": false,
   "special_needs": true,
   "loyalty": {
-    "program": "skymiles",
+    "program": "multiplus",
     "category": "silver"
   }
 }

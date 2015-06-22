@@ -8,14 +8,14 @@ using System;
 namespace KdtTests.Models
 {
     [TestClass]
-    public class KondutoFlightTest
+    public class KondutoTravelTest
     {
         [TestMethod]
         public void SerializeTest()
         {
-            String expectedJSON = KondutoUtils.LoadJson<KondutoFlight>(Properties.Resources.flight).ToJson();
+            String expectedJSON = KondutoUtils.LoadJson<KondutoTravel>(Properties.Resources.flight).ToJson();
             String actualJSON = null;
-            KondutoFlight flight = KondutoFlightFactory.CreateFlight();
+            KondutoTravel flight = KondutoFlightFactory.CreateFlight();
 
             try
             {
@@ -27,7 +27,7 @@ namespace KdtTests.Models
             }
 
             Assert.AreEqual(expectedJSON, actualJSON, "flight serialization failed");
-            KondutoFlight flightFromJSON = KondutoModel.FromJson<KondutoFlight>(expectedJSON);
+            KondutoTravel flightFromJSON = KondutoModel.FromJson<KondutoTravel>(expectedJSON);
             Assert.AreEqual(flight, flightFromJSON, "flight deserialization failed");
         }
     }

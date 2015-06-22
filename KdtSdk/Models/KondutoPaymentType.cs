@@ -9,6 +9,7 @@ namespace KdtSdk.Models
     public enum KondutoPaymentType
     {
         credit,
-        boleto
+        boleto,
+        error
     }
 }

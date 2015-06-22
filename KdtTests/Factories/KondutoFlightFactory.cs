@@ -54,24 +54,24 @@ namespace KdtTests.Factories
 {
     public class KondutoFlightFactory
     {
-        public static KondutoFlightInformation CreateReturn()
+        public static KondutoTravelInformation CreateReturn()
         {
-            return new KondutoFlightInformation
+            return new KondutoTravelInformation
             {
-                Origin = "SFO",
-                Destination = "GRU",
+                OriginAirport = "SFO",
+                DestinationAirport = "GRU",
                 Date = "2018-12-30T18:00Z",
                 NumberOfConnections = 1,
                 Class = "business"
             };
         }
 
-        public static KondutoFlightInformation CreateDeparture()
+        public static KondutoTravelInformation CreateDeparture()
         {
-            return new KondutoFlightInformation
+            return new KondutoTravelInformation
             {
-                Origin = "GRU",
-                Destination = "SFO",
+                OriginAirport = "GRU",
+                DestinationAirport = "SFO",
                 Date = "2018-12-25T18:00Z",
                 NumberOfConnections = 1,
                 Class = "economy",
@@ -79,9 +79,9 @@ namespace KdtTests.Factories
             };
         }
 
-        public static KondutoFlight CreateFlight()
+        public static KondutoTravel CreateFlight()
         {
-            return new KondutoFlight
+            return new KondutoTravel
             {
                 Departure = CreateDeparture(),
                 Return = CreateReturn(),

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using Newtonsoft.Json.Converters;
 
 
 namespace KdtSdk.Models
@@ -11,33 +12,35 @@ namespace KdtSdk.Models
     /// * Address model.
     /// @see <a href="http://docs.konduto.com">Konduto API Spec</a>
     /// </summary>
-    public class KondutoFlight : KondutoModel
+    public class KondutoTravel : KondutoModel
     {
         #region Attributes
+        [JsonProperty("type", Required = Required.Always), JsonConverter(typeof(StringEnumConverter))]
+        public KondutoTravelType TravelType { get; set; }
 
         [JsonProperty("passengers", Required = Required.Always)]
         public List<KondutoPassenger> Passengers { get; set; }
 
         [JsonProperty("departure", Required = Required.Always)]
-        public KondutoFlightInformation Departure { get; set; }
+        public KondutoTravelInformation Departure { get; set; }
 
-        [JsonProperty("return", Required = Required.Always)]
-        public KondutoFlightInformation Return { get; set; }
+        [JsonProperty("return")]
+        public KondutoTravelInformation Return { get; set; }
 
         #endregion
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public KondutoFlight() { }
+        public KondutoTravel() { }
 
         public override bool Equals(Object o)
         {
             if (this == o) return true;
 
-            if (!(o is KondutoFlight)) return false;
+            if (!(o is KondutoTravel)) return false;
 
-            KondutoFlight that = o as KondutoFlight;
+            KondutoTravel that = o as KondutoTravel;
 
             if (!Passengers.SequenceEqual<KondutoPassenger>(that.Passengers)) return false;
             if (!object.Equals(Departure, that.Departure)) return false;

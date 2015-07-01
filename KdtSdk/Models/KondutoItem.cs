@@ -18,7 +18,7 @@ namespace KdtSdk.Models
         [JsonProperty("unit_cost")]
         public Double UnitCost { get; set; }
         [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+        public float Quantity { get; set; }
         [JsonProperty("discount")]
         public Double Discount { get; set; }
 

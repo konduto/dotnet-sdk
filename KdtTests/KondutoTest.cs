@@ -191,6 +191,121 @@ namespace KdtTests
         }
 
         [TestMethod]
+        public void FullJsonIntegrationTest()
+        {
+            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+
+            KondutoCustomer Customer = new KondutoCustomer
+            {
+                Id = "28372",
+                Name = "KdtUser",
+                Email = "developer@example.com",
+                TaxId = "613.815.776-10",
+                Phone1 = "+559912345678",
+                Phone2 = "(11)1234-5678",
+                IsNew = false,
+                IsVip = false
+            };
+
+            KondutoPayment payment = new KondutoCreditCardPayment
+            {
+                Type = KondutoPaymentType.credit,
+                Status = KondutoCreditCardPaymentStatus.approved,
+                Bin = "490172",
+                Last4 = "0012",
+                ExpirationDate = "052026"
+            };
+
+            KondutoAddress billing = new KondutoAddress
+            {
+                Name = "Mark Thompson",
+                Address1 = "101 Maple Road",
+                Address2 = "Apto 33",
+                City = "Mato Grosso",
+                State = "CuiabÃ¡",
+                Zip = "302798",
+                Country = "BR"
+            };
+
+            KondutoAddress shipping = new KondutoAddress
+            {
+                Name = "Mark Thompson",
+                Address1 = "101 Maple Road",
+                Address2 = "Apto 33",
+                City = "Mato Grosso",
+                State = "CuiabÃ¡",
+                Zip = "302798",
+                Country = "BR"
+            };
+
+            List<KondutoPayment> payments = new List<KondutoPayment>{
+                payment
+            };
+
+            KondutoItem item1 = new KondutoItem
+            {
+                Sku = "9919023",
+                ProductCode = "123456789999",
+                Category = 100,
+                Name = "Xbox One",
+                Description = "Xbox One PromoÃ§Ã£o Com 2 Controles",
+                UnitCost = 1999.99,
+                Quantity = 1
+            };
+            
+            KondutoItem item2 = new KondutoItem
+            {
+                Sku = "0017273",
+                Category = 201,
+                Name = "CD Nirvana Nevermind",
+                Description = "CD Nirvana Nevermind",
+                UnitCost = 29.90,
+                Quantity= 2,
+                Discount = 5.00
+            };
+
+            KondutoOrder order = new KondutoOrder
+            {
+                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
+                TotalAmount = 100.00,
+                ShippingAmount = 6.00,
+                TaxAmount = 12.00,
+                Ip = "201.27.127.73",
+                Currency = "BRL",
+                Customer = Customer,
+                Payments = payments,
+                BillingAddress = billing,
+                ShippingAddress = shipping,
+                ShoppingCart = new List<KondutoItem>{
+                    item1,
+                    item2
+                },
+                Analyze = true
+            };
+
+            try
+            {
+                konduto.Analyze(order);
+                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+
+            try
+            {
+                KondutoOrder getOrder = konduto.GetOrder(order.Id);
+                Assert.IsNotNull(getOrder);
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+        }
+
+        [TestMethod]
         public void PostBoletoIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -222,6 +337,8 @@ namespace KdtTests
                 Assert.Fail("Konduto exception shouldn't happen here.");
             }
         }
+
+
 
         [TestMethod]
         public void GetIntegrationTest()

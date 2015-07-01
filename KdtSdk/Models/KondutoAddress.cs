@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace KdtSdk.Models
 {
@@ -10,12 +11,19 @@ namespace KdtSdk.Models
     {
         #region Attributes
 
+        [JsonProperty("name")]
         public String Name { get; set; }
+        [JsonProperty("address1")]
         public String Address1 { get; set; }
+        [JsonProperty("address2")]
         public String Address2 { get; set; }
+        [JsonProperty("zip")]
         public String Zip { get; set; }
+        [JsonProperty("city")]
         public String City { get; set; }
+        [JsonProperty("state")]
         public String State { get; set; }
+        [JsonProperty("country")]
         public String Country { get; set; }
 
         #endregion

@@ -116,29 +116,30 @@ namespace KdtTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///  &quot;departure&quot;: {
-        ///    &quot;origin&quot;: &quot;GRU&quot;,
-        ///    &quot;destination&quot;: &quot;SFO&quot;,
-        ///    &quot;date&quot;: &quot;2018-12-25T18:00Z&quot;,
-        ///    &quot;number_of_connections&quot;: 1,
-        ///    &quot;class&quot;: &quot;economy&quot;,
-        ///    &quot;fare_basis&quot;: &quot;Y&quot;
-        ///  },
-        ///  &quot;return&quot;: {
-        ///    &quot;origin&quot;: &quot;SFO&quot;,
-        ///    &quot;destination&quot;: &quot;GRU&quot;,
-        ///    &quot;date&quot;: &quot;2018-12-30T18:00Z&quot;,
-        ///    &quot;number_of_connections&quot;: 1,
-        ///    &quot;class&quot;: &quot;business&quot;
-        ///  },
-        ///  &quot;passengers&quot;: [
-        ///    {
-        ///      &quot;name&quot;: &quot;Julia da Silva&quot;,
-        ///      &quot;document&quot;: &quot;A1B2C3D4&quot;,
-        ///      &quot;document_type&quot;: &quot;id&quot;,
-        ///      &quot;dob&quot;: &quot;1970-01-01&quot;,
-        ///      &quot;nati [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {  
+        ///	&quot;type&quot;:&quot;flight&quot;,
+        ///	&quot;departure&quot;:{  
+        ///		&quot;origin_airport&quot;:&quot;GRU&quot;,
+        ///		&quot;destination_airport&quot;:&quot;SFO&quot;,
+        ///		&quot;date&quot;:&quot;2018-12-25T18:00Z&quot;,
+        ///		&quot;number_of_connections&quot;:1,
+        ///		&quot;class&quot;:&quot;economy&quot;,
+        ///		&quot;fare_basis&quot;:&quot;Y&quot;
+        ///	},
+        ///	&quot;return&quot;:{  
+        ///		&quot;origin_airport&quot;:&quot;SFO&quot;,
+        ///		&quot;destination_airport&quot;:&quot;GRU&quot;,
+        ///		&quot;date&quot;:&quot;2018-12-30T18:00Z&quot;,
+        ///		&quot;number_of_connections&quot;:1,
+        ///		&quot;class&quot;:&quot;business&quot;
+        ///	},
+        ///	&quot;passengers&quot;:[  
+        ///		{  
+        ///		&quot;name&quot;:&quot;Julia da Silva&quot;,
+        ///		&quot;document&quot;:&quot;12345678909&quot;,
+        ///		&quot;document_type&quot;:&quot;id&quot;,
+        ///		&quot;dob&quot;:&quot;1970-01-01&quot;,
+        ///		&quot;nationa [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string flight {
             get {
@@ -264,14 +265,14 @@ namespace KdtTests.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;name&quot;: &quot;Carlos Siqueira&quot;,
-        ///  &quot;document&quot;: &quot;AB11223344&quot;,
+        ///  &quot;document&quot;: &quot;XYZ1234&quot;,
         ///  &quot;document_type&quot;: &quot;passport&quot;,
         ///  &quot;dob&quot;: &quot;1970-12-01&quot;,
         ///  &quot;nationality&quot;: &quot;US&quot;,
-        ///  &quot;frequent_flyer&quot;: false,
+        ///  &quot;frequent_passenger&quot;: false,
         ///  &quot;special_needs&quot;: true,
         ///  &quot;loyalty&quot;: {
-        ///    &quot;program&quot;: &quot;skymiles&quot;,
+        ///    &quot;program&quot;: &quot;multiplus&quot;,
         ///    &quot;category&quot;: &quot;silver&quot;
         ///  }
         ///}.
@@ -285,11 +286,15 @@ namespace KdtTests.Properties {
         /// <summary>
         ///   Looks up a localized string similar to [
         ///	{
-        ///	   &quot;bin&quot;:&quot;123&quot;,
+        ///	   &quot;bin&quot;:&quot;1234&quot;,
         ///	   &quot;last4&quot;:&quot;1234&quot;,
-        ///	   &quot;expiration_date&quot;:&quot;012014&quot;,
+        ///	   &quot;expiration_date&quot;:&quot;010214&quot;,
         ///	   &quot;status&quot;:&quot;approved&quot;,
         ///	   &quot;type&quot;:&quot;credit&quot;
+        ///	},
+        ///	{
+        ///		&quot;expiration_date&quot;:&quot;010214&quot;,
+        ///		&quot;type&quot;: &quot;boleto&quot;
         ///	}
         ///].
         /// </summary>
@@ -308,7 +313,7 @@ namespace KdtTests.Properties {
         ///      &quot;description&quot;: &quot;Male Green T-Shirt V Neck&quot;,
         ///	  &quot;product_code&quot;: &quot;123456789999&quot;,
         ///      &quot;unit_cost&quot;: 1999.99,
-        ///      &quot;quantity&quot;: 1
+        ///      &quot;quantity&quot;: 1.0
         ///    },
         ///    {
         ///      &quot;sku&quot;: &quot;0017273&quot;,
@@ -316,7 +321,7 @@ namespace KdtTests.Properties {
         ///      &quot;name&quot;: &quot;Yellow Socks&quot;,
         ///      &quot;description&quot;: &quot;Pair of Yellow Socks&quot;,
         ///      &quot;unit_cost&quot;: 29.90,
-        ///      &quot;quantity&quot;: 2,
+        ///      &quot;quantity&quot;: 2.0,
         ///      &quot;discount&quot;: 5.00
         ///    }
         ///].

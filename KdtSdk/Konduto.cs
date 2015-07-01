@@ -16,6 +16,8 @@ namespace KdtSdk
     /// </summary>
     public class Konduto
     {
+        public const String VERSION = "1.0.5";
+
         private String apiKey;
         private String requestBody;
         private String responseBody;
@@ -167,6 +169,7 @@ namespace KdtSdk
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + base64);
+            httpClient.DefaultRequestHeaders.Add("X-Requested-With", "Konduto SDK .NET " + VERSION);
             httpClient.BaseAddress = this.endpoint;
 
             return httpClient;

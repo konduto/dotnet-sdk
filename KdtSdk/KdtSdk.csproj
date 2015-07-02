@@ -82,6 +82,7 @@
     <Compile Include="Models\KondutoCreditCardPaymentStatus.cs" />
     <Compile Include="Models\KondutoCustomer.cs" />
     <Compile Include="Models\KondutoDevice.cs" />
+    <Compile Include="Models\KondutoSeller.cs" />
     <Compile Include="Models\KondutoTravel.cs" />
     <Compile Include="Models\KondutoTravelInformation.cs" />
     <Compile Include="Models\KondutoGeolocation.cs" />

@@ -74,6 +74,21 @@ namespace KdtSdk.Models
         [JsonProperty("flight", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoTravel Flight { get; set; }
 
+        /// <summary>
+        /// YYYY-MM-DDThh:mmZ
+        /// </summary>
+        [JsonProperty("first_message", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public String FirstMessage { get; set; }
+
+        [JsonProperty("messages_exchanged", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public int MessagesExchanged { get; set; }
+
+        /// <summary>
+        /// YYYY-MM-DDThh:mmZ
+        /// </summary>
+        [JsonProperty("purchased_at", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public String PurchasedAt { get; set; }
+
 	    /* Constructors */
 	    public KondutoOrder() {}
 
@@ -116,6 +131,10 @@ namespace KdtSdk.Models
             if (!object.Equals(Analyze, that.Analyze)) return false;
 
             if (!object.Equals(Flight, that.Flight)) return false;
+
+            if (!object.Equals(PurchasedAt, that.PurchasedAt)) return false;
+            if (!object.Equals(MessagesExchanged, that.MessagesExchanged)) return false;
+            if (!object.Equals(FirstMessage, that.FirstMessage)) return false;
 
             return true;
         }

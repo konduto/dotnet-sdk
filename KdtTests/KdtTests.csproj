@@ -92,12 +92,14 @@
     <Compile Include="Factories\KondutoOrderFactory.cs" />
     <Compile Include="Factories\KondutoPassengerFactory.cs" />
     <Compile Include="Factories\KondutoPaymentFactory.cs" />
+    <Compile Include="Factories\KondutoSellerFactory.cs" />
     <Compile Include="KondutoTest.cs" />
     <Compile Include="Models\KondutoAddressTest.cs" />
     <Compile Include="Models\KondutoBoletoPaymentTest.cs" />
     <Compile Include="Models\KondutoPaymentTest.cs" />
     <Compile Include="Models\KondutoCustomerTest.cs" />
     <Compile Include="Models\KondutoDeviceTest.cs" />
+    <Compile Include="Models\KondutoSellerTest.cs" />
     <Compile Include="Models\KondutoTravelTest.cs" />
     <Compile Include="Models\KondutoGeolocationTest.cs" />
     <Compile Include="Models\KondutoItemTest.cs" />
@@ -160,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\flight.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\seller.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

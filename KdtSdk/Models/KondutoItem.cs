@@ -22,6 +22,12 @@ namespace KdtSdk.Models
         [JsonProperty("discount")]
         public Double Discount { get; set; }
 
+        /// <summary>
+        /// YYYY-MM-DD
+        /// </summary>
+        [JsonProperty("created_at")]
+        public String CreatedAt { get; set; }
+
         public bool ShouldSerializeDiscount()
         {
             return Discount != 0;
@@ -46,6 +52,7 @@ namespace KdtSdk.Models
             if (!object.Equals(UnitCost, that.UnitCost)) return false;
             if (!object.Equals(Quantity, that.Quantity)) return false;
             if (!object.Equals(Discount, that.Discount)) return false;
+            if (!object.Equals(CreatedAt, that.CreatedAt)) return false;
 
 		    return true;
 	    }

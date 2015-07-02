@@ -20,7 +20,8 @@ namespace KdtTests.Factories
                 Name = "Green T-Shirt",
                 Description = "Male Green T-Shirt V Neck",
                 UnitCost = 1999.99,
-                Quantity = 1
+                Quantity = 1,
+                CreatedAt = "2014-12-21"
             };
         }
 

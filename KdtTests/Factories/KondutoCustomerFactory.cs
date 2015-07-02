@@ -25,7 +25,8 @@ namespace KdtTests.Factories
                 IsNew = false,
                 Phone1 = "11987654321",
                 Phone2 = "1133333333",
-                TaxId = "01234567890"
+                TaxId = "01234567890",
+                CreatedAt = "2014-12-21"
             };
         }
     }

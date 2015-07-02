@@ -151,6 +151,9 @@
   <data name="payments" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\payments.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="seller" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\seller.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="shopping_cart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shopping_cart.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

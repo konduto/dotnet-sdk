@@ -204,7 +204,8 @@ namespace KdtTests
                 Phone1 = "+559912345678",
                 Phone2 = "(11)1234-5678",
                 IsNew = false,
-                IsVip = false
+                IsVip = false,
+                CreatedAt = "2014-12-21"
             };
 
             KondutoPayment payment = new KondutoCreditCardPayment
@@ -250,7 +251,8 @@ namespace KdtTests
                 Name = "Xbox One",
                 Description = "Xbox One PromoÃ§Ã£o Com 2 Controles",
                 UnitCost = 1999.99,
-                Quantity = 1
+                Quantity = 1,
+                CreatedAt = "2014-12-21"
             };
             
             KondutoItem item2 = new KondutoItem
@@ -277,6 +279,9 @@ namespace KdtTests
                 Payments = payments,
                 BillingAddress = billing,
                 ShippingAddress = shipping,
+                MessagesExchanged = 2,
+                PurchasedAt = "2014-12-31T13:00:00Z",
+                FirstMessage = "2014-12-31T13:00:00Z",
                 ShoppingCart = new List<KondutoItem>{
                     item1,
                     item2

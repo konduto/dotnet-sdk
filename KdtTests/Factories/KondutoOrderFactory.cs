@@ -28,6 +28,10 @@ namespace KdtTests.Factories
                 Payments = KondutoPaymentFactory.CreatePayments(),
                 ShoppingCart = KondutoItemFactory.CreateShoppingCart(),
 
+                FirstMessage = "2014-12-31T13:00:00Z",
+                MessagesExchanged = 2,
+                PurchasedAt = "2014-12-31T13:00:00Z",
+
                 Analyze = true
             };
         }

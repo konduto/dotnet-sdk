@@ -86,7 +86,8 @@ namespace KdtTests.Properties {
         ///   &quot;phone1&quot;:&quot;11987654321&quot;,
         ///   &quot;phone2&quot;:&quot;1133333333&quot;,
         ///   &quot;vip&quot;:false,
-        ///   &quot;new&quot;:false
+        ///   &quot;new&quot;:false,
+        ///   &quot;created_at&quot;:&quot;2014-12-21&quot;
         ///}.
         /// </summary>
         internal static string customer {
@@ -305,6 +306,15 @@ namespace KdtTests.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://github.com/konduto/dotnet-sdk.git.
+        /// </summary>
+        internal static string seller {
+            get {
+                return ResourceManager.GetString("seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [
         ///    {
         ///      &quot;sku&quot;: &quot;9919023&quot;,
@@ -313,7 +323,8 @@ namespace KdtTests.Properties {
         ///      &quot;description&quot;: &quot;Male Green T-Shirt V Neck&quot;,
         ///	  &quot;product_code&quot;: &quot;123456789999&quot;,
         ///      &quot;unit_cost&quot;: 1999.99,
-        ///      &quot;quantity&quot;: 1.0
+        ///      &quot;quantity&quot;: 1.0,
+        ///	  &quot;created_at&quot;: &quot;2014-12-21&quot;
         ///    },
         ///    {
         ///      &quot;sku&quot;: &quot;0017273&quot;,

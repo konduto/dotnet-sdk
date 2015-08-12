@@ -31,6 +31,15 @@ namespace KdtSdk.Utils
                 if (GetPaymentType("type", jObject) == KondutoPaymentType.credit)
                     return new KondutoCreditCardPayment();
 
+                if (GetPaymentType("type", jObject) == KondutoPaymentType.debit)
+                    return new KondutoDebitPayment();
+
+                if (GetPaymentType("type", jObject) == KondutoPaymentType.transfer)
+                    return new KondutoTransferPayment();
+
+                if (GetPaymentType("type", jObject) == KondutoPaymentType.voucher)
+                    return new KondutoVoucherPayment();
+
                 return null;
             }
 
@@ -43,6 +52,15 @@ namespace KdtSdk.Utils
 
                     if (jObject[fieldName].ToString() == "credit")
                         return KondutoPaymentType.credit;
+
+                    if (jObject[fieldName].ToString() == "debit")
+                        return KondutoPaymentType.debit;
+
+                    if (jObject[fieldName].ToString() == "transfer")
+                        return KondutoPaymentType.transfer;
+
+                    if (jObject[fieldName].ToString() == "voucher")
+                        return KondutoPaymentType.voucher;
                 }
 
                 return KondutoPaymentType.credit;

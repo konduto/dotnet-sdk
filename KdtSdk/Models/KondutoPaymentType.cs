@@ -10,6 +10,9 @@ namespace KdtSdk.Models
     {
         credit,
         boleto,
+        debit,
+        voucher,
+        transfer,
         error
     }
 }

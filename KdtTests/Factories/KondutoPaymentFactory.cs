@@ -22,13 +22,42 @@ namespace KdtTests.Factories
             return new KondutoBoletoPayment
             {
                 Type = KondutoPaymentType.boleto,
-                ExpirationDate = "010214"
+                ExpirationDate = "2015-01-01"
+            };
+        }
+
+        public static KondutoDebitPayment CreateDebitPayment()
+        {
+            return new KondutoDebitPayment
+            {
+                Type = KondutoPaymentType.debit
+            };
+        }
+
+        public static KondutoTransferPayment CreateTransferPayment()
+        {
+            return new KondutoTransferPayment
+            {
+                Type = KondutoPaymentType.transfer
+            };
+        }
+
+        public static KondutoVoucherPayment CreateVoucherPayment()
+        {
+            return new KondutoVoucherPayment
+            {
+                Type = KondutoPaymentType.voucher
             };
         }
 
         public static List<KondutoPayment> CreatePayments()
         {
             return new List<KondutoPayment> { CreateCreditCardPayment() };
+        }
+
+        public static List<KondutoPayment> CreateNonCreditPayments()
+        {
+            return new List<KondutoPayment> { CreateBoletoPayment(), CreateDebitPayment(), CreateTransferPayment(), CreateVoucherPayment() };
         }
     }
 }

@@ -7,7 +7,16 @@
 	   "type":"credit"
 	},
 	{
-		"expiration_date":"010214",
+		"type": "debit"
+	},
+	{
+		"type": "voucher"
+	},
+	{
+		"type": "transfer"
+	},
+	{
+		"expiration_date":"2015-01-01",
 		"type": "boleto"
 	}
 ]

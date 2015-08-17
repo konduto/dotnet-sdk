@@ -58,6 +58,39 @@ namespace KdtTests
                 Properties.Resources.konduto_order_not_analyzed);
         }
 
+        //[TestMethod]
+        //public void TestProxy()
+        //{
+        //    Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+        //    konduto.SetProxy("192.168.0.14:808", "user1", "1234");
+
+        //    KondutoCustomer Customer = new KondutoCustomer
+        //    {
+        //        Id = "28372",
+        //        Name = "KdtUser",
+        //        Email = "developer@example.com"
+        //    };
+
+        //    KondutoOrder order = new KondutoOrder
+        //    {
+        //        Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+        //        Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
+        //        TotalAmount = 100.00,
+        //        Customer = Customer,
+        //        Analyze=true
+        //    };
+            
+        //    try
+        //    {
+        //        konduto.Analyze(order);
+        //        Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+        //    }
+        //    catch (KondutoException ex)
+        //    {
+        //        Assert.Fail("Konduto exception shouldn't happen here.");
+        //    }
+        //}
+
         [TestMethod]
 	    public void GetOrderSuccessfullyTest()
         {

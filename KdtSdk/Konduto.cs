@@ -16,7 +16,7 @@ namespace KdtSdk
     /// </summary>
     public class Konduto
     {
-        public const String VERSION = "1.0.5";
+        public const String VERSION = "1.0.8";
 
         private String apiKey;
         private String requestBody;
@@ -27,6 +27,8 @@ namespace KdtSdk
 
         private bool useProxy = false;
         private String proxyAddress;
+        private String proxyUsername;
+        private String proxyPassword;
 
         public Konduto(String apiKey)
         {
@@ -135,8 +137,10 @@ namespace KdtSdk
         /// Set proxy address, send only the address with http://ip, even for https connections
         /// </summary>
         /// <param name="proxyAddress">Proxy address, even for https connections, use http</param>
-        public void SetProxy(String proxyAddress)
+        public void SetProxy(String proxyAddress, String proxyUser, String proxyPassword)
         {
+            this.proxyUsername = proxyUser;
+            this.proxyPassword = proxyPassword;
             this.proxyAddress = proxyAddress;
             this.useProxy = true;
         }
@@ -159,7 +163,8 @@ namespace KdtSdk
             {
                 var httpClientHandler = new HttpClientHandler
                 {
-                    Proxy = new WebProxy(this.proxyAddress, false),
+                    UseDefaultCredentials = false,
+                    Proxy = new WebProxy(this.proxyAddress, false, null, new NetworkCredential(this.proxyUsername, this.proxyPassword)),
                     UseProxy = true
                 };
 
@@ -189,10 +194,6 @@ namespace KdtSdk
             HttpClient client = CreateHttpClient();
 
             this.requestBody = orderId;
-
-            var c = KondutoGetOrderSuffix(orderId);
-
-            var cc = client.BaseAddress + c;
 
             var response = client.GetAsync(KondutoGetOrderSuffix(orderId)).Result;
             if (response.IsSuccessStatusCode)

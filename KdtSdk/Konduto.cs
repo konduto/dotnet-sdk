@@ -16,7 +16,7 @@ namespace KdtSdk
     /// </summary>
     public class Konduto
     {
-        public const String VERSION = "1.0.8";
+        public const String VERSION = "1.0.9";
 
         private String apiKey;
         private String requestBody;
@@ -287,7 +287,9 @@ namespace KdtSdk
             {
                 KondutoOrderStatus.approved,
                 KondutoOrderStatus.declined,
-                KondutoOrderStatus.fraud
+                KondutoOrderStatus.fraud,
+                KondutoOrderStatus.canceled,
+                KondutoOrderStatus.not_authorized
             };
 
             if (!allowed.Contains(newStatus)) { throw new ArgumentException("Illegal status: " + newStatus); }

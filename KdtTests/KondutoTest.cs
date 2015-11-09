@@ -468,6 +468,19 @@ namespace KdtTests
 
             try
             {
+                konduto.UpdateOrderStatus(id, KondutoOrderStatus.not_authorized, "Manual Review");
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Exception: " + e.ToString());
+            }
+
+            try
+            {
                 KondutoOrder updatedOrder = konduto.GetOrder(id);
             }
             catch (KondutoException ex)

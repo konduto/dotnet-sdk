@@ -15,7 +15,7 @@ namespace KdtTests.Factories
                 Name = "Carlos Siqueira",
                 Document = "AB11223344",
                 DocumentType = "passport",
-                FrequentPassenger = true,
+                FrequentTraveler = true,
             };
         }
 
@@ -34,7 +34,7 @@ namespace KdtTests.Factories
                 DocumentType = "passport",
                 Dob = "1970-12-01",
                 Nationality = "US",
-                FrequentPassenger = false,
+                FrequentTraveler = false,
                 SpecialNeeds = true,
                 Loyalty = loyalty
             };
@@ -55,7 +55,7 @@ namespace KdtTests.Factories
                 DocumentType = "id",
                 Dob = "1970-01-01",
                 Nationality = "BR",
-                FrequentPassenger = false,
+                FrequentTraveler = true,
                 SpecialNeeds = false,
                 Loyalty = loyalty
             };

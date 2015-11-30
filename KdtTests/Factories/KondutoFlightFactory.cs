@@ -27,7 +27,7 @@ using System.Text;
 //      "document_type": "id",
 //      "dob": "1970-01-01",
 //      "nationality": "US",
-//      "frequent_flyer": true,
+//      "frequent_traveler": true,
 //      "special_needs": false,
 //      "loyalty": {
 //        "program": "aadvantage",
@@ -40,7 +40,7 @@ using System.Text;
 //      "document_type": "passport",
 //      "dob": "1970-12-01",
 //      "nationality": "US",
-//      "frequent_flyer": false,
+//      "frequent_traveler": false,
 //      "special_needs": true,
 //      "loyalty": {
 //        "program": "skymiles",

@@ -4,7 +4,7 @@
   "document_type": "passport",
   "dob": "1970-12-01",
   "nationality": "US",
-  "frequent_passenger": false,
+  "frequent_traveler": false,
   "special_needs": true,
   "loyalty": {
     "program": "multiplus",

@@ -21,8 +21,8 @@ namespace KdtSdk.Models
         [JsonProperty("nationality")]
         public String Nationality { get; set; }
 
-        [JsonProperty("frequent_passenger")]
-        public bool FrequentPassenger { get; set; }
+        [JsonProperty("frequent_traveler")]
+        public bool FrequentTraveler { get; set; }
 
         [JsonProperty("special_needs")]
         public bool SpecialNeeds { get; set; }
@@ -49,7 +49,7 @@ namespace KdtSdk.Models
             if (!object.Equals(DocumentType, that.DocumentType)) return false;
             if (!object.Equals(Dob, that.Dob)) return false;
             if (!object.Equals(Nationality, that.Nationality)) return false;
-            if (!object.Equals(FrequentPassenger, that.FrequentPassenger)) return false;
+            if (!object.Equals(FrequentTraveler, that.FrequentTraveler)) return false;
             if (!object.Equals(SpecialNeeds, that.SpecialNeeds)) return false;
             if (!object.Equals(Loyalty, that.Loyalty)) return false;
 

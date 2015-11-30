@@ -19,7 +19,7 @@ namespace KdtTests
     {
         //static String AUTH_HEADER = "Basic VDczOEQ1MTZGMDlDQUIzQTJDMUVF";
         static String AUTH_HEADER = "VDczOEQ1MTZGMDlDQUIzQTJDMUVF";
-	    static String API_KEY = "T738D516F09CAB3A2C1EE";
+        static String API_KEY = "T738D516F09CAB3A2C1EE";
 
         String ORDER_ID;
 
@@ -29,7 +29,7 @@ namespace KdtTests
         JObject NOT_ANALYZE_ORDER_RESPONSE;
 
 
-	    int[] HTTP_STATUSES = {
+        int[] HTTP_STATUSES = {
 			    (int)HttpStatusCode.Unauthorized, // 401
 			    (int)HttpStatusCode.Forbidden, // 403
 			    (int)HttpStatusCode.NotFound, // 404
@@ -79,7 +79,7 @@ namespace KdtTests
         //        Customer = Customer,
         //        Analyze=true
         //    };
-            
+
         //    try
         //    {
         //        konduto.Analyze(order);
@@ -92,7 +92,7 @@ namespace KdtTests
         //}
 
         [TestMethod]
-	    public void GetOrderSuccessfullyTest()
+        public void GetOrderSuccessfullyTest()
         {
             Konduto kdt = new Konduto(API_KEY);
 
@@ -110,8 +110,8 @@ namespace KdtTests
             Assert.IsTrue(ORDER_FROM_FILE.Equals(kdt.GetOrder(ORDER_ID)));
         }
 
-	    [TestMethod]
-	    public void GetOrderErrorTest()
+        [TestMethod]
+        public void GetOrderErrorTest()
         {
             foreach (int code in HTTP_STATUSES)
             {
@@ -137,10 +137,10 @@ namespace KdtTests
                     Assert.Fail("KondutoHTTPException was expected");
                 }
             }
-	    }
+        }
 
-	    [TestMethod]
-	    public void AnalyzeSuccessfullyTest()
+        [TestMethod]
+        public void AnalyzeSuccessfullyTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
             var message = new HttpResponseMessage(HttpStatusCode.OK);
@@ -189,7 +189,7 @@ namespace KdtTests
             Assert.AreEqual(orderResponse.Device, actualDevice);
             Assert.AreEqual(orderResponse.NavigationInfo, actualNavigationInfo);
             Assert.AreEqual(orderResponse.Score, actualScore);
-	    }
+        }
 
         [TestMethod]
         public void PostIntegrationTest()
@@ -209,9 +209,9 @@ namespace KdtTests
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
                 Customer = Customer,
-                Analyze=true
+                Analyze = true
             };
-            
+
             try
             {
                 konduto.Analyze(order);
@@ -287,7 +287,7 @@ namespace KdtTests
                 Quantity = 1,
                 CreatedAt = "2014-12-21"
             };
-            
+
             KondutoItem item2 = new KondutoItem
             {
                 Sku = "0017273",
@@ -295,7 +295,7 @@ namespace KdtTests
                 Name = "CD Nirvana Nevermind",
                 Description = "CD Nirvana Nevermind",
                 UnitCost = 29.90,
-                Quantity= 2,
+                Quantity = 2,
                 Discount = 5.00
             };
 
@@ -490,7 +490,7 @@ namespace KdtTests
         }
 
         [TestMethod]
-        public void SendOrderToKondutoButDoNotAnalyzeTest() 
+        public void SendOrderToKondutoButDoNotAnalyzeTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
             var message = new HttpResponseMessage(HttpStatusCode.OK);
@@ -504,14 +504,15 @@ namespace KdtTests
 
             Assert.IsFalse(orderToSend.Analyze, "order analyze should be false");
 
-            try 
+            try
             {
                 orderToSend = konduto.Analyze(orderToSend); // do analyze
-            } 
-            catch (KondutoInvalidEntityException e) {
+            }
+            catch (KondutoInvalidEntityException e)
+            {
                 Assert.Fail("order should be valid");
-            } 
-            catch (KondutoHTTPException e) 
+            }
+            catch (KondutoHTTPException e)
             {
                 Assert.Fail("server should respond with status 200");
             }
@@ -525,8 +526,8 @@ namespace KdtTests
 
         }
 
-	    [TestMethod]
-	    public void AnalyzeInvalidOrderTest()
+        [TestMethod]
+        public void AnalyzeInvalidOrderTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
             var message = new HttpResponseMessage(HttpStatusCode.OK);
@@ -554,10 +555,10 @@ namespace KdtTests
             {
                 Assert.Fail("Expected KondutoInvalidEntityException, but got KondutoHTTPException");
             }
-	    }
+        }
 
-	    [TestMethod]
-	    public void AnalyzeHTTPErrorTest()
+        [TestMethod]
+        public void AnalyzeHTTPErrorTest()
         {
             foreach (int code in HTTP_STATUSES)
             {
@@ -583,10 +584,10 @@ namespace KdtTests
                     Assert.Fail("KondutoHTTPException was expected");
                 }
             }
-	    }
+        }
 
-	    [TestMethod]
-	    public void UpdateSuccessfullyTest()
+        [TestMethod]
+        public void UpdateSuccessfullyTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
             var message = new HttpResponseMessage(HttpStatusCode.OK);
@@ -600,17 +601,17 @@ namespace KdtTests
                 konduto.UpdateOrderStatus(ORDER_ID, KondutoOrderStatus.approved, "no comments");
             }
             catch (KondutoHTTPException e)
-            { 
+            {
                 Assert.Fail("order update should have succeeded");
             }
             catch (KondutoUnexpectedAPIResponseException e)
             {
                 Assert.Fail("order update should have succeeded");
             }
-	    }
+        }
 
-	    [TestMethod]
-	    public void UpdateHTTPErrorTest()
+        [TestMethod]
+        public void UpdateHTTPErrorTest()
         {
             foreach (int code in HTTP_STATUSES)
             {
@@ -636,19 +637,19 @@ namespace KdtTests
                     Assert.Fail("KondutoHTTPException was expected");
                 }
             }
-	    }
+        }
 
-	    [TestMethod, ExpectedException(typeof(ArgumentException))]
-	    public void InvalidStatusWhenUpdatingTest()
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void InvalidStatusWhenUpdatingTest()
         {
-            List<KondutoOrderStatus> forbiddenStatus = 
+            List<KondutoOrderStatus> forbiddenStatus =
                 new List<KondutoOrderStatus>()
                 {
                     KondutoOrderStatus.not_analyzed,
                     KondutoOrderStatus.pending
                 };
-            
-            foreach (KondutoOrderStatus status in forbiddenStatus) 
+
+            foreach (KondutoOrderStatus status in forbiddenStatus)
             {
                 try
                 {
@@ -664,10 +665,10 @@ namespace KdtTests
                     Assert.Fail("expected KondutoInvalidOrderStatus exception");
                 }
             }
-	    }
+        }
 
-	    [TestMethod, ExpectedException(typeof(NullReferenceException))]
-	    public void NullCommentsWhenUpdatingTest()
+        [TestMethod, ExpectedException(typeof(NullReferenceException))]
+        public void NullCommentsWhenUpdatingTest()
         {
             try
             {
@@ -681,13 +682,13 @@ namespace KdtTests
             {
                 Assert.Fail("expected NullPointerException");
             }
-	    }
+        }
 
         [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-	    public void InvalidApiKeyTest() 
+        public void InvalidApiKeyTest()
         {
-		    konduto.SetApiKey("invalid key");
-	    }
+            konduto.SetApiKey("invalid key");
+        }
 
         private class FakeResponseHandler : DelegatingHandler
         {
@@ -703,7 +704,7 @@ namespace KdtTests
                 var v = request.Headers.Authorization.Parameter;
 
                 Assert.IsTrue(AUTH_HEADER == request.Headers.Authorization.Parameter, "Failing authorizing request.");
-                
+
                 if (_FakeResponses.ContainsKey(request.RequestUri))
                 {
                     return _FakeResponses[request.RequestUri];
@@ -717,5 +718,6 @@ namespace KdtTests
                 }
             }
         }
+
     }
 }

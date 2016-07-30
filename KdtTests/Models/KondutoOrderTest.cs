@@ -51,7 +51,7 @@ namespace KdtTests.Models
         public void SerializationTestWithShoppingAndFlight()
         {
             KondutoOrder order = KondutoOrderFactory.completeOrder();
-            order.Flight = KondutoFlightFactory.CreateFlight();
+            order.Travel = KondutoFlightFactory.CreateFlight();
 
             try
             {
@@ -64,7 +64,7 @@ namespace KdtTests.Models
             }
 
             order = KondutoOrderFactory.completeOrder();
-            order.Flight = KondutoFlightFactory.CreateFlight();
+            order.Travel = KondutoFlightFactory.CreateFlight();
             order.ShoppingCart = null;
             //ok
         }

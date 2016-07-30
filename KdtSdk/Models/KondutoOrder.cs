@@ -71,8 +71,8 @@ namespace KdtSdk.Models
         [JsonProperty("navigation", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoNavigationInfo NavigationInfo { get; set; }
 
-        [JsonProperty("flight", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
-        public KondutoTravel Flight { get; set; }
+        [JsonProperty("travel", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public KondutoTravel Travel { get; set; }
 
         /// <summary>
         /// YYYY-MM-DDThh:mmZ
@@ -130,7 +130,7 @@ namespace KdtSdk.Models
 
             if (!object.Equals(Analyze, that.Analyze)) return false;
 
-            if (!object.Equals(Flight, that.Flight)) return false;
+            if (!object.Equals(Travel, that.Travel)) return false;
 
             if (!object.Equals(PurchasedAt, that.PurchasedAt)) return false;
             if (!object.Equals(MessagesExchanged, that.MessagesExchanged)) return false;
@@ -147,7 +147,7 @@ namespace KdtSdk.Models
         [OnSerializing]
         internal void OnSerializedMethod(StreamingContext context)
         {
-            if (ShoppingCart != null && Flight != null)
+            if (ShoppingCart != null && Travel != null)
             {
                 throw new JsonSerializationException("Shopping cart and flight object cannnot exist in same order.");
             }

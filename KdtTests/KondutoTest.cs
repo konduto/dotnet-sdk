@@ -427,10 +427,11 @@ namespace KdtTests
         [TestMethod]
         public void PutIntegrationTest()
         {
-            String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
-
+            //String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
+            String id = "1429744771";
+            
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
-
+            
             KondutoCustomer Customer = new KondutoCustomer
             {
                 Id = "28372",

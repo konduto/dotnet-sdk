@@ -31,6 +31,12 @@ namespace KdtSdk.Models
         [JsonProperty("created_at")]
         public String CreatedAt { get; set; }
 
+        /// <summary>
+        /// YYYY-MM-DD
+        /// </summary>
+        [JsonProperty("dob")]
+        public String DOB { get; set; }
+
 	    /* Constructors */
 
 	    public KondutoCustomer() { }
@@ -55,6 +61,7 @@ namespace KdtSdk.Models
             if (!object.Equals(Phone2, that.Phone2)) return false;
             if (!object.Equals(TaxId, that.TaxId)) return false;
             if (!object.Equals(CreatedAt, that.CreatedAt)) return false;
+            if (!object.Equals(DOB, that.DOB)) return false;
 
 		    return true;
 	    }

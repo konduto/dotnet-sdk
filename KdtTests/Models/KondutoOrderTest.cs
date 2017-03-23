@@ -68,12 +68,11 @@ namespace KdtTests.Models
             //ok
         }
 
-	    [Fact/*, ExpectedException(typeof(KondutoInvalidEntityException))*/]
+	    [Fact]
 	    public void invalidOrderSerializationThrowsExceptionTest() 
         {
-            Assert.True(false, "not implemented");
 		    KondutoOrder order = new KondutoOrder();
-		    order.ToJson(); // triggers invalid customer exception
+            Assert.Throws<KondutoInvalidEntityException>(() => order.ToJson());
 	    }
     }
 }

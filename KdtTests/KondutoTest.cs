@@ -53,7 +53,7 @@ namespace KdtTests
             ORDER_ID = ORDER_FROM_FILE.Id;
 
             NOT_ANALYZE_ORDER_RESPONSE = JsonConvert.DeserializeObject<JObject>(
-                Resources.Load("konduto_order_not_analyzed"));
+                Resources.Load("order_not_analyzed"));
         }
 
         [Fact]
@@ -392,9 +392,7 @@ namespace KdtTests
         [Fact]
         public void PutIntegrationTest()
         {
-            //String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
-            String id = "1429744771";
-            
+            var id = $"{((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)}";            
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
             
             KondutoCustomer Customer = new KondutoCustomer
@@ -420,7 +418,7 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.True(false, "Konduto exception shouldn't happen here.");
+                Assert.True(false, $"Konduto exception shouldn't happen here. {ex.Message}");
             }
 
             try
@@ -451,7 +449,7 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.True(false, "Konduto exception shouldn't happen here.");
+                Assert.True(false, $"Konduto exception shouldn't happen here. {ex.Message}");
             }
         }
 
@@ -580,82 +578,41 @@ namespace KdtTests
         {
             foreach (int code in HTTP_STATUSES)
             {
-                try
-                {
-                    var fakeResponseHandler = new FakeResponseHandler();
+                var fakeResponseHandler = new FakeResponseHandler();
 
-                    var message = new HttpResponseMessage((HttpStatusCode)code);
-                    message.Content = new StringContent("{}");
+                var message = new HttpResponseMessage((HttpStatusCode)code);
+                message.Content = new StringContent("{}");
 
-                    fakeResponseHandler.AddFakeResponse(konduto.KondutoPutOrderUrl(ORDER_ID), message);
-                    konduto.__MessageHandler = fakeResponseHandler;
-
-                    konduto.Analyze(KondutoOrderFactory.basicOrder());
-                    Assert.True(false, "Exception expected");
-                }
-                catch (KondutoHTTPException e)
-                {
-                    //Ok
-                }
-                catch (Exception e)
-                {
-                    Assert.True(false, "KondutoHTTPException was expected");
-                }
+                fakeResponseHandler.AddFakeResponse(konduto.KondutoPutOrderUrl(ORDER_ID), message);
+                konduto.__MessageHandler = fakeResponseHandler;
+                Assert.ThrowsAny<KondutoHTTPException>(() => konduto.Analyze(KondutoOrderFactory.basicOrder()));
             }
         }
 
-        [Fact/*, ExpectedException(typeof(ArgumentException))*/]
+        [Fact]
         public void InvalidStatusWhenUpdatingTest()
         {
-            Assert.True(false, "not implemented");
             List<KondutoOrderStatus> forbiddenStatus =
                 new List<KondutoOrderStatus>()
                 {
                     KondutoOrderStatus.not_analyzed,
                     KondutoOrderStatus.pending
                 };
-
-            foreach (KondutoOrderStatus status in forbiddenStatus)
-            {
-                try
-                {
-                    konduto.UpdateOrderStatus(ORDER_FROM_FILE.Id, status, "");
-                    Assert.True(false, "expected KondutoInvalidOrderStatus exception");
-                }
-                catch (KondutoHTTPException e)
-                {
-                    Assert.True(false, "expected KondutoInvalidOrderStatus exception");
-                }
-                catch (KondutoUnexpectedAPIResponseException e)
-                {
-                    Assert.True(false, "expected KondutoInvalidOrderStatus exception");
-                }
-            }
+            foreach (var status in forbiddenStatus)
+                Assert.Throws<ArgumentException>(() => konduto.UpdateOrderStatus(ORDER_FROM_FILE.Id, status, ""));
         }
 
-        [Fact/*, ExpectedException(typeof(NullReferenceException))*/]
+        [Fact]
         public void NullCommentsWhenUpdatingTest()
         {
-            Assert.True(false, "not implemented");
-            try
-            {
-                konduto.UpdateOrderStatus(ORDER_FROM_FILE.Id, KondutoOrderStatus.approved, null);
-            }
-            catch (KondutoHTTPException e)
-            {
-                Assert.True(false, "expected NullPointerException");
-            }
-            catch (KondutoUnexpectedAPIResponseException e)
-            {
-                Assert.True(false, "expected NullPointerException");
-            }
+            Assert.Throws<NullReferenceException>(() => 
+                konduto.UpdateOrderStatus(ORDER_FROM_FILE.Id, KondutoOrderStatus.approved, null));
         }
 
-        [Fact/*, ExpectedException(typeof(ArgumentOutOfRangeException)*)*/]
+        [Fact]
         public void InvalidApiKeyTest()
         {
-            Assert.True(false, "not implemented");
-            konduto.SetApiKey("invalid key");
+            Assert.Throws<ArgumentOutOfRangeException>(() => konduto.SetApiKey("invalid key"));
         }
 
         private class FakeResponseHandler : DelegatingHandler

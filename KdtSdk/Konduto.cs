@@ -7,7 +7,6 @@ using KdtSdk.Models;
 using KdtSdk.Exceptions;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using System.Net;
 
 namespace KdtSdk
 {
@@ -151,27 +150,9 @@ namespace KdtSdk
         /// <returns></returns>
         private HttpClient CreateHttpClient()
         {
-            String base64 = Base64Encode(apiKey);
+            var base64 = Base64Encode(apiKey);
             
-            HttpClient httpClient;
-
-            if (!this.useProxy)
-            {
-                httpClient = __MessageHandler == null ? new HttpClient() : new HttpClient(__MessageHandler);
-            }
-            else
-            {
-                var httpClientHandler = new HttpClientHandler
-                {
-                    UseDefaultCredentials = false,
-                    Proxy = new WebProxy(this.proxyAddress, false, null, new NetworkCredential(this.proxyUsername, this.proxyPassword)),
-                    UseProxy = true
-                };
-
-                //httpClient = HttpClientFactory.Create(httpClientHandler);
-                httpClient = new HttpClient(httpClientHandler);
-            }
-
+            var httpClient = __MessageHandler == null ? new HttpClient() : new HttpClient(__MessageHandler);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + base64);
             httpClient.DefaultRequestHeaders.Add("X-Requested-With", "Konduto SDK .NET " + VERSION);

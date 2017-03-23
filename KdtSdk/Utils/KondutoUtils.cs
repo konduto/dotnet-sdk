@@ -5,6 +5,7 @@ using System;
 
 
 using Newtonsoft.Json.Converters;
+using System.Reflection;
 
 namespace KdtSdk.Utils
 {
@@ -82,7 +83,7 @@ namespace KdtSdk.Utils
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(T).IsAssignableFrom(objectType);
+            return typeof(T).GetTypeInfo().IsAssignableFrom(objectType.GetTypeInfo());
         }
 
         public override object ReadJson(JsonReader reader,

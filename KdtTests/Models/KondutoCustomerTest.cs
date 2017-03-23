@@ -2,32 +2,32 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoCustomerTest
     {
-	    [TestMethod]
+	    [Fact]
         public void SerializationTest()
         {
             KondutoCustomer customer = KondutoCustomerFactory.CompleteCustomer();
-            String customerJSON = KondutoUtils.LoadJson<KondutoCustomer>(Properties.Resources.customer).ToJson();
+            String customerJSON = KondutoUtils.LoadJson<KondutoCustomer>(Resources.Load("customer")).ToJson();
             
             try 
             {
                 var v = customer.ToJson();
-                Assert.AreEqual(customerJSON, customer.ToJson(), "serialization failed");
+                Assert.Equal(customerJSON, customer.ToJson());
             } 
             catch (KondutoInvalidEntityException e) {
                 Debug.WriteLine(e.Message);
             }
 
             KondutoCustomer deserializedCustomer = KondutoModel.FromJson<KondutoCustomer>(customerJSON);
-            Assert.AreEqual(customer, deserializedCustomer, "deserialization failed");
+            Assert.Equal(customer, deserializedCustomer);
         }
     }
 }

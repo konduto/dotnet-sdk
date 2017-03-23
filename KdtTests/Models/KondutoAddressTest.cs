@@ -2,18 +2,18 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoAddressTest
     {
-        [TestMethod]
+        [Fact]
         public void SerializeTest()
         {
-		    String expectedJSON = KondutoUtils.LoadJson<KondutoAddress>(Properties.Resources.address).ToJson();
+		    String expectedJSON = KondutoUtils.LoadJson<KondutoAddress>(Resources.Load("address")).ToJson();
 		    String actualJSON = null;
 		    KondutoAddress address = KondutoAddressFactory.Create();
 
@@ -23,12 +23,12 @@ namespace KdtTests.Models
 		    } 
             catch (KondutoInvalidEntityException e) 
             {
-			    Assert.Fail("address should be valid");
+			    Assert.True(false, "address should be valid");
 		    }
 
-		    Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+		    Assert.Equal(expectedJSON, actualJSON);
 		    KondutoAddress addressFromJSON = KondutoModel.FromJson<KondutoAddress>(expectedJSON);
-            Assert.AreEqual(address, addressFromJSON, "address deserialization failed");
+            Assert.Equal(address, addressFromJSON);
 	    }
     }
 }

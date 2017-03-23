@@ -1,10 +1,9 @@
 ﻿using KdtSdk.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Xunit;
 
 namespace KdtTests.Exceptions
 {
-    [TestClass]
     public class KondutoHTTPExceptionTest
     {
         private class KondutoFakeHTTPException : KondutoHTTPException 
@@ -13,14 +12,14 @@ namespace KdtTests.Exceptions
                 : base(message, responseBody) { }
 	    }
 
-	    [TestMethod]
+	    [Fact]
 	    public void ConstructorTest()
         {
 		    String message = "fake message";
 		    String json = "";
             KondutoFakeHTTPException fakeException = new KondutoFakeHTTPException(message, json);
 
-            Assert.AreEqual(fakeException.Message, String.Format("{0} Response body: {1}", message, json));
+            Assert.Equal(fakeException.Message, $"{message} Response body: {json}");
 	    }
     }
 }

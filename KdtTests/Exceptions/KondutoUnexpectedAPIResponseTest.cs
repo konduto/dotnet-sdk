@@ -1,19 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KdtSdk.Exceptions;
+using Xunit;
 
 namespace KdtTests.Exceptions
 {
-    [TestClass]
     public class KondutoUnexpectedAPIResponseExceptionTest 
     {
 	
-        [TestMethod]
+        [Fact]
 	    public void GetMessageTest() 
         {
 		    String responseBody = "";
 		    KondutoUnexpectedAPIResponseException e = new KondutoUnexpectedAPIResponseException(responseBody);
-		    Assert.AreEqual("Unexpected API response: " + responseBody, e.Message);
+		    Assert.Equal($"Unexpected API response: {responseBody}", e.Message);
 	    }
     }   
 }

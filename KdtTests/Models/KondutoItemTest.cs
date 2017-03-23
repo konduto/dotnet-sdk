@@ -3,34 +3,34 @@ using KdtSdk.Exceptions;
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KdtTests.Properties;
+using Xunit;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoItemTest
     {
         KondutoItem greenTShirt = KondutoItemFactory.CreateGreenTShirt();
-        String greenTShirtJSON = KondutoUtils.GetFirstJArrayElement(Properties.Resources.shopping_cart);
+        String greenTShirtJSON = KondutoUtils.GetFirstJArrayElement(Resources.Load("shopping_cart"));
 
-        [TestMethod]
+        [Fact]
         public void SerializationTest()
         {
             try
             {
                 var v = greenTShirt.ToJson();
-                Assert.AreEqual(greenTShirtJSON, greenTShirt.ToJson(), "serialization failed");
+                Assert.Equal(greenTShirtJSON, greenTShirt.ToJson());
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("Green T-Shirt should be valid");
+                Assert.True(false, "Green T-Shirt should be valid");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Deserializationtest()
         {
-            Assert.IsTrue(greenTShirt.Equals(KondutoModel.FromJson<KondutoItem>(greenTShirtJSON)), "deserialization failed");
+            Assert.True(greenTShirt.Equals(KondutoModel.FromJson<KondutoItem>(greenTShirtJSON)));
         }
     }
 }

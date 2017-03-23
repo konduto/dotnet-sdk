@@ -2,17 +2,18 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
     public class KondutoBoletoPaymentTest
     {
-        [TestMethod]
+        [Fact]
         public void SerializeTest()
         {
-            String expectedJSON = KondutoUtils.GetFirstJArrayElement(Properties.Resources.payments);
+            String expectedJSON = KondutoUtils.GetFirstJArrayElement(Resources.Load("payments"));
             String actualJSON = null;
             KondutoCreditCardPayment payment = KondutoPaymentFactory.CreateCreditCardPayment();
 
@@ -22,13 +23,13 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("address should be valid");
+                Assert.True(false, "address should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
 
             KondutoCreditCardPayment paymentFromJSON = KondutoModel.FromJson<KondutoCreditCardPayment>(expectedJSON);
-            Assert.AreEqual(payment, paymentFromJSON, "address deserialization failed");
+            Assert.Equal(payment, paymentFromJSON);
         }
     }
 }

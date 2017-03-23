@@ -2,21 +2,18 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoSellerTest
     {
-        [TestMethod]
+        [Fact]
         public void SerializationTest()
         {
-            String expectedJSON = KondutoUtils.LoadJson<KondutoSeller>(Properties.Resources.seller).ToJson();
+            String expectedJSON = KondutoUtils.LoadJson<KondutoSeller>(Resources.Load("seller")).ToJson();
             String actualJSON = null;
             KondutoSeller seller = KondutoSellerFactory.Create();
 
@@ -26,12 +23,12 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("seller should be valid");
+                Assert.True(false, "seller should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "seller serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
             KondutoSeller sellerFromJson = KondutoModel.FromJson<KondutoSeller>(expectedJSON);
-            Assert.AreEqual(seller, sellerFromJson, "passenger deserialization failed");
+            Assert.Equal(seller, sellerFromJson);
         }
     }
 }

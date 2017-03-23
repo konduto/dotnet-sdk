@@ -2,7 +2,6 @@
 using KdtSdk.Exceptions;
 using KdtSdk.Models;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,11 +9,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests
 {
-    [TestClass]
     public class KondutoTest
     {
         //static String AUTH_HEADER = "Basic VDczOEQ1MTZGMDlDQUIzQTJDMUVF";
@@ -41,13 +40,12 @@ namespace KdtTests
 
         private Konduto konduto;
 
-        [TestInitialize]
-        public void Setup()
+        public KondutoTest()
         {
             konduto = new Konduto(API_KEY);
 
             ANALYZE_ORDER_RESPONSE = JsonConvert.DeserializeObject<JObject>(
-                Properties.Resources.konduto_order);
+                Resources.Load("konduto_order"));
 
             JToken jt;
             ANALYZE_ORDER_RESPONSE.TryGetValue("order", out jt);
@@ -55,43 +53,10 @@ namespace KdtTests
             ORDER_ID = ORDER_FROM_FILE.Id;
 
             NOT_ANALYZE_ORDER_RESPONSE = JsonConvert.DeserializeObject<JObject>(
-                Properties.Resources.konduto_order_not_analyzed);
+                Resources.Load("konduto_order_not_analyzed"));
         }
 
-        //[TestMethod]
-        //public void TestProxy()
-        //{
-        //    Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
-        //    konduto.SetProxy("192.168.0.14:808", "user1", "1234");
-
-        //    KondutoCustomer Customer = new KondutoCustomer
-        //    {
-        //        Id = "28372",
-        //        Name = "KdtUser",
-        //        Email = "developer@example.com"
-        //    };
-
-        //    KondutoOrder order = new KondutoOrder
-        //    {
-        //        Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
-        //        Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
-        //        TotalAmount = 100.00,
-        //        Customer = Customer,
-        //        Analyze=true
-        //    };
-
-        //    try
-        //    {
-        //        konduto.Analyze(order);
-        //        Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
-        //    }
-        //    catch (KondutoException ex)
-        //    {
-        //        Assert.Fail("Konduto exception shouldn't happen here.");
-        //    }
-        //}
-
-        [TestMethod]
+        [Fact]
         public void GetOrderSuccessfullyTest()
         {
             Konduto kdt = new Konduto(API_KEY);
@@ -107,10 +72,10 @@ namespace KdtTests
 
             var v = kdt.GetOrder(ORDER_ID);
 
-            Assert.IsTrue(ORDER_FROM_FILE.Equals(kdt.GetOrder(ORDER_ID)));
+            Assert.True(ORDER_FROM_FILE.Equals(kdt.GetOrder(ORDER_ID)));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetOrderErrorTest()
         {
             foreach (int code in HTTP_STATUSES)
@@ -126,7 +91,7 @@ namespace KdtTests
                     konduto.__MessageHandler = fakeResponseHandler;
 
                     konduto.GetOrder(ORDER_ID);
-                    Assert.Fail("Exception expected");
+                    Assert.True(false, "Exception expected");
                 }
                 catch (KondutoHTTPException e)
                 {
@@ -134,12 +99,12 @@ namespace KdtTests
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail("KondutoHTTPException was expected");
+                    Assert.True(false, "KondutoHTTPException was expected");
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AnalyzeSuccessfullyTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
@@ -154,12 +119,12 @@ namespace KdtTests
             String s = orderToSend.ToJson();
             KondutoOrder orderResponse = null;
 
-            Assert.IsTrue(orderToSend.Recommendation == KondutoRecommendation.none, "basic order should have no recommendation");
-            Assert.IsTrue(orderToSend.Score == null, "basic order should have no score");
-            Assert.IsNull(orderToSend.Geolocation, "basic order should have no geolocation");
-            Assert.IsNull(orderToSend.Device, "basic order should have no device");
-            Assert.IsNull(orderToSend.NavigationInfo, "basic order should have no navigation info");
-            Assert.IsTrue(orderToSend.Analyze, "basic order should have analyze set to true");
+            Assert.True(orderToSend.Recommendation == KondutoRecommendation.none, "basic order should have no recommendation");
+            Assert.True(null == orderToSend.Score, "basic order should have no score");
+            Assert.True(null == orderToSend.Geolocation, "basic order should have no geolocation");
+            Assert.True(null == orderToSend.Device, "basic order should have no device");
+            Assert.True(null == orderToSend.NavigationInfo, "basic order should have no navigation info");
+            Assert.True(orderToSend.Analyze, "basic order should have analyze set to true");
 
             try
             {
@@ -167,15 +132,15 @@ namespace KdtTests
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("order should be valid");
+                Assert.True(false, "order should be valid");
             }
             catch (KondutoUnexpectedAPIResponseException e)
             {
-                Assert.Fail("server should respond with status 200");
+                Assert.True(false, "server should respond with status 200");
             }
             catch (KondutoHTTPException e)
             {
-                Assert.Fail("server should respond with status 200");
+                Assert.True(false, "server should respond with status 200");
             }
 
             Double? actualScore = ORDER_FROM_FILE.Score;
@@ -184,14 +149,14 @@ namespace KdtTests
             KondutoDevice actualDevice = ORDER_FROM_FILE.Device;
             KondutoNavigationInfo actualNavigationInfo = ORDER_FROM_FILE.NavigationInfo;
 
-            Assert.IsTrue(orderResponse.Geolocation.Equals(actualGeolocation));
-            Assert.AreEqual(orderResponse.Recommendation, actualRecommendation);
-            Assert.AreEqual(orderResponse.Device, actualDevice);
-            Assert.AreEqual(orderResponse.NavigationInfo, actualNavigationInfo);
-            Assert.AreEqual(orderResponse.Score, actualScore);
+            Assert.True(orderResponse.Geolocation.Equals(actualGeolocation));
+            Assert.Equal(orderResponse.Recommendation, actualRecommendation);
+            Assert.Equal(orderResponse.Device, actualDevice);
+            Assert.Equal(orderResponse.NavigationInfo, actualNavigationInfo);
+            Assert.Equal(orderResponse.Score, actualScore);
         }
 
-        [TestMethod]
+        [Fact]
         public void PostIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -215,15 +180,15 @@ namespace KdtTests
             try
             {
                 konduto.Analyze(order);
-                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+                Assert.True(order.Recommendation != KondutoRecommendation.none);
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void FullJsonIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -325,25 +290,25 @@ namespace KdtTests
             try
             {
                 konduto.Analyze(order);
-                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+                Assert.True(order.Recommendation != KondutoRecommendation.none);
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
 
             try
             {
                 KondutoOrder getOrder = konduto.GetOrder(order.Id);
-                Assert.IsNotNull(getOrder);
+                Assert.NotNull(getOrder);
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void PostBoletoIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -368,15 +333,15 @@ namespace KdtTests
             try
             {
                 konduto.Analyze(order);
-                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+                Assert.True(order.Recommendation != KondutoRecommendation.none);
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void PostNonCreditIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -401,15 +366,15 @@ namespace KdtTests
             try
             {
                 konduto.Analyze(order);
-                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+                Assert.True(order.Recommendation != KondutoRecommendation.none);
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void GetIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -420,11 +385,11 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void PutIntegrationTest()
         {
             //String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
@@ -451,11 +416,11 @@ namespace KdtTests
             try
             {
                 konduto.Analyze(order);
-                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+                Assert.True(order.Recommendation != KondutoRecommendation.none);
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
 
             try
@@ -464,7 +429,7 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
 
             try
@@ -473,11 +438,11 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
             catch (Exception e)
             {
-                Assert.Fail("Exception: " + e.ToString());
+                Assert.True(false, "Exception: " + e.ToString());
             }
 
             try
@@ -486,11 +451,11 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.True(false, "Konduto exception shouldn't happen here.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void SendOrderToKondutoButDoNotAnalyzeTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
@@ -503,7 +468,7 @@ namespace KdtTests
             KondutoOrder orderToSend = KondutoOrderFactory.basicOrder();
             orderToSend.Analyze = false;
 
-            Assert.IsFalse(orderToSend.Analyze, "order analyze should be false");
+            Assert.False(orderToSend.Analyze, "order analyze should be false");
 
             try
             {
@@ -511,23 +476,22 @@ namespace KdtTests
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("order should be valid");
+                Assert.True(false, "order should be valid");
             }
             catch (KondutoHTTPException e)
             {
-                Assert.Fail("server should respond with status 200");
+                Assert.True(false, "server should respond with status 200");
             }
             catch (KondutoUnexpectedAPIResponseException e)
             {
-                Assert.Fail("server should respond with status 200");
+                Assert.True(false, "server should respond with status 200");
             }
 
-            Assert.IsTrue(orderToSend.Score == null);
-            Assert.IsTrue(orderToSend.Recommendation == KondutoRecommendation.none);
-
+            Assert.True(orderToSend.Score == null);
+            Assert.True(orderToSend.Recommendation == KondutoRecommendation.none);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnalyzeInvalidOrderTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
@@ -542,7 +506,7 @@ namespace KdtTests
             try
             {
                 orderToSend = konduto.Analyze(orderToSend); // do analyze
-                Assert.Fail("KondutoInvalidEntityException should have been thrown");
+                Assert.True(false, "KondutoInvalidEntityException should have been thrown");
             }
             catch (KondutoInvalidEntityException e)
             {
@@ -550,15 +514,15 @@ namespace KdtTests
             }
             catch (KondutoHTTPException e)
             {
-                Assert.Fail("Expected KondutoInvalidEntityException, but got KondutoHTTPException");
+                Assert.True(false, "Expected KondutoInvalidEntityException, but got KondutoHTTPException");
             }
             catch (KondutoUnexpectedAPIResponseException e)
             {
-                Assert.Fail("Expected KondutoInvalidEntityException, but got KondutoHTTPException");
+                Assert.True(false, "Expected KondutoInvalidEntityException, but got KondutoHTTPException");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AnalyzeHTTPErrorTest()
         {
             foreach (int code in HTTP_STATUSES)
@@ -574,7 +538,7 @@ namespace KdtTests
                     konduto.__MessageHandler = fakeResponseHandler;
 
                     konduto.Analyze(KondutoOrderFactory.basicOrder());
-                    Assert.Fail("Exception expected");
+                    Assert.True(false, "Exception expected");
                 }
                 catch (KondutoHTTPException e)
                 {
@@ -582,12 +546,12 @@ namespace KdtTests
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail("KondutoHTTPException was expected");
+                    Assert.True(false, "KondutoHTTPException was expected");
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void UpdateSuccessfullyTest()
         {
             var fakeResponseHandler = new FakeResponseHandler();
@@ -603,15 +567,15 @@ namespace KdtTests
             }
             catch (KondutoHTTPException e)
             {
-                Assert.Fail("order update should have succeeded");
+                Assert.True(false, "order update should have succeeded");
             }
             catch (KondutoUnexpectedAPIResponseException e)
             {
-                Assert.Fail("order update should have succeeded");
+                Assert.True(false, "order update should have succeeded");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void UpdateHTTPErrorTest()
         {
             foreach (int code in HTTP_STATUSES)
@@ -627,7 +591,7 @@ namespace KdtTests
                     konduto.__MessageHandler = fakeResponseHandler;
 
                     konduto.Analyze(KondutoOrderFactory.basicOrder());
-                    Assert.Fail("Exception expected");
+                    Assert.True(false, "Exception expected");
                 }
                 catch (KondutoHTTPException e)
                 {
@@ -635,14 +599,15 @@ namespace KdtTests
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail("KondutoHTTPException was expected");
+                    Assert.True(false, "KondutoHTTPException was expected");
                 }
             }
         }
 
-        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        [Fact/*, ExpectedException(typeof(ArgumentException))*/]
         public void InvalidStatusWhenUpdatingTest()
         {
+            Assert.True(false, "not implemented");
             List<KondutoOrderStatus> forbiddenStatus =
                 new List<KondutoOrderStatus>()
                 {
@@ -655,39 +620,41 @@ namespace KdtTests
                 try
                 {
                     konduto.UpdateOrderStatus(ORDER_FROM_FILE.Id, status, "");
-                    Assert.Fail("expected KondutoInvalidOrderStatus exception");
+                    Assert.True(false, "expected KondutoInvalidOrderStatus exception");
                 }
                 catch (KondutoHTTPException e)
                 {
-                    Assert.Fail("expected KondutoInvalidOrderStatus exception");
+                    Assert.True(false, "expected KondutoInvalidOrderStatus exception");
                 }
                 catch (KondutoUnexpectedAPIResponseException e)
                 {
-                    Assert.Fail("expected KondutoInvalidOrderStatus exception");
+                    Assert.True(false, "expected KondutoInvalidOrderStatus exception");
                 }
             }
         }
 
-        [TestMethod, ExpectedException(typeof(NullReferenceException))]
+        [Fact/*, ExpectedException(typeof(NullReferenceException))*/]
         public void NullCommentsWhenUpdatingTest()
         {
+            Assert.True(false, "not implemented");
             try
             {
                 konduto.UpdateOrderStatus(ORDER_FROM_FILE.Id, KondutoOrderStatus.approved, null);
             }
             catch (KondutoHTTPException e)
             {
-                Assert.Fail("expected NullPointerException");
+                Assert.True(false, "expected NullPointerException");
             }
             catch (KondutoUnexpectedAPIResponseException e)
             {
-                Assert.Fail("expected NullPointerException");
+                Assert.True(false, "expected NullPointerException");
             }
         }
 
-        [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact/*, ExpectedException(typeof(ArgumentOutOfRangeException)*)*/]
         public void InvalidApiKeyTest()
         {
+            Assert.True(false, "not implemented");
             konduto.SetApiKey("invalid key");
         }
 
@@ -704,7 +671,7 @@ namespace KdtTests
             {
                 var v = request.Headers.Authorization.Parameter;
 
-                Assert.IsTrue(AUTH_HEADER == request.Headers.Authorization.Parameter, "Failing authorizing request.");
+                Assert.True(AUTH_HEADER == request.Headers.Authorization.Parameter, "Failing authorizing request.");
 
                 if (_FakeResponses.ContainsKey(request.RequestUri))
                 {

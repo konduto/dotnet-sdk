@@ -2,52 +2,51 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoOrderTest
     {
-        [TestMethod]
+        [Fact]
 	    public void IsValidTest()
         {
 		    KondutoOrder order = new KondutoOrder();
-            Assert.IsFalse(order.IsValid(), "order should be invalid without id");
+            Assert.False(order.IsValid(), "order should be invalid without id");
 
 		    order.Id = "order1";
-		    Assert.IsFalse(order.IsValid(), "order should be invalid without total amount");
+		    Assert.False(order.IsValid(), "order should be invalid without total amount");
 
 		    order.TotalAmount = 120.1;
-		    Assert.IsFalse(order.IsValid(), "order should be invalid without customer");
+		    Assert.False(order.IsValid(), "order should be invalid without customer");
 
 		    order.Customer = KondutoCustomerFactory.BasicCustomer();
-		    Assert.IsTrue(order.IsValid(), "order should be valid");
-		    Assert.IsTrue(order.GetError() == null, "order errors should be empty");
+		    Assert.True(order.IsValid(), "order should be valid");
+		    Assert.True(order.GetError() == null, "order errors should be empty");
 	    }
 
-	    [TestMethod]
+	    [Fact]
 	    public void SerializationTest() 
         {
 		    KondutoOrder order = KondutoOrderFactory.completeOrder();
-		    String orderJSON = KondutoUtils.LoadJson<KondutoOrder>(Properties.Resources.order).ToJson();
+		    String orderJSON = KondutoUtils.LoadJson<KondutoOrder>(Resources.Load("order")).ToJson();
 
 		    try
             {
-                Assert.AreEqual(orderJSON, order.ToJson(), "serialization failed");
+                Assert.Equal(orderJSON, order.ToJson());
 		    }
             catch (KondutoInvalidEntityException e)
             {
-			    Assert.Fail("order should be valid");
+			    Assert.True(false, "order should be valid");
 		    }
 
 		    KondutoOrder deserializedOrder = KondutoModel.FromJson<KondutoOrder>(orderJSON);
-            Assert.IsTrue(order.Equals(deserializedOrder), "deserialization failed");
-
+            Assert.True(order.Equals(deserializedOrder), "deserialization failed");
 	    }
 
-        [TestMethod]
+        [Fact]
         public void SerializationTestWithShoppingAndFlight()
         {
             KondutoOrder order = KondutoOrderFactory.completeOrder();
@@ -56,7 +55,7 @@ namespace KdtTests.Models
             try
             {
                 order.ToJson();
-                Assert.Fail("order should be invalid");
+                Assert.True(false, "order should be invalid");
             }
             catch (KondutoInvalidEntityException e)
             {
@@ -69,9 +68,10 @@ namespace KdtTests.Models
             //ok
         }
 
-	    [TestMethod, ExpectedException(typeof(KondutoInvalidEntityException))]
+	    [Fact/*, ExpectedException(typeof(KondutoInvalidEntityException))*/]
 	    public void invalidOrderSerializationThrowsExceptionTest() 
         {
+            Assert.True(false, "not implemented");
 		    KondutoOrder order = new KondutoOrder();
 		    order.ToJson(); // triggers invalid customer exception
 	    }

@@ -1,11 +1,10 @@
 ﻿using KdtSdk.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace KdtTests.Exceptions
 {
-    [TestClass]
     public class KondutoHTTPExceptionFactoryTest
     {
         private static Dictionary<int, Type> HTTP_STATUSES = new Dictionary<int, Type>()
@@ -20,17 +19,17 @@ namespace KdtTests.Exceptions
             {500, typeof(KdtSdk.Exceptions.KondutoHTTPExceptionFactory.KondutoHTTPInternalErrorException)}
         };
 
-	    [TestMethod]
+	    [Fact]
 	    public void BuildExceptionTest() 
         {
             foreach (var entry in HTTP_STATUSES)
             {
                 int statusCode = entry.Key;
-                var klass = entry.Value;
+                var type = entry.Value;
                 String responseBody = "{\"statusCode\": \"" + statusCode + "\"}";
                 var exception = KondutoHTTPExceptionFactory.buildException(statusCode, responseBody);
 
-                Assert.IsTrue(klass == exception.GetType());
+                Assert.Equal(type, exception.GetType());
             }
 	    }
     }

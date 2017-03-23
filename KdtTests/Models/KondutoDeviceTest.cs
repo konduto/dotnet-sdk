@@ -2,30 +2,30 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoDeviceTest
     {
-        [TestMethod]
+        [Fact]
 	    public void SerializeTest()
         {
 		    KondutoDevice device = KondutoDeviceFactory.Create();
-		    String deviceJSON = KondutoUtils.LoadJson<KondutoDevice>(Properties.Resources.device).ToJson();
+		    String deviceJSON = KondutoUtils.LoadJson<KondutoDevice>(Resources.Load("device")).ToJson();
 
 		    try 
             {
-			    Assert.AreEqual(deviceJSON, device.ToJson(), "serialization failed");
+			    Assert.Equal(deviceJSON, device.ToJson());
 		    } 
             catch (KondutoInvalidEntityException e) 
             {
-			    Assert.Fail("device should be valid");
+			    Assert.True(false, "device should be valid");
 		    }
 
-		    Assert.AreEqual(KondutoModel.FromJson<KondutoDevice>(deviceJSON), device, "deserialization failed");
+		    Assert.Equal(KondutoModel.FromJson<KondutoDevice>(deviceJSON), device);
 	    }
     }
 }

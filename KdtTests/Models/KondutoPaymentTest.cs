@@ -2,19 +2,19 @@
 using KdtSdk.Models;
 using KdtSdk.Utils;
 using KdtTests.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System;
+using Xunit;
+using KdtTests.Properties;
 
 namespace KdtTests.Models
 {
-    [TestClass]
     public class KondutoPaymentTest
     {
-        [TestMethod]
+        [Fact]
         public void CreditSerializeTest()
         {
-            String expectedJSON = KondutoUtils.GetFirstJArrayElement(Properties.Resources.payments);
+            String expectedJSON = KondutoUtils.GetFirstJArrayElement(Resources.Load("payments"));
             String actualJSON = null;
             KondutoCreditCardPayment payment = KondutoPaymentFactory.CreateCreditCardPayment();
 
@@ -24,19 +24,19 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("address should be valid");
+                Assert.True(false, "address should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
 
             KondutoCreditCardPayment paymentFromJSON = KondutoModel.FromJson<KondutoCreditCardPayment>(expectedJSON);
-            Assert.AreEqual(payment, paymentFromJSON, "address deserialization failed");
+            Assert.Equal(payment, paymentFromJSON);
         }
 
-        [TestMethod]
+        [Fact]
         public void BoletoSerializeTest()
         {
-            JArray a = JArray.Parse(Properties.Resources.payments);
+            JArray a = JArray.Parse(Resources.Load("payments"));
             String expectedJSON = a.Last.ToString();
             String actualJSON = null;
             KondutoBoletoPayment payment = KondutoPaymentFactory.CreateBoletoPayment();
@@ -47,19 +47,19 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("payment should be valid");
+                Assert.True(false, "payment should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
 
             KondutoBoletoPayment paymentFromJSON = KondutoModel.FromJson<KondutoBoletoPayment>(expectedJSON);
-            Assert.AreEqual(payment, paymentFromJSON, "payment deserialization failed");
+            Assert.Equal(payment, paymentFromJSON);
         }
 
-        [TestMethod]
+        [Fact]
         public void DebitSerializeTest()
         {
-            JArray a = JArray.Parse(Properties.Resources.payments);
+            JArray a = JArray.Parse(Resources.Load("payments"));
             String expectedJSON = a[1].ToString();
             String actualJSON = null;
             KondutoDebitPayment payment = KondutoPaymentFactory.CreateDebitPayment();
@@ -70,19 +70,19 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("payment should be valid");
+                Assert.True(false, "payment should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
 
             KondutoDebitPayment paymentFromJSON = KondutoModel.FromJson<KondutoDebitPayment>(expectedJSON);
-            Assert.AreEqual(payment, paymentFromJSON, "payment deserialization failed");
+            Assert.Equal(payment, paymentFromJSON);
         }
 
-        [TestMethod]
+        [Fact]
         public void TransferSerializeTest()
         {
-            JArray a = JArray.Parse(Properties.Resources.payments);
+            JArray a = JArray.Parse(Resources.Load("payments"));
             String expectedJSON = a[3].ToString();
             String actualJSON = null;
             KondutoTransferPayment payment = KondutoPaymentFactory.CreateTransferPayment();
@@ -93,19 +93,19 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("payment should be valid");
+                Assert.True(false, "payment should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
 
             KondutoTransferPayment paymentFromJSON = KondutoModel.FromJson<KondutoTransferPayment>(expectedJSON);
-            Assert.AreEqual(payment, paymentFromJSON, "payment deserialization failed");
+            Assert.Equal(payment, paymentFromJSON);
         }
 
-        [TestMethod]
+        [Fact]
         public void VoucherSerializeTest()
         {
-            JArray a = JArray.Parse(Properties.Resources.payments);
+            JArray a = JArray.Parse(Resources.Load("payments"));
             String expectedJSON = a[2].ToString();
             String actualJSON = null;
             KondutoVoucherPayment payment = KondutoPaymentFactory.CreateVoucherPayment();
@@ -116,13 +116,13 @@ namespace KdtTests.Models
             }
             catch (KondutoInvalidEntityException e)
             {
-                Assert.Fail("payment should be valid");
+                Assert.True(false, "payment should be valid");
             }
 
-            Assert.AreEqual(expectedJSON, actualJSON, "address serialization failed");
+            Assert.Equal(expectedJSON, actualJSON);
 
             KondutoVoucherPayment paymentFromJSON = KondutoModel.FromJson<KondutoVoucherPayment>(expectedJSON);
-            Assert.AreEqual(payment, paymentFromJSON, "payment deserialization failed");
+            Assert.Equal(payment, paymentFromJSON);
         }
     }
 }

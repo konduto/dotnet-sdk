@@ -14,18 +14,9 @@ namespace KdtTests.Models
         public void SerializationTest()
         {
             String expectedJSON = KondutoUtils.LoadJson<KondutoSeller>(Resources.Load("seller")).ToJson();
-            String actualJSON = null;
             KondutoSeller seller = KondutoSellerFactory.Create();
 
-            try
-            {
-                actualJSON = seller.ToJson();
-            }
-            catch (KondutoInvalidEntityException e)
-            {
-                Assert.True(false, "seller should be valid");
-            }
-
+            var actualJSON = seller.ToJson();
             Assert.Equal(expectedJSON, actualJSON);
             KondutoSeller sellerFromJson = KondutoModel.FromJson<KondutoSeller>(expectedJSON);
             Assert.Equal(seller, sellerFromJson);

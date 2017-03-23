@@ -14,18 +14,9 @@ namespace KdtTests.Models
         public void SerializeTest()
         {
             String expectedJSON = KondutoUtils.LoadJson<KondutoTravel>(Resources.Load("flight")).ToJson();
-            String actualJSON = null;
             KondutoTravel flight = KondutoFlightFactory.CreateFlight();
 
-            try
-            {
-                actualJSON = flight.ToJson();
-            }
-            catch (KondutoInvalidEntityException e)
-            {
-                Assert.True(false, "flight should be valid");
-            }
-
+            var actualJSON = flight.ToJson();
             Assert.Equal(expectedJSON, actualJSON);
             KondutoTravel flightFromJSON = KondutoModel.FromJson<KondutoTravel>(expectedJSON);
             Assert.Equal(flight, flightFromJSON);

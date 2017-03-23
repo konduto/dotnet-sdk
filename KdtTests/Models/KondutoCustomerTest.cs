@@ -14,19 +14,10 @@ namespace KdtTests.Models
 	    [Fact]
         public void SerializationTest()
         {
-            KondutoCustomer customer = KondutoCustomerFactory.CompleteCustomer();
-            String customerJSON = KondutoUtils.LoadJson<KondutoCustomer>(Resources.Load("customer")).ToJson();
-            
-            try 
-            {
-                var v = customer.ToJson();
-                Assert.Equal(customerJSON, customer.ToJson());
-            } 
-            catch (KondutoInvalidEntityException e) {
-                Debug.WriteLine(e.Message);
-            }
-
-            KondutoCustomer deserializedCustomer = KondutoModel.FromJson<KondutoCustomer>(customerJSON);
+            var customer = KondutoCustomerFactory.CompleteCustomer();
+            var customerJSON = KondutoUtils.LoadJson<KondutoCustomer>(Resources.Load("customer")).ToJson();
+            Assert.Equal(customerJSON, customer.ToJson());
+            var deserializedCustomer = KondutoModel.FromJson<KondutoCustomer>(customerJSON);
             Assert.Equal(customer, deserializedCustomer);
         }
     }

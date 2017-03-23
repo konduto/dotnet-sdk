@@ -14,20 +14,10 @@ namespace KdtTests.Models
         public void SerializeTest()
         {
             String expectedJSON = KondutoUtils.GetFirstJArrayElement(Resources.Load("payments"));
-            String actualJSON = null;
             KondutoCreditCardPayment payment = KondutoPaymentFactory.CreateCreditCardPayment();
 
-            try
-            {
-                actualJSON = payment.ToJson();
-            }
-            catch (KondutoInvalidEntityException e)
-            {
-                Assert.True(false, "address should be valid");
-            }
-
+            var actualJSON = payment.ToJson();
             Assert.Equal(expectedJSON, actualJSON);
-
             KondutoCreditCardPayment paymentFromJSON = KondutoModel.FromJson<KondutoCreditCardPayment>(expectedJSON);
             Assert.Equal(payment, paymentFromJSON);
         }

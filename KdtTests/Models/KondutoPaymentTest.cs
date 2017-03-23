@@ -107,20 +107,10 @@ namespace KdtTests.Models
         {
             JArray a = JArray.Parse(Resources.Load("payments"));
             String expectedJSON = a[2].ToString();
-            String actualJSON = null;
             KondutoVoucherPayment payment = KondutoPaymentFactory.CreateVoucherPayment();
 
-            try
-            {
-                actualJSON = payment.ToJson();
-            }
-            catch (KondutoInvalidEntityException e)
-            {
-                Assert.True(false, "payment should be valid");
-            }
-
+            var actualJSON = payment.ToJson();
             Assert.Equal(expectedJSON, actualJSON);
-
             KondutoVoucherPayment paymentFromJSON = KondutoModel.FromJson<KondutoVoucherPayment>(expectedJSON);
             Assert.Equal(payment, paymentFromJSON);
         }

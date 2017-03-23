@@ -15,16 +15,7 @@ namespace KdtTests.Models
         {
 		    KondutoDevice device = KondutoDeviceFactory.Create();
 		    String deviceJSON = KondutoUtils.LoadJson<KondutoDevice>(Resources.Load("device")).ToJson();
-
-		    try 
-            {
-			    Assert.Equal(deviceJSON, device.ToJson());
-		    } 
-            catch (KondutoInvalidEntityException e) 
-            {
-			    Assert.True(false, "device should be valid");
-		    }
-
+			Assert.Equal(deviceJSON, device.ToJson());
 		    Assert.Equal(KondutoModel.FromJson<KondutoDevice>(deviceJSON), device);
 	    }
     }

@@ -14,20 +14,11 @@ namespace KdtTests.Models
         public void SerializeTest()
         {
 		    String expectedJSON = KondutoUtils.LoadJson<KondutoAddress>(Resources.Load("address")).ToJson();
-		    String actualJSON = null;
 		    KondutoAddress address = KondutoAddressFactory.Create();
 
-		    try 
-            {
-			    actualJSON = address.ToJson();
-		    } 
-            catch (KondutoInvalidEntityException e) 
-            {
-			    Assert.True(false, "address should be valid");
-		    }
-
+			var actualJSON = address.ToJson();
 		    Assert.Equal(expectedJSON, actualJSON);
-		    KondutoAddress addressFromJSON = KondutoModel.FromJson<KondutoAddress>(expectedJSON);
+		    var addressFromJSON = KondutoModel.FromJson<KondutoAddress>(expectedJSON);
             Assert.Equal(address, addressFromJSON);
 	    }
     }

@@ -32,16 +32,8 @@ namespace KdtTests.Models
         {
 		    KondutoOrder order = KondutoOrderFactory.completeOrder();
 		    String orderJSON = KondutoUtils.LoadJson<KondutoOrder>(Resources.Load("order")).ToJson();
-
-		    try
-            {
-                Assert.Equal(orderJSON, order.ToJson());
-		    }
-            catch (KondutoInvalidEntityException e)
-            {
-			    Assert.True(false, "order should be valid");
-		    }
-
+            
+            Assert.Equal(orderJSON, order.ToJson());
 		    KondutoOrder deserializedOrder = KondutoModel.FromJson<KondutoOrder>(orderJSON);
             Assert.True(order.Equals(deserializedOrder), "deserialization failed");
 	    }
@@ -51,21 +43,11 @@ namespace KdtTests.Models
         {
             KondutoOrder order = KondutoOrderFactory.completeOrder();
             order.Travel = KondutoFlightFactory.CreateFlight();
-
-            try
-            {
-                order.ToJson();
-                Assert.True(false, "order should be invalid");
-            }
-            catch (KondutoInvalidEntityException e)
-            {
-                //ok
-            }
+            Assert.Throws<KondutoInvalidEntityException>(() => order.ToJson());
 
             order = KondutoOrderFactory.completeOrder();
             order.Travel = KondutoFlightFactory.CreateFlight();
             order.ShoppingCart = null;
-            //ok
         }
 
 	    [Fact]

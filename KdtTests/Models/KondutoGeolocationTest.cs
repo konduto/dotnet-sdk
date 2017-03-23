@@ -17,16 +17,8 @@ namespace KdtTests.Models
 		    KondutoGeolocation geolocation = KondutoGeolocationFactory.Create();
 
             String geolocationJSON = KondutoUtils.LoadJson<KondutoGeolocation>(Resources.Load("geolocation")).ToJson();
-		    
-            try 
-            {
-			    Assert.Equal(geolocationJSON, geolocation.ToJson());
-		    }
-            catch (KondutoInvalidEntityException e) 
-            {
-			    Assert.True(false, "geolocation should be valid");
-		    }
 
+			Assert.Equal(geolocationJSON, geolocation.ToJson());
 		    KondutoGeolocation geolocationDeserialized = KondutoModel.FromJson<KondutoGeolocation>(geolocationJSON);
             Assert.Equal(geolocation, geolocationDeserialized);
 	    }

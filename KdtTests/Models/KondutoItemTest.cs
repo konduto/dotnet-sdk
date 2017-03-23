@@ -16,15 +16,7 @@ namespace KdtTests.Models
         [Fact]
         public void SerializationTest()
         {
-            try
-            {
-                var v = greenTShirt.ToJson();
-                Assert.Equal(greenTShirtJSON, greenTShirt.ToJson());
-            }
-            catch (KondutoInvalidEntityException e)
-            {
-                Assert.True(false, "Green T-Shirt should be valid");
-            }
+            Assert.Equal(greenTShirtJSON, greenTShirt.ToJson());
         }
 
         [Fact]

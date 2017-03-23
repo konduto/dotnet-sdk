@@ -16,17 +16,7 @@ namespace KdtTests.Models
 		    KondutoNavigationInfo navigationInfo = KondutoNavigationInfoFactory.Create();
 
 		    String navigationInfoJSON = KondutoUtils.LoadJson<KondutoNavigationInfo>(Resources.Load("navigation")).ToJson();
-
-		    try 
-            {
-                var c = navigationInfo.ToJson();
-			    Assert.Equal(navigationInfoJSON ,navigationInfo.ToJson());
-		    } 
-            catch (KondutoInvalidEntityException e) 
-            {
-			    Assert.True(false, "navigation info should be valid");
-		    }
-
+			Assert.Equal(navigationInfoJSON ,navigationInfo.ToJson());
 		    KondutoNavigationInfo navigationInfoDeserialized = KondutoModel.FromJson<KondutoNavigationInfo>(navigationInfoJSON);
             Assert.Equal(navigationInfoDeserialized, navigationInfo);
         }

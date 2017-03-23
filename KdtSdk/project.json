@@ -10,8 +10,10 @@
     "Newtonsoft.Json": "10.0.1"
   },
   "frameworks": {
-    "netcoreapp1.0": {
+    "net45": {},
+    "netstandard1.3": {
       "imports": [
+        "portable-net45+win8",
         "netstandard1.6"
       ]
     }

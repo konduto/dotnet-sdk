@@ -298,7 +298,7 @@ namespace KdtSdk
         /// <param name="comments">some comments (an empty String is accepted, although we recommend setting it to at least a timestamp)</param>
         /// <exception cref="KondutoHTTPException"></exception>
         /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
-        public void UpdateOrderStatus(String orderId, KondutoOrderStatus newStatus, String comments)
+        public async Task UpdateOrderStatusAsync(string orderId, KondutoOrderStatus newStatus, string comments)
         {
             HashSet<KondutoOrderStatus> allowed = new HashSet<KondutoOrderStatus>
             {
@@ -310,36 +310,28 @@ namespace KdtSdk
             };
 
             if (!allowed.Contains(newStatus)) { throw new ArgumentException("Illegal status: " + newStatus); }
-
             if (comments == null) { throw new NullReferenceException("Comments cannot be null."); }
 
             JObject requestBody = new JObject();
             requestBody.Add("status", newStatus.ToString().ToLower());
             requestBody.Add("comments", comments);
 
-            HttpClient client = CreateHttpClient();
+            var client = CreateHttpClient();
+            var response = await client.PutAsync(KondutoPutOrderUrl(orderId),
+                new StringContent(requestBody.ToString(), Encoding.UTF8, "application/json"));
 
-            var response = client.PutAsync(KondutoPutOrderUrl(orderId),
-                new StringContent(
-                    requestBody.ToString(),
-                    Encoding.UTF8,
-                    "application/json"));
-
-            if (response.Result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                JObject responseBody = JsonConvert.DeserializeObject<JObject>(
-                    response.Result.Content.ReadAsStringAsync().Result);
+                var responseBody = JsonConvert.DeserializeObject<JObject>(
+                    await response.Content.ReadAsStringAsync());
 
                 this.responseBody = responseBody.ToString();
 
                 JToken orderUpdateResponse;
-
                 if (responseBody.TryGetValue("order", out orderUpdateResponse))
                 {
-                    JObject updatedOrder = JsonConvert.DeserializeObject<JObject>(orderUpdateResponse.ToString());
-
+                    var updatedOrder = JsonConvert.DeserializeObject<JObject>(orderUpdateResponse.ToString());
                     JToken statusResponse;
-
                     if (!updatedOrder.TryGetValue("old_status", out statusResponse) ||
                         !updatedOrder.TryGetValue("new_status", out statusResponse))
                     {
@@ -348,10 +340,33 @@ namespace KdtSdk
                 }
             }
             else
-            { 
-                throw KondutoHTTPExceptionFactory.buildException((int)response.Result.StatusCode,
-                    response.Result.Content.ReadAsStringAsync().Result);
+            {
+                throw KondutoHTTPExceptionFactory.buildException(
+                   (int)response.StatusCode,
+                   await response.Content.ReadAsStringAsync());   
             }
+        }
+
+        /// <summary>
+        /// Updates an order status.
+        /// @see <a href="http://docs.konduto.com">Konduto API Spec</a>
+        /// </summary>
+        /// <param name="order">the order to update</param>
+        /// <param name="newStatus">the new status (APPROVED, DECLINED or FRAUD)</param>
+        /// <param name="comments">some comments (an empty String is accepted, although we recommend setting it to at least a timestamp)</param>
+        /// <exception cref="KondutoHTTPException"></exception>
+        /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
+        public void UpdateOrderStatus(string orderId, KondutoOrderStatus newStatus, string comments)
+        {
+            try
+            {
+                UpdateOrderStatusAsync(orderId, newStatus, comments).Wait();
+            }
+            catch (AggregateException ae)
+            {
+                throw ae.InnerException;
+            }
+            
         }
 
         /// <summary>

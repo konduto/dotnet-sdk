@@ -171,35 +171,52 @@ namespace KdtSdk
         /// <returns>a {@link KondutoOrder} instance</returns>
         /// <exception cref="KondutoHTTPException"></exception>
         /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
-        public KondutoOrder GetOrder(String orderId)
+        public async Task<KondutoOrder> GetOrderAsync(String orderId)
         {
             var client = CreateHttpClient();
+            requestBody = orderId;
 
-            this.requestBody = orderId;
-
-            var response = client.GetAsync(KondutoGetOrderSuffix(orderId)).Result;
+            var response = await client.GetAsync(KondutoGetOrderSuffix(orderId));
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content;
 
-                String responseString = responseContent.ReadAsStringAsync().Result;
-                this.responseBody = responseString;
-
-                JObject getResponse = JsonConvert.DeserializeObject<JObject>(responseString);
+                var responseString = await responseContent.ReadAsStringAsync();
+                responseBody = responseString;
+                var getResponse = JsonConvert.DeserializeObject<JObject>(responseString);
 
                 KondutoOrder order = null;
-
                 JToken jt;
                 if (getResponse.TryGetValue("order", out jt))
                 {
                     order = KondutoModel.FromJson<KondutoOrder>(jt.ToString());
                 }
-
                 return order;
             }
-            else
+            throw KondutoHTTPExceptionFactory.buildException(
+                (int)response.StatusCode, 
+                await response.Content.ReadAsStringAsync()
+                );
+        }
+
+        /// <summary>
+        /// Queries an order from Konduto's API.
+        /// Syncronous
+        /// @see <a href="http://docs.konduto.com">Konduto API Spec</a>
+        /// </summary>
+        /// <param name="orderId">the order identifier</param>
+        /// <returns>a {@link KondutoOrder} instance</returns>
+        /// <exception cref="KondutoHTTPException"></exception>
+        /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
+        public KondutoOrder GetOrder(String orderId)
+        {
+            try
             {
-                throw KondutoHTTPExceptionFactory.buildException((int)response.StatusCode, response.Content.ReadAsStringAsync().Result);
+                return GetOrderAsync(orderId).Result;
+            }
+            catch (AggregateException ae)
+            {
+                throw ae.InnerException;
             }
         }
 

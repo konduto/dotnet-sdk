@@ -7,6 +7,7 @@ using KdtSdk.Models;
 using KdtSdk.Exceptions;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace KdtSdk
 {
@@ -172,7 +173,7 @@ namespace KdtSdk
         /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
         public KondutoOrder GetOrder(String orderId)
         {
-            HttpClient client = CreateHttpClient();
+            var client = CreateHttpClient();
 
             this.requestBody = orderId;
 
@@ -211,37 +212,55 @@ namespace KdtSdk
         /// <exception cref="KondutoInvalidEntityException"></exception>
         /// <exception cref="KondutoHTTPException"></exception>
         /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
-        public KondutoOrder Analyze(KondutoOrder order)
+        public async Task<KondutoOrder> AnalyzeAsync(KondutoOrder order)
         {
-            HttpClient httpClient = CreateHttpClient();
-            
-            var response = httpClient.PostAsync(KondutoPostOrderUrl(),
+            var httpClient = CreateHttpClient();
+            var response = await httpClient.PostAsync(KondutoPostOrderUrl(),
                 new StringContent(order.ToJson(),
                     Encoding.UTF8,
                     "application/json"));
 
-            this.requestBody = order.ToJson();
-
-            if (response.Result.IsSuccessStatusCode)
+            requestBody = order.ToJson();
+            if (response.IsSuccessStatusCode)
             {
-                // by calling. Result you are performing a synchronous call
-                var responseContent = response.Result.Content;
+                var responseContent = response.Content;
+                var responseString = await responseContent.ReadAsStringAsync();
 
-                // by calling. Result you are synchronously reading the result
-                String responseString = responseContent.ReadAsStringAsync().Result;
-
-                this.responseBody = responseString;
-
+                responseBody = responseString;
                 if (order.Analyze)
-                    order.MergeKondutoOrderResponse(KondutoAPIFullResponse.FromJson<KondutoAPIFullResponse>(responseString).Order);
-
+                    order.MergeKondutoOrderResponse(
+                        KondutoAPIFullResponse.FromJson<KondutoAPIFullResponse>(responseString).Order
+                        );
                 return order;
             }
             else
             {
-                var responseContentError = response.Result.Content != null ? response.Result.Content.ReadAsStringAsync().Result : "Error with response";
-                throw KondutoHTTPExceptionFactory.buildException((int)response.Result.StatusCode,
-                    responseContentError);
+                var responseContentError = response.Content != null ? 
+                    await response.Content.ReadAsStringAsync() : 
+                    "Error with response";
+                throw KondutoHTTPExceptionFactory.buildException(
+                    (int)response.StatusCode, responseContentError);
+            }
+        }
+
+        /// <summary>
+        /// Sends an order for Konduto and gets it analyzed
+        /// (i.e with recommendation, score, device, geolocation and navigation info).
+        /// @see <a href="http://docs.konduto.com">Konduto API Spec</a>
+        /// </summary>
+        /// <param name="order">a {@link KondutoOrder} instance</param>
+        /// <exception cref="KondutoInvalidEntityException"></exception>
+        /// <exception cref="KondutoHTTPException"></exception>
+        /// <exception cref="KondutoUnexpectedAPIResponseException"></exception>
+        public KondutoOrder Analyze(KondutoOrder order)
+        {
+            try
+            {
+                return AnalyzeAsync(order).Result;
+            }
+            catch (AggregateException ae)
+            {     
+                throw ae.InnerException;
             }
         }
 

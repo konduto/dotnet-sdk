@@ -6,23 +6,17 @@
     <AssemblyTitle>KdtSdk</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
     <Authors>Konduto</Authors>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
     <AssemblyName>KdtSdk</AssemblyName>
     <PackageId>KdtSdk</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-
 </Project>

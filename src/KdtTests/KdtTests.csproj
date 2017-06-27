@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\*.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <None Include="App.config" />
+    <None Include="app.config" />
   </ItemGroup>
 
   <ItemGroup>

@@ -460,21 +460,22 @@ namespace KdtTests
 
             protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
             {
-                var v = request.Headers.Authorization.Parameter;
-
-                Assert.True(AUTH_HEADER == request.Headers.Authorization.Parameter, "Failing authorizing request.");
-
-                if (_FakeResponses.ContainsKey(request.RequestUri))
+                return await Task.Run(() =>
                 {
-                    return _FakeResponses[request.RequestUri];
-                }
-                else
-                {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound)
+                    Assert.True(AUTH_HEADER == request.Headers.Authorization.Parameter, "Failing authorizing request.");
+
+                    if (_FakeResponses.ContainsKey(request.RequestUri))
                     {
-                        RequestMessage = request
-                    };
-                }
+                        return _FakeResponses[request.RequestUri];
+                    }
+                    else
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.NotFound)
+                        {
+                            RequestMessage = request
+                        };
+                    }
+                });
             }
         }
 

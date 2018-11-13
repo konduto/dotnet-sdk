@@ -6,17 +6,13 @@
     <AssemblyTitle>KdtSdk</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
     <Authors>Konduto</Authors>
-    <TargetFrameworks>netstandard1.3</TargetFrameworks>
     <AssemblyName>KdtSdk</AssemblyName>
     <PackageId>KdtSdk</PackageId>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="app.config" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Net.Http" Version="4.3.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-  </ItemGroup>
 </Project>

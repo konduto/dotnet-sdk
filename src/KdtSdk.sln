@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdtSdk", "KdtSdk\KdtSdk.xproj", "{7A60D91B-45A0-4DD4-A6EB-6064C6DDEB6B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CAC47624-8884-4855-936B-A0B5E8E7E4CC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "KdtTests", "KdtTests\KdtTests.xproj", "{30579B8D-AE9E-483F-A7DA-66FCFFFDD9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdtSdk", "KdtSdk\KdtSdk.csproj", "{73A6BCA3-9019-498C-BE89-DB8233DDC79B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KdtTests", "KdtTests\KdtTests.csproj", "{424BD126-E187-4A6D-808E-B332B0E68026}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,16 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A60D91B-45A0-4DD4-A6EB-6064C6DDEB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A60D91B-45A0-4DD4-A6EB-6064C6DDEB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A60D91B-45A0-4DD4-A6EB-6064C6DDEB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A60D91B-45A0-4DD4-A6EB-6064C6DDEB6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30579B8D-AE9E-483F-A7DA-66FCFFFDD9DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30579B8D-AE9E-483F-A7DA-66FCFFFDD9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30579B8D-AE9E-483F-A7DA-66FCFFFDD9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30579B8D-AE9E-483F-A7DA-66FCFFFDD9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73A6BCA3-9019-498C-BE89-DB8233DDC79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73A6BCA3-9019-498C-BE89-DB8233DDC79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73A6BCA3-9019-498C-BE89-DB8233DDC79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73A6BCA3-9019-498C-BE89-DB8233DDC79B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{424BD126-E187-4A6D-808E-B332B0E68026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{424BD126-E187-4A6D-808E-B332B0E68026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{424BD126-E187-4A6D-808E-B332B0E68026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{424BD126-E187-4A6D-808E-B332B0E68026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73A6BCA3-9019-498C-BE89-DB8233DDC79B} = {CAC47624-8884-4855-936B-A0B5E8E7E4CC}
+		{424BD126-E187-4A6D-808E-B332B0E68026} = {CAC47624-8884-4855-936B-A0B5E8E7E4CC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BB89A18-F00C-49D9-A09A-94820829B32B}
 	EndGlobalSection
 EndGlobal

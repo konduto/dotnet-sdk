@@ -5,31 +5,28 @@
     <AssemblyTitle>KdtTests</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
     <Authors>Konduto</Authors>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
     <AssemblyName>KdtTests</AssemblyName>
     <PackageId>KdtTests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\*.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <None Include="app.config" />
+    <EmbeddedResource Include="Resources\*.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KdtSdk\KdtSdk.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+    <ProjectReference Include="..\..\src\KdtSdk\KdtSdk.csproj" />
   </ItemGroup>
 
 </Project>

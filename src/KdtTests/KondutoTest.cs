@@ -142,7 +142,7 @@ namespace KdtTests
 
             KondutoOrder order = new KondutoOrder
             {
-                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
                 Customer = Customer,
@@ -230,7 +230,7 @@ namespace KdtTests
 
             KondutoOrder order = new KondutoOrder
             {
-                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
                 ShippingAmount = 6.00,
@@ -270,7 +270,7 @@ namespace KdtTests
 
             KondutoOrder order = new KondutoOrder
             {
-                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
                 Customer = Customer,
@@ -295,7 +295,7 @@ namespace KdtTests
 
             KondutoOrder order = new KondutoOrder
             {
-                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
                 Customer = Customer,
@@ -318,7 +318,7 @@ namespace KdtTests
         [Fact]
         public void PutIntegrationTest()
         {
-            var id = $"{((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)}";            
+            var id = $"{Guid.NewGuid()}";
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
             
             KondutoCustomer Customer = new KondutoCustomer

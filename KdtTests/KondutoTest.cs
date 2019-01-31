@@ -299,6 +299,13 @@ namespace KdtTests
                 Discount = 5.00
             };
 
+            KondutoSeller seller = new KondutoSeller
+            {
+                Id = "seller",
+                Name = "SampleSeller",
+                CreatedAt = "2017-01-01"
+            };
+
             KondutoOrder order = new KondutoOrder
             {
                 Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
@@ -315,6 +322,7 @@ namespace KdtTests
                 MessagesExchanged = 2,
                 PurchasedAt = "2014-12-31T13:00:00Z",
                 FirstMessage = "2014-12-31T13:00:00Z",
+                Seller = seller,
                 ShoppingCart = new List<KondutoItem>{
                     item1,
                     item2
@@ -428,7 +436,7 @@ namespace KdtTests
         public void PutIntegrationTest()
         {
             //String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
-            String id = "1429744771";
+            String id = "1429744774";
             
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
             

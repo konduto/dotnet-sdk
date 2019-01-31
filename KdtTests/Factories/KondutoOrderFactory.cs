@@ -32,6 +32,8 @@ namespace KdtTests.Factories
                 MessagesExchanged = 2,
                 PurchasedAt = "2014-12-31T13:00:00Z",
 
+                Status = "approved",
+
                 Analyze = true
             };
         }

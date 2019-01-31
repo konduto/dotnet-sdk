@@ -28,7 +28,7 @@ namespace KdtTests.Models
 	    }
 
 	    [TestMethod]
-	    public void SerializationTest() 
+	    public void SerializationTest()
         {
 		    KondutoOrder order = KondutoOrderFactory.completeOrder();
 		    String orderJSON = KondutoUtils.LoadJson<KondutoOrder>(Properties.Resources.order).ToJson();
@@ -67,6 +67,24 @@ namespace KdtTests.Models
             order.Travel = KondutoFlightFactory.CreateFlight();
             order.ShoppingCart = null;
             //ok
+        }
+
+        [TestMethod]
+        public void SerializationTestWithSeller()
+        {
+            KondutoOrder order = KondutoOrderFactory.completeOrder();
+            order.Seller = KondutoSellerFactory.Create();
+
+            try
+            {
+                order.ToJson();
+                //ok
+            }
+            catch (KondutoInvalidEntityException e)
+            {
+                
+                Assert.Fail("order should be invalid");
+            }
         }
 
 	    [TestMethod, ExpectedException(typeof(KondutoInvalidEntityException))]

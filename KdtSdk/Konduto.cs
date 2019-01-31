@@ -16,7 +16,7 @@ namespace KdtSdk
     /// </summary>
     public class Konduto
     {
-        public const String VERSION = "1.0.9";
+        public const String VERSION = "1.0.12";
 
         private String apiKey;
         private String requestBody;
@@ -233,7 +233,9 @@ namespace KdtSdk
         public KondutoOrder Analyze(KondutoOrder order)
         {
             HttpClient httpClient = CreateHttpClient();
-            
+
+            var x = order.ToJson();
+
             var response = httpClient.PostAsync(KondutoPostOrderUrl(),
                 new StringContent(order.ToJson(),
                     Encoding.UTF8,

@@ -4,10 +4,10 @@ namespace KdtSdk.Models
 {
     public enum KondutoOrderStatus
     {
+        [JsonProperty("approved")]
+        approved,
         [JsonProperty("pending")]
 	    pending,
-        [JsonProperty("approved")]
-	    approved,
         [JsonProperty("declined")]
 	    declined,
         [JsonProperty("fraud")]

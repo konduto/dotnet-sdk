@@ -418,6 +418,39 @@ namespace KdtTests
         }
 
         [TestMethod]
+        public void PostFlightIntegrationTest()
+        {
+            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+
+            KondutoCustomer Customer = new KondutoCustomer
+            {
+                Id = "28372",
+                Name = "KdtUser",
+                Email = "developer@example.com"
+            };
+
+            KondutoOrder order = new KondutoOrder
+            {
+                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
+                TotalAmount = 100.00,
+                Customer = Customer,
+                Travel = KondutoFlightFactory.CreateFlight(),
+                Analyze = true
+            };
+
+            try
+            {
+                konduto.Analyze(order);
+                Assert.IsTrue(order.Recommendation != KondutoRecommendation.none);
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+        }
+
+        [TestMethod]
         public void GetIntegrationTest()
         {
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
@@ -433,10 +466,24 @@ namespace KdtTests
         }
 
         [TestMethod]
+        public void GetFlightIntegrationTest()
+        {
+            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+
+            try
+            {
+                KondutoOrder order = konduto.GetOrder("1529744771");
+            }
+            catch (KondutoException ex)
+            {
+                Assert.Fail("Konduto exception shouldn't happen here.");
+            }
+        }
+
+        [TestMethod]
         public void PutIntegrationTest()
         {
-            //String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
-            String id = "1429744774";
+            String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
             
             Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
             

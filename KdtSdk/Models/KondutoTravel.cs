@@ -27,6 +27,12 @@ namespace KdtSdk.Models
         [JsonProperty("return")]
         public KondutoTravelInformation Return { get; set; }
 
+        /// <summary>
+        /// YYYY-MM-DD
+        /// </summary>
+        [JsonProperty("expiration_date")]
+        public String ExpirationDate { get; set; }
+
         #endregion
 
         /// <summary>

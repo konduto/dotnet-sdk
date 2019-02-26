@@ -11,14 +11,16 @@ using System.Text;
 //    "date": "2018-12-25T18:00Z",
 //    "number_of_connections": 1,
 //    "class": "economy",
-//    "fare_basis": "Y"
+//    "fare_basis": "Y",
+//    "company": "LATAM"
 //  },
 //  "return": {
 //    "origin": "SFO",
 //    "destination": "GRU",
 //    "date": "2018-12-30T18:00Z",
 //    "number_of_connections": 1,
-//    "class": "business"
+//    "class": "business",
+//    "company": "LATAM"
 //  },
 //  "passengers": [
 //    {
@@ -62,7 +64,8 @@ namespace KdtTests.Factories
                 DestinationAirport = "GRU",
                 Date = "2018-12-30T18:00Z",
                 NumberOfConnections = 1,
-                Class = "business"
+                Class = "business",
+                Company = "LATAM"
             };
         }
 
@@ -75,7 +78,8 @@ namespace KdtTests.Factories
                 Date = "2018-12-25T18:00Z",
                 NumberOfConnections = 1,
                 Class = "economy",
-                FareBasis = "Y"
+                FareBasis = "Y",
+                Company = "LATAM"
             };
         }
 
@@ -85,6 +89,7 @@ namespace KdtTests.Factories
             {
                 Departure = CreateDeparture(),
                 Return = CreateReturn(),
+                ExpirationDate = "2019-12-25T18:00Z",
                 Passengers = new List<KondutoPassenger>
                 {
                     KondutoPassengerFactory.CompletePassenger2(),

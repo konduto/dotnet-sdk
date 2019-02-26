@@ -24,6 +24,9 @@ namespace KdtSdk.Models
         [JsonProperty("fare_basis")]
         public String FareBasis { get; set; }
 
+        [JsonProperty("company")]
+        public String Company { get; set; }
+
         public KondutoTravelInformation() { }
 
         public override bool Equals(object o)

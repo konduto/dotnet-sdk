@@ -1,8 +1,8 @@
 {
 	"status": "ok",
 	"order": {
-		"id": "1406910391037",
-		"visitor": "f10e2821bbbea527ea02200352313bc059445190",
+		"id": "test_sdk_validation-2020-01-09-005",
+		"visitor": "f10e2821bbbea527ea02200352313bc059445190",		
 		"timestamp": 1389047680,
 		"score": 0.75,
 		"recommendation": "review",
@@ -52,7 +52,9 @@
 				"bin": "490172",
 		        "last4": "1234",
 		        "expiration_date": "102015",
-		        "status": "approved"
+		        "status": "approved",
+				"amount": 100.50,
+				"description": "Test credit card payment"
 		    }
 		],
 		"customer": {

@@ -83,6 +83,7 @@
     <Compile Include="Exceptions\KondutoInvalidEntityExceptionTest.cs" />
     <Compile Include="Exceptions\KondutoUnexpectedAPIResponseTest.cs" />
     <Compile Include="Factories\KondutoAddressFactory.cs" />
+    <Compile Include="Factories\KondutoBureauxQueriesFactory.cs" />
     <Compile Include="Factories\KondutoCustomerFactory.cs" />
     <Compile Include="Factories\KondutoDeviceFactory.cs" />
     <Compile Include="Factories\KondutoFlightFactory.cs" />
@@ -93,6 +94,8 @@
     <Compile Include="Factories\KondutoPassengerFactory.cs" />
     <Compile Include="Factories\KondutoPaymentFactory.cs" />
     <Compile Include="Factories\KondutoSellerFactory.cs" />
+    <Compile Include="Factories\KondutoTriggeredDecisionListFactory.cs" />
+    <Compile Include="Factories\KondutoTriggeredRulesFactory.cs" />
     <Compile Include="KondutoTest.cs" />
     <Compile Include="Models\KondutoAddressTest.cs" />
     <Compile Include="Models\KondutoBoletoPaymentTest.cs" />

@@ -13,7 +13,9 @@ namespace KdtTests.Factories
                 ExpirationDate = "010214",
                 Last4 = "1234",
                 Status = KondutoCreditCardPaymentStatus.approved,
-                Type = KondutoPaymentType.credit
+                Type = KondutoPaymentType.credit,
+                Amount = 100.50,
+                Description = "Test credit card payment"
             };
         }
 
@@ -22,7 +24,9 @@ namespace KdtTests.Factories
             return new KondutoBoletoPayment
             {
                 Type = KondutoPaymentType.boleto,
-                ExpirationDate = "2015-01-01"
+                ExpirationDate = "2015-01-01",
+                Amount = 100.50,
+                Description = "Test boleto payment"
             };
         }
 
@@ -30,7 +34,9 @@ namespace KdtTests.Factories
         {
             return new KondutoDebitPayment
             {
-                Type = KondutoPaymentType.debit
+                Type = KondutoPaymentType.debit,
+                Amount = 100.50,
+                Description = "Test debit payment"
             };
         }
 
@@ -38,7 +44,9 @@ namespace KdtTests.Factories
         {
             return new KondutoTransferPayment
             {
-                Type = KondutoPaymentType.transfer
+                Type = KondutoPaymentType.transfer,
+                Amount = 100.50,
+                Description = "Test transfer payment"
             };
         }
 
@@ -46,7 +54,9 @@ namespace KdtTests.Factories
         {
             return new KondutoVoucherPayment
             {
-                Type = KondutoPaymentType.voucher
+                Type = KondutoPaymentType.voucher,
+                Amount = 100.50,
+                Description = "Test voucher payment"
             };
         }
 

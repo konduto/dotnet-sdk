@@ -16,11 +16,20 @@ namespace KdtSdk.Models
         [JsonProperty("visitor"), DefaultValue(null)]
         public String Visitor { get; set; }
 
+        [JsonProperty("triggered_rules", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoTriggeredRules> TriggeredRules { get; set; }
+
+        [JsonProperty("triggered_decision_list", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoTriggeredDecisionList> TriggeredDecisionList { get; set; }
+
         [JsonProperty("score", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Double? Score { get; set; }
 
         [JsonProperty("recommendation", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(KondutoRecommendation.none)]
         public KondutoRecommendation Recommendation { get; set; }
+
+        [JsonProperty("bureaux_queries", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoBureauxQueries> BureauxQueries { get; set; }
 
         [JsonProperty("device", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoDevice Device { get; set; }
@@ -45,7 +54,7 @@ namespace KdtSdk.Models
         public override bool Equals(Object o)
         {
             if (this == o) return true;
-		    if (!(o is KondutoOrder)) return false;
+            if (!(o is KondutoOrder)) return false;
 
             KondutoOrder that = o as KondutoOrder;
 

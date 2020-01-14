@@ -19,9 +19,9 @@ namespace KdtTests
     {
         //static String AUTH_HEADER = "Basic VDczOEQ1MTZGMDlDQUIzQTJDMUVF";
         static String AUTH_HEADER = "VDczOEQ1MTZGMDlDQUIzQTJDMUVF";
-        static String API_KEY = "T738D516F09CAB3A2C1EE";
+        static String API_KEY = "T27499866252859317465";
 
-        String ORDER_ID;
+        String ORDER_ID = "test_sdk_validation-2020-01-09-005";
 
         JObject ANALYZE_ORDER_RESPONSE;
         KondutoOrder ORDER_FROM_FILE;
@@ -30,7 +30,7 @@ namespace KdtTests
 
 
         int[] HTTP_STATUSES = {
-			    (int)HttpStatusCode.Unauthorized, // 401
+                (int)HttpStatusCode.Unauthorized, // 401
 			    (int)HttpStatusCode.Forbidden, // 403
 			    (int)HttpStatusCode.NotFound, // 404
 			    422, // 422
@@ -194,7 +194,8 @@ namespace KdtTests
         [TestMethod]
         public void PostIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             KondutoCustomer Customer = new KondutoCustomer
             {
@@ -226,7 +227,8 @@ namespace KdtTests
         [TestMethod]
         public void FullJsonIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             KondutoCustomer Customer = new KondutoCustomer
             {
@@ -354,7 +356,8 @@ namespace KdtTests
         [TestMethod]
         public void PostBoletoIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             KondutoCustomer Customer = new KondutoCustomer
             {
@@ -387,7 +390,8 @@ namespace KdtTests
         [TestMethod]
         public void PostNonCreditIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             KondutoCustomer Customer = new KondutoCustomer
             {
@@ -420,7 +424,8 @@ namespace KdtTests
         [TestMethod]
         public void PostFlightIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             KondutoCustomer Customer = new KondutoCustomer
             {
@@ -453,11 +458,13 @@ namespace KdtTests
         [TestMethod]
         public void GetIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             try
             {
-                KondutoOrder order = konduto.GetOrder("1429744771");
+                //KondutoOrder order = konduto.GetOrder("1429744771");
+                KondutoOrder order = konduto.GetOrder(ORDER_ID);
             }
             catch (KondutoException ex)
             {
@@ -468,11 +475,13 @@ namespace KdtTests
         [TestMethod]
         public void GetFlightIntegrationTest()
         {
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
 
             try
             {
-                KondutoOrder order = konduto.GetOrder("1529744771");
+                //KondutoOrder order = konduto.GetOrder("1529744771");
+                KondutoOrder order = konduto.GetOrder(ORDER_ID);
             }
             catch (KondutoException ex)
             {
@@ -484,9 +493,10 @@ namespace KdtTests
         public void PutIntegrationTest()
         {
             String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
-            
-            Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
-            
+
+            //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
+            Konduto konduto = new Konduto(API_KEY);
+
             KondutoCustomer Customer = new KondutoCustomer
             {
                 Id = "28372",
@@ -777,3 +787,5 @@ namespace KdtTests
 
     }
 }
+
+

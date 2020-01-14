@@ -17,7 +17,7 @@ namespace KdtSdk.Models
         [JsonProperty("visitor"), DefaultValue(null)]
         public String Visitor { get; set; }
 
-        [JsonProperty("timestamp", DefaultValueHandling=DefaultValueHandling.Ignore), DefaultValue(0)]
+        [JsonProperty("timestamp", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(0)]
         public long Timestamp { get; set; }
 
         [JsonProperty("total_amount", Required = Required.Always)]
@@ -43,6 +43,15 @@ namespace KdtSdk.Models
 
         [JsonProperty("score", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Double? Score { get; set; }
+
+        [JsonProperty("bureaux_queries", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoBureauxQueries> BureauxQueries { get; set; }
+
+        [JsonProperty("triggered_rules", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoTriggeredRules> TriggeredRules { get; set; }
+
+        [JsonProperty("triggered_decision_list", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoTriggeredDecisionList> TriggeredDecisionList { get; set; }
 
         [JsonProperty("shipping", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoAddress ShippingAddress { get; set; }
@@ -95,8 +104,8 @@ namespace KdtSdk.Models
         [JsonProperty("seller", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoSeller Seller { get; set; }
 
-	    /* Constructors */
-	    public KondutoOrder() {}
+        /* Constructors */
+        public KondutoOrder() { }
 
         /// <summary>
         /// Equals
@@ -106,7 +115,7 @@ namespace KdtSdk.Models
         public override bool Equals(Object o)
         {
             if (this == o) return true;
-		    if (!(o is KondutoOrder)) return false;
+            if (!(o is KondutoOrder)) return false;
 
             KondutoOrder that = o as KondutoOrder;
 
@@ -142,6 +151,10 @@ namespace KdtSdk.Models
             if (!object.Equals(MessagesExchanged, that.MessagesExchanged)) return false;
             if (!object.Equals(FirstMessage, that.FirstMessage)) return false;
 
+            if (object.Equals(BureauxQueries, that.BureauxQueries)) return false;
+            if (object.Equals(TriggeredRules, that.TriggeredRules)) return false;
+            if (object.Equals(TriggeredDecisionList, that.TriggeredDecisionList)) return false;
+
             if (!object.Equals(Seller, that.Seller)) return false;
 
             return true;
@@ -169,10 +182,14 @@ namespace KdtSdk.Models
         {
             this.Device = response.Device;
             this.Recommendation = response.Recommendation;
-            this.Score= response.Score;
+            this.Score = response.Score;
             this.NavigationInfo = response.NavigationInfo;
             this.Geolocation = response.Geolocation;
             this.Timestamp = response.Timestamp;
+            this.BureauxQueries = response.BureauxQueries;
+            this.TriggeredRules = response.TriggeredRules;
+            this.TriggeredDecisionList = response.TriggeredDecisionList;
         }
     }
 }
+

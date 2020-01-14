@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.ComponentModel;
 
 namespace KdtSdk.Models
 {
@@ -11,6 +13,13 @@ namespace KdtSdk.Models
     {
         [JsonProperty("type"), JsonConverter(typeof(StringEnumConverter))]
         public KondutoPaymentType Type { get; set; }
+
+        [JsonProperty("amount"), DefaultValue(null)]
+        public Double? Amount { get; set; }
+
+        [JsonProperty("description"), DefaultValue("")]
+        public String Description { get; set; }
+
 
         public KondutoPayment(KondutoPaymentType type)
         {

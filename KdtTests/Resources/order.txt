@@ -51,7 +51,9 @@
             "last4":"1234",
             "expiration_date":"010214",
             "status":"approved",
-            "type":"credit"
+            "type":"credit",
+			"amount": 100.50,
+			"description": "Test credit card payment"
         }
 	],
 	"shopping_cart": [
@@ -78,5 +80,56 @@
 	"first_message":"2014-12-31T13:00:00Z",
 	"messages_exchanged":2,
     "purchased_at":"2014-12-31T13:00:00Z",
-	"status":"approved"
+	"status":"approved",
+	"bureaux_queries": [
+		 {
+			"service": "emailage",
+			"response": {
+				"advice": "Lower Fraud Risk",
+				"email": "adriano.0123456abc@gmail.com",
+				"email_country": "US",
+				"email_domain": "gmail.com",
+				"email_domain_age": "1995-08-13T04:00:00Z",
+				"email_domain_category": "Webmail",
+				"email_domain_company": "Google",
+				"email_domain_country": "United States",
+				"email_domain_exists": true,
+				"email_domain_is_corporate": false,
+				"email_domain_other_info": "Valid Webmail Domain from United States",
+				"email_domain_risk_level": "Moderate",
+				"email_domain_risky_country": false,
+				"email_exists": true,
+				"email_first_seen_at": "2011-07-06T01:00:35Z",
+				"email_first_seen_days": "2750 ",
+				"email_last_seen_at": "2016-06-09T02:12:56Z",
+				"email_status": "Verified",
+				"email_total_hits": 1,
+				"email_unique_hits": 1,
+				"fraud_risk": "050 Very Low",
+				"gender": "M",
+				"last_flagged_at": "2015-09-16T05:42:58Z",
+				"location": "Sao Paulo",
+				"name": "Adriano Oliveira",
+				"reason_for_advice": "Good Level 1",
+				"risk_band": "Fraud Score 11 to 300"
+			 }
+		 }],
+		 "triggered_rules": [
+			{
+				"name": "Cartao com BIN do Canada", 
+				"decision": "decline"
+			}
+		 ],
+		"triggered_decision_list": [
+			{
+				"type": "zip", 
+				"trigger": "shipping_zip", 
+				"decision": "review"
+			},
+			{
+				"type": "email", 
+				"trigger": "email", 
+				"decision": "decline"
+			}
+		 ]
 }

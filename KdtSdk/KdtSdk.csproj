@@ -78,6 +78,8 @@
     <Compile Include="Konduto.cs" />
     <Compile Include="Models\KondutoAddress.cs" />
     <Compile Include="Models\KondutoBoletoPayment.cs" />
+    <Compile Include="Models\KondutoBureauxQueries.cs" />
+    <Compile Include="Models\KondutoBureauxQueriesResponse.cs" />
     <Compile Include="Models\KondutoCreditCardPayment.cs" />
     <Compile Include="Models\KondutoCreditCardPaymentStatus.cs" />
     <Compile Include="Models\KondutoCustomer.cs" />
@@ -100,6 +102,9 @@
     <Compile Include="Models\KondutoPaymentType.cs" />
     <Compile Include="Models\KondutoRecommendation.cs" />
     <Compile Include="Models\KondutoTravelType.cs" />
+    <Compile Include="Models\KondutoTriggeredDecision.cs" />
+    <Compile Include="Models\KondutoTriggeredDecisionList.cs" />
+    <Compile Include="Models\KondutoTriggeredRules.cs" />
     <Compile Include="Models\KondutoVoucherPayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\KondutoUtils.cs" />

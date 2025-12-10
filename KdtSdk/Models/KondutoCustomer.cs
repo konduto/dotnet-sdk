@@ -37,6 +37,9 @@ namespace KdtSdk.Models
         [JsonProperty("dob")]
         public String DOB { get; set; }
 
+        [JsonProperty("document_type")]
+        public String DocumentType { get; set; }
+
 	    /* Constructors */
 
 	    public KondutoCustomer() { }
@@ -62,6 +65,7 @@ namespace KdtSdk.Models
             if (!object.Equals(TaxId, that.TaxId)) return false;
             if (!object.Equals(CreatedAt, that.CreatedAt)) return false;
             if (!object.Equals(DOB, that.DOB)) return false;
+            if (!object.Equals(DocumentType, that.DocumentType)) return false;
 
 		    return true;
 	    }

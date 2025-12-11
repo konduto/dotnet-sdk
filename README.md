@@ -223,3 +223,17 @@ to call `konduto.Debug()`. This will print out the API Key, the endpoint, the re
 
 Feel free to contact our [support team](mailto:support@konduto.com) if you have any questions or suggestions!
 
+## Publish in nuget 
+
+[How to publish in Nuget](https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package)
+
+### Deploy Local
+
+```docker
+docker build -t gerador-sdk .
+
+docker run --rm -v "$(pwd)/pacotes:/output" gerador-sdk
+<!-- Output file local KdtSdk.version.X.X.nupkg -->
+
+```
+

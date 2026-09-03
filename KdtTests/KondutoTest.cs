@@ -360,7 +360,7 @@ namespace KdtTests
             }
             catch (KondutoException ex)
             {
-                Assert.Fail("Konduto exception shouldn't happen here.");
+                Assert.Fail("Konduto exception shouldn't happen here. Details: " + ex.ToString());
             }
 
             try

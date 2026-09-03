@@ -16,7 +16,7 @@ namespace KdtSdk
     /// </summary>
     public class Konduto
     {
-        public const String VERSION = "1.0.12";
+        public const String VERSION = "1.0.17";
 
         private String apiKey;
         private String requestBody;

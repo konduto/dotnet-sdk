@@ -84,7 +84,7 @@ shopping_cart | _(optional)_ Array containing the items purchased.
 analyze | _(optional)_ A boolean indicating if the order should be analyzed. Defaults to **true**.
 first_message | _(optional)_ Timestamp (ISO 8601) of the first message exchanged between buyer and seller (for marketplace).
 messages_exchanged | _(optional)_ Total number of messages exchanged up to the transaction (for marketplace).
-purchase_at | _(optional)_ Date and time when the order was completed in the store (ISO 8601: `YYYY-MM-DDTHH:mm:ssZ`).
+purchased_at | _(optional)_ Date and time when the order was completed in the store (ISO 8601: `YYYY-MM-DDTHH:mm:ssZ`).
 recurring | _(optional)_ Boolean indicating if the transaction is a recurring subscription.
 risk_level | _(optional)_ Internal risk level assigned to the order (`low`, `medium`, `high`).
 sales_channel | _(optional)_ Sales channel used (e.g. `e-commerce`, `mobile`, `pos`, `telemarketing`).

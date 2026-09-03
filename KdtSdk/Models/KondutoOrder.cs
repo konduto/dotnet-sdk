@@ -99,7 +99,7 @@ namespace KdtSdk.Models
         /// <summary>
         /// YYYY-MM-DDTHH:mm:ssZ
         /// </summary>
-        [JsonProperty("purchase_at", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        [JsonProperty("purchased_at", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
         public String PurchaseAt { get; set; }
 
         [JsonProperty("seller", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]

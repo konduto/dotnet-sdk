@@ -34,6 +34,7 @@ namespace KdtTests.Factories
 
                 FirstMessage = "2014-12-31T13:00:00Z",
                 MessagesExchanged = 2,
+                PurchaseAt = "2014-12-31T13:00:00Z",
 
                 Status = "approved",
 

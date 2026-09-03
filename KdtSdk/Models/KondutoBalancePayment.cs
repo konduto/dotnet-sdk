@@ -5,9 +5,6 @@ namespace KdtSdk.Models
 {
     public class KondutoBalancePayment : KondutoPayment
     {
-        [JsonProperty("user_id")]
-        public String UserId { get; set; }
-
         public KondutoBalancePayment()
             : base(KondutoPaymentType.balance) { }
 
@@ -18,7 +15,6 @@ namespace KdtSdk.Models
 
             KondutoBalancePayment that = o as KondutoBalancePayment;
 
-            if (!object.Equals(UserId, that.UserId)) return false;
             if (!object.Equals(Amount, that.Amount)) return false;
             if (!object.Equals(Description, that.Description)) return false;
 

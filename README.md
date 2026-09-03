@@ -213,10 +213,10 @@ estimated_delivery_date | _(required)_ Estimated delivery date (ISO 8601: `YYYY-
 Parameter | Description 
 --- | ---
 type | _(required)_ Travel type: `flight` or `bus`.
-passengers | _(required)_ Array of passenger objects: `name` _(required)_, `document` _(required)_, `document_type`, `dob`, `nationality`, `frequent_flyer`, `loyalty_program`.
-departure | _(optional)_ Departure segment object: `origin_city`, `destination_city`, `origin_airport`, `destination_airport`, `date`, `company`, `flight_number`, `class`.
-return | _(optional)_ Return segment object: travel segment details.
-itinerary | _(optional)_ Array of additional travel segments / legs.
+expiration_date | _(optional)_ Expiration date (ISO 8601).
+passengers | _(required)_ Array of passenger objects: `name` _(required)_, `document` _(required)_, `document_type` _(required)_, `dob`, `nationality`, `frequent_traveler`, `special_needs`, `loyalty` (`program`, `category`).
+departure | _(required)_ Departure segment object: `origin_city`, `destination_city`, `origin_airport`, `destination_airport`, `date` _(required)_, `number_of_connections`, `class`, `fare_basis`, `company`.
+return | _(recommended)_ Return segment object: same fields as `departure`.
 
 
 #### Hotel & Lodging

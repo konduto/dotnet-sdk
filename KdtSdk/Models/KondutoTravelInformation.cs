@@ -27,9 +27,6 @@ namespace KdtSdk.Models
         [JsonProperty("company")]
         public String Company { get; set; }
 
-        [JsonProperty("flight_number", NullValueHandling = NullValueHandling.Ignore)]
-        public String FlightNumber { get; set; }
-
         public KondutoTravelInformation() { }
 
         public override bool Equals(object o)
@@ -49,7 +46,6 @@ namespace KdtSdk.Models
             if (!object.Equals(Class, that.Class)) return false;
             if (!object.Equals(FareBasis, that.FareBasis)) return false;
             if (!object.Equals(Company, that.Company)) return false;
-            if (!object.Equals(FlightNumber, that.FlightNumber)) return false;
 
             return true;
         }

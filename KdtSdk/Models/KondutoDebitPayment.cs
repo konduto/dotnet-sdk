@@ -65,8 +65,6 @@ namespace KdtSdk.Models
             if (!object.Equals(MerchantTaxId, that.MerchantTaxId)) return false;
             if (!object.Equals(Amount, that.Amount)) return false;
             if (!object.Equals(Description, that.Description)) return false;
-            if (!object.Equals(Currency, that.Currency)) return false;
-            if (!object.Equals(Installments, that.Installments)) return false;
 
             return true;
         }

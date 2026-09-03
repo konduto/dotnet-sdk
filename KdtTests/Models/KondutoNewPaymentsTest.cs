@@ -12,13 +12,7 @@ namespace KdtTests.Models
             KondutoPixPayment pix = new KondutoPixPayment
             {
                 Amount = 150.00,
-                Description = "Pagamento via PIX",
-                KeyType = "email",
-                KeyValue = "cliente@example.com",
-                EndToEndId = "E12345678202609021200abc",
-                QrCode = "00020126580014br.gov.bcb.pix...",
-                ExpirationDate = "2026-09-02",
-                Status = "pending"
+                Description = "Pagamento via PIX"
             };
 
             string json = pix.ToJson();
@@ -35,8 +29,7 @@ namespace KdtTests.Models
             KondutoBalancePayment balance = new KondutoBalancePayment
             {
                 Amount = 50.00,
-                Description = "Pagamento com Saldo",
-                UserId = "USR-777"
+                Description = "Pagamento com Saldo"
             };
 
             string json = balance.ToJson();

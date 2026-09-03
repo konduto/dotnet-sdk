@@ -12,9 +12,6 @@ namespace KdtSdk.Models
         [JsonProperty("expiration_date")]
         public String ExpirationDate { get; set; }
 
-        [JsonProperty("barcode", NullValueHandling = NullValueHandling.Ignore)]
-        public String Barcode { get; set; }
-
         public KondutoBoletoPayment()
         : base(KondutoPaymentType.boleto){ }
 
@@ -25,11 +22,8 @@ namespace KdtSdk.Models
             KondutoBoletoPayment that = o as KondutoBoletoPayment;
 
             if (!object.Equals(ExpirationDate, that.ExpirationDate)) return false;
-            if (!object.Equals(Barcode, that.Barcode)) return false;
             if (!object.Equals(Amount, that.Amount)) return false;
             if (!object.Equals(Description, that.Description)) return false;
-            if (!object.Equals(Currency, that.Currency)) return false;
-            if (!object.Equals(Installments, that.Installments)) return false;
 
 		    return true;
         }

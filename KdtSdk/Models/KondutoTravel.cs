@@ -27,9 +27,6 @@ namespace KdtSdk.Models
         [JsonProperty("return")]
         public KondutoTravelInformation Return { get; set; }
 
-        [JsonProperty("itinerary", NullValueHandling = NullValueHandling.Ignore)]
-        public List<KondutoTravelInformation> Itinerary { get; set; }
-
         /// <summary>
         /// YYYY-MM-DD
         /// </summary>
@@ -60,11 +57,6 @@ namespace KdtSdk.Models
             if (!object.Equals(Departure, that.Departure)) return false;
             if (!object.Equals(Return, that.Return)) return false;
 
-            if (Itinerary != null && that.Itinerary != null)
-            {
-                if (!Itinerary.SequenceEqual(that.Itinerary)) return false;
-            }
-            else if (Itinerary != that.Itinerary) return false;
 
             if (!object.Equals(ExpirationDate, that.ExpirationDate)) return false;
 

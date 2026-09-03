@@ -30,12 +30,6 @@ namespace KdtSdk.Models
         [JsonProperty("loyalty")]
         public KondutoLoyaltyProgram Loyalty { get; set; }
 
-        [JsonProperty("frequent_flyer", NullValueHandling = NullValueHandling.Ignore)]
-        public String FrequentFlyer { get; set; }
-
-        [JsonProperty("loyalty_program", NullValueHandling = NullValueHandling.Ignore)]
-        public String LoyaltyProgram { get; set; }
-
         #endregion
 
         /// <summary>
@@ -58,8 +52,6 @@ namespace KdtSdk.Models
             if (!object.Equals(FrequentTraveler, that.FrequentTraveler)) return false;
             if (!object.Equals(SpecialNeeds, that.SpecialNeeds)) return false;
             if (!object.Equals(Loyalty, that.Loyalty)) return false;
-            if (!object.Equals(FrequentFlyer, that.FrequentFlyer)) return false;
-            if (!object.Equals(LoyaltyProgram, that.LoyaltyProgram)) return false;
 
             return true;
         }

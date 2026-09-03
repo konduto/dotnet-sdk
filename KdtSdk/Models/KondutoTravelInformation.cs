@@ -45,6 +45,7 @@ namespace KdtSdk.Models
             if (!object.Equals(NumberOfConnections, that.NumberOfConnections)) return false;
             if (!object.Equals(Class, that.Class)) return false;
             if (!object.Equals(FareBasis, that.FareBasis)) return false;
+            if (!object.Equals(Company, that.Company)) return false;
 
             return true;
         }

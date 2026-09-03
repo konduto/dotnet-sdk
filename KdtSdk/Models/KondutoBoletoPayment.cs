@@ -22,6 +22,8 @@ namespace KdtSdk.Models
             KondutoBoletoPayment that = o as KondutoBoletoPayment;
 
             if (!object.Equals(ExpirationDate, that.ExpirationDate)) return false;
+            if (!object.Equals(Amount, that.Amount)) return false;
+            if (!object.Equals(Description, that.Description)) return false;
 
 		    return true;
         }

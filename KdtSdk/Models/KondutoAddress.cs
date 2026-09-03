@@ -26,6 +26,18 @@ namespace KdtSdk.Models
         [JsonProperty("country")]
         public String Country { get; set; }
 
+        [JsonProperty("estimatedDate")]
+        public String EstimatedDate { get; set; }
+
+        [JsonProperty("value")]
+        public Double? Value { get; set; }
+
+        [JsonProperty("lat")]
+        public Double? Lat { get; set; }
+
+        [JsonProperty("lon")]
+        public Double? Lon { get; set; }
+
         #endregion
 
 	    /// <summary>
@@ -40,6 +52,10 @@ namespace KdtSdk.Models
             this.City = null;
             this.State = null;
             this.Country = null;
+            this.EstimatedDate = null;
+            this.Value = null;
+            this.Lat = null;
+            this.Lon = null;
         }
 
         public KondutoAddress withName(string name)
@@ -63,6 +79,10 @@ namespace KdtSdk.Models
             if (!object.Equals(Name, that.Name)) return false;
             if (!object.Equals(State, that.State)) return false;
             if (!object.Equals(Zip, that.Zip)) return false;
+            if (!object.Equals(EstimatedDate, that.EstimatedDate)) return false;
+            if (!object.Equals(Value, that.Value)) return false;
+            if (!object.Equals(Lat, that.Lat)) return false;
+            if (!object.Equals(Lon, that.Lon)) return false;
 
 		    return true;
 	    }

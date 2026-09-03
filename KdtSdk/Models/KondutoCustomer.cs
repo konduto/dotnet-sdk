@@ -13,9 +13,9 @@ namespace KdtSdk.Models
         [JsonProperty("email", Required = Required.Always)]
 	    public String Email{ get; set;}
 
-        [JsonProperty("tax_id")]
+        [JsonProperty("tax_id", Required = Required.Always)]
         public String TaxId { get; set; }
-        [JsonProperty("phone1")]
+        [JsonProperty("phone1", Required = Required.Always)]
         public String Phone1 { get; set; }
         [JsonProperty("phone2")]
         public String Phone2 { get; set; }
@@ -36,6 +36,21 @@ namespace KdtSdk.Models
         /// </summary>
         [JsonProperty("dob")]
         public String DOB { get; set; }
+
+        [JsonProperty("document_type")]
+        public String DocumentType { get; set; }
+
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public String Type { get; set; }
+
+        [JsonProperty("risk_level", NullValueHandling = NullValueHandling.Ignore)]
+        public String RiskLevel { get; set; }
+
+        [JsonProperty("risk_score", NullValueHandling = NullValueHandling.Ignore)]
+        public Double? RiskScore { get; set; }
+
+        [JsonProperty("mother_name", NullValueHandling = NullValueHandling.Ignore)]
+        public String MotherName { get; set; }
 
 	    /* Constructors */
 
@@ -62,6 +77,11 @@ namespace KdtSdk.Models
             if (!object.Equals(TaxId, that.TaxId)) return false;
             if (!object.Equals(CreatedAt, that.CreatedAt)) return false;
             if (!object.Equals(DOB, that.DOB)) return false;
+            if (!object.Equals(DocumentType, that.DocumentType)) return false;
+            if (!object.Equals(Type, that.Type)) return false;
+            if (!object.Equals(RiskLevel, that.RiskLevel)) return false;
+            if (!object.Equals(RiskScore, that.RiskScore)) return false;
+            if (!object.Equals(MotherName, that.MotherName)) return false;
 
 		    return true;
 	    }

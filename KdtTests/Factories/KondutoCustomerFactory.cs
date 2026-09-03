@@ -10,7 +10,9 @@ namespace KdtTests.Factories
             {
                 Id = "1",
                 Name = "Jose da Silva",
-                Email = "jose.silva@gmail.com"
+                Email = "jose.silva@gmail.com",
+                TaxId = "01234567890",
+                Phone1 = "11987654321"
             };
         }
 
@@ -27,7 +29,8 @@ namespace KdtTests.Factories
                 Phone2 = "1133333333",
                 TaxId = "01234567890",
                 CreatedAt = "2014-12-21",
-                DOB = "1980-12-21"
+                DOB = "1980-12-21",
+                DocumentType = "cpf"
             };
         }
     }

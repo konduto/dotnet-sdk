@@ -8,6 +8,9 @@ namespace KdtSdk.Models
 {
     public class KondutoVoucherPayment : KondutoPayment
     {
+        [JsonProperty("voucher_type", NullValueHandling = NullValueHandling.Ignore)]
+        public String VoucherType { get; set; }
+
         public KondutoVoucherPayment()
             : base(KondutoPaymentType.voucher) { }
 
@@ -15,6 +18,12 @@ namespace KdtSdk.Models
         {
             if (this == o) return true;
             if (!(o is KondutoVoucherPayment)) return false;
+
+            KondutoVoucherPayment that = o as KondutoVoucherPayment;
+
+            if (!object.Equals(VoucherType, that.VoucherType)) return false;
+            if (!object.Equals(Amount, that.Amount)) return false;
+            if (!object.Equals(Description, that.Description)) return false;
 
             return true;
         }

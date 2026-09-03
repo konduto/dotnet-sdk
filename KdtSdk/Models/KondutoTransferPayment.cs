@@ -16,6 +16,11 @@ namespace KdtSdk.Models
             if (this == o) return true;
             if (!(o is KondutoTransferPayment)) return false;
 
+            KondutoTransferPayment that = o as KondutoTransferPayment;
+
+            if (!object.Equals(Amount, that.Amount)) return false;
+            if (!object.Equals(Description, that.Description)) return false;
+
             return true;
         }
 

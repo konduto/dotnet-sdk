@@ -24,6 +24,8 @@ namespace KdtTests.Models
             Assert.IsFalse(order.IsValid(), "order should be invalid without customer");
 
             order.Customer = KondutoCustomerFactory.BasicCustomer();
+            order.Visitor = "visitor-order-test";
+            order.Installments = 1;
             Assert.IsTrue(order.IsValid(), "order should be valid");
             Assert.IsTrue(order.GetError() == null, "order errors should be empty");
         }

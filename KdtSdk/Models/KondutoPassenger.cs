@@ -15,7 +15,7 @@ namespace KdtSdk.Models
         [JsonProperty("document_type", Required = Required.Always)]
         public String DocumentType { get; set; }
 
-        [JsonProperty("dob", Required = Required.Always)]
+        [JsonProperty("dob")]
         public String Dob { get; set; }
 
         [JsonProperty("nationality")]
@@ -54,6 +54,11 @@ namespace KdtSdk.Models
             if (!object.Equals(Loyalty, that.Loyalty)) return false;
 
             return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

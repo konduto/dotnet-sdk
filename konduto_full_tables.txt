@@ -1,0 +1,291 @@
+
+======================================================================
+SLUG: obj-hotel | TITLE: Hotel
+  --- Table 1 (Parâmetro, Descrição):
+      * name | _(obrigatório)_   Nome do hotel.   **Max. 100 chars, string.**
+      * address1 | _(recomendado)_   Endereço do hotel.   **Max. 255 chars, string.**
+      * address2 | _(recomendado)_   Complemento do endereço hotel.   **Max. 255 chars, string.**
+      * city | _(recomendado)_   Cidade do hotel.   **Max. 100 chars, string.**
+      * state | _(recomendado)_   Sigla do estado do hotel.   **Max. 100 chars, string.**
+      * zip | _(recomendado)_   CEP do hotel.   **Max. 100 chars, string.**
+      * country | _(recomendado)_   País do hotel.   **Max. 2 chars, string.**
+      * category | _(recomendado)_   Categoria do hotel.   **Max. 100 chars, string.**
+      * rooms | _(obrigátorio)_   Objeto com informações dos quartos do hotel.   **Max. 20 itens, array.**
+  --- Table 2 (Parâmetro, Descrição):
+      * number | _(recomendado)_   Número do quarto.   **Max. 100 chars, string.**
+      * code | _(recomendado)_   Código do quarto   **Max. 100 chars, string.**
+      * type | _(recomendado)_   Tipo do quarto.   **Max. 100 chars, string.**
+      * check_in_date | _(obrigátorio)_   Date e hora do entrada em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 17 chars, string.**
+      * check_out_date | _(recomendado)_   Date e hora de saída em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 17 chars, string.**
+      * number_of_guests | _(recomendado)_   Número de pessoas.   **Max. 9999 chars, número.**
+      * board_basis | _(recomendado)_   Regime de alimentação.   **Max. 100 chars, string.**
+      * guests | _(obrigatório)_   Hóspedes do quarto.   **Max. 20 itens, array.**
+  --- Table 3 (Parâmetro, Descriação):
+      * name | _(obrigátorio)_   Nome do hóspede.   **Max. 100 chars, string.**
+      * document | _(recomendado)_   Número do documento do hóspede.   **Max. 8 chars, string.**
+      * document_type | _(recomendado)_   Documento usado pelo cliente. Atualmente suportamos `cpf`, `rg`, `passport`, `id` e `other`.   **string.**
+      * dob | _(recomendado)_   Data de nascimento do cliente no formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max 10 chars, string.**
+      * nationality | _(recomendado)_   Nacionalidade do hóspede.   **Max. 2 chars, string.**
+
+======================================================================
+SLUG: event | TITLE: Evento
+  --- Table 1 (Parâmetro, Descrição):
+      * name | _(obrigatório)_   Nome do evento.   **Max. 255 chars, string.**
+      * date | _(obrigatório)_   Date e hora do evento em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)   **Max. 17 chars, datetime, string.**
+      * type | _(obrigatório)_   Tipo do evento. Atualmente suportamos `show`, `theater`, `movies`, `party`,  `festival`,  `course`, `sports` e `corporate`   **string.**
+      * subtype | _(recomendado)_   Detalhe do tipo do evento.   **Max. 255 chars, string.**
+      * venue | _(recomendado)_   Objeto com as informações do local do evento.
+      * tickets | _(recomendado)_   Array de objetos com os dados dos ingressos.
+  --- Table 2 (Parâmetro, Descrição):
+      * name | _(recomendado)_   Nome do local   **Max. 255 chars, string.**
+      * address | _(recomendado)_   Endereço do local   **Max. 255 chars, string.**
+      * city | _(recomendado)_   Cidade do local   **Max. 255 chars, string.**
+      * state | _(recomendado)_   Estado do local   **Max. 100, string.**
+      * country | _(recomendado)_   Pais do local conforme [ISO 3166-2](https://pt.wikipedia.org/wiki/ISO_3166-2)   **Max. 2 chars, string**
+      * capacity | _(recomendado)_   Capacidade do local   **integer.**
+  --- Table 3 (Parâmetro, Observação):
+      * id | _(recomendado)_   Identificador único do ticket.   **Max. 255 chars, string.**
+      * category | _(obrigatório)_   Categoria do ticket. Atualmente suportamos `student`, `senior`, `government`, `social` e `regular`.   **string**
+      * section | _(recomendado)_   Identificador único do ticket.   **Max. 255 chars, string.**
+      * premium | _(obrigatório)_   Indicador de ticket premium, recebe apenas `true` ou `false`.   **boolean**
+      * attendee | _(obrigatório)_   Array de objetos com os dados do participante.
+  --- Table 4 (Parâmetro, Observação):
+      * name | _(recomendado)_   Nome do participante.   **Max. 255 chars, string.**
+      * document | _(obrigatório)_   Documento do participante.   **Max. 100 chars, string.**
+      * document_type | _(recomendado)_   Tipo de documento do participante. Atualmente suportamos `cpf`, `cnpj`, `rg`, `passport` e `other`.   **string**
+      * dob | _(recomendado)_   Date de nascimento do participante em UTC no formato YYYY-MM-DD [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 17 chars, string.**
+
+======================================================================
+SLUG: safe-banking-e-pix | TITLE: Safe Banking e Pix
+  --- Table 1 (Parâmetro, Descrição):
+      * id | _(recomendado)_   Identificador único da conta.   **Max. 255 chars, string.**
+      * key_type | _(recomendado)_   Tipo de chave usada para identificar a conta. Atualmente suportamos `pix_cpf`, `pix_cnpj`, `pix_phone`, `pix_email`, `pix_evp`, `p2p` e `none`.
+      * key_value | _(recomendado)_   Valor da chave usada para identificar a conta.   **Max. 255 chars, string.**
+      * holder_name | _(recomendado)_   Nome do titular da conta.   **Max. 255 chars, string.**
+      * holder_tax_id | _(recomendado)_   CPF/CNPJ do titular da conta.   **Max. 255 chars, string.**
+      * bank_code | _(recomendado)_   Código do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**
+      * bank_name | _(recomendado)_   Nome do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**
+      * bank_branch | _(recomendado)_   Agência do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**
+      * bank_account | _(recomendado)_   Número da conta.   **Max. 255 chars, string.**
+      * balance | _(recomendado)_   Saldo atual da conta.   **Max. 10 chars, número.**
+  --- Table 2 (Parâmetro, Descrição):
+      * id | _(recomendado)_   Identificador único da conta.   **Max. 255 chars, string.**
+      * key_type | _(recomendado)_   Tipo de chave usada para identificar a conta. Atualmente suportamos `pix_cpf`, `pix_cnpj`, `pix_phone`, `pix_email`, `pix_evp`, `p2p` e `none`.   **Max. 8 chars, string.**
+      * key_value | _(recomendado)_   Valor da chave usada para identificar a conta.   **Max. 255 chars, string.**
+      * holder_name | _(recomendado)_   Nome do titular da conta.   **Max. 255 chars, string.**
+      * holder_tax_id | _(recomendado)_   CPF do titular da conta.   **Max. 255 chars, string.**
+      * bank_code | _(recomendado)_   Código do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**
+      * bank_name | _(recomendado)_   Nome do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**
+      * bank_branch | _(recomendado)_   Agência do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**
+      * bank_account | _(recomendado)_   Número da conta.   **Max. 255 chars, string.**
+      * amount | _(recomendado)_   Quantia enviada à conta.   **Max. 10 chars, número.**
+  --- Table 3 (Parâmetro, Descrição):
+      * id | _(recomendado)_   Identificador único da plataforma.   **Max. 255 chars, string.**
+      * name | _(recomendado)_   Nome da plataforma.   **Max. 255 chars, string.**
+      * created_at | _(recomendado)_   Data de criação da plataforma, em formato AAAA-MM-DD (ISO 8601).   **Max 10 chars, string.**
+  --- Table 4 (Objetos, Descrição):
+      * event_type | _(obrigatório)_   Abaixo segue os tipos de eventos permitidos para envio:  pix_register | pix_claim | pix_exclusion | pix_query | cashin | pix_portability | pix_reconciliation pix_update | pix_password_reset | pix_password_change      ** ver detalhes na tabela de _"tipos de evento do nó event_type"_**
+      * event_details | _(obrigatório)_   Objeto que contém as informações detalhadas relacionada ao evento.      ** ver detalhes na tabela de _"tipos de evento do nó event_detail"_**
+      * origin_account | _(recomendado)_   Objeto que contém as informações da conta de origem.      ** ver detalhes na tabela de _"tipos de evento do nó event_detail"_**
+      * customer | _(recomendado)_   Objeto que contém as informações sobre a pessoa relacionada ao evento.      ** ver detalhes na tabela de _"tipos de evento do nó event_detail"_**
+  --- Table 5 (Parâmetros, Descrição):
+      * key_type | _(obrigatório)_   A String pode conter os seguintes tipos:   cpf | cnpj | email | evp (número aleatório) | phone.
+      * key_value | _(recomendado)_   Valor da chave usada para identificar a conta.    **Max. 255 chars, string.**
+      * portability_source | _(recomendado)_   Útil para o evento de portabilidade. Origem   **Max. 255 chars, string.**
+      * last_change | _(recomendado)_   Data da última alteração   **Max. 255 chars, string.**
+      * new_key_value | _(recomendado)_   Atualização do Valor da chave para identificar a conta   **Max. 255 chars, string.**
+      * cashin_amount | _(recomendado)_   Valor do cashin   **Min. 0 chars, Decimal.**
+      * cashin_source | _(recomendado)_   Nome do recurso utilizado no cashin   **Max. 255 chars, string.**
+      * origin_account | _(recomendado)_   Objeto que contém as informações da conta de origem do evento      **Parâmetros do objeto:**      - key_type (recomendado)     valores permitidos: cpf | cnpj | email | evp | Phone     **Max. 255 chars, string.**  - key_value (recomendado)     **Max. 255 chars, string.**  - bank_code (recomendado)     **Max. 255 chars, string.**  - bank_name (recomendado)     **Max. 255 chars, string.**  - bank_branch (recomendado)     **Max. 255 chars, string.**  - bank_account (recomendado)     **Max. 255 chars, string.**
+      * customer | _(recomendado)_   Objeto que contem as informações de identificação do cliente      **Parâmetros do objeto:**      - id (obrigatório)     **Max. 100 chars, string.**
+      * timestamp | _(obrigatório)_   Data do evento   **Min. 1000000000 chars, Integer.**
+
+======================================================================
+SLUG: travel | TITLE: Viagem
+  --- Table 1 (Parâmetro, Descrição):
+      * type | _(obrigatório)_   Tipo de viagem. Atualmente são suportados `flight `ou `bus`.
+      * expiration_date | _(opcional)_   Data de expiração.   **Datetime**
+      * departure | _(obrigatório)_   Objeto com as informações do viagem de **ida**.
+      * return | _(recomendado)_   Objeto com as informações do viagem de **volta**.
+      * passengers | _(obrigatório)_   Array de objetos com os dados dos passageiros.
+  --- Table 2 (Parâmetro, Descrição):
+      * origin_city | _(obrigatório se type=bus)_   Cidade de origem.   **Max 100 chars, string.**
+      * destination_city | _(obrigatório se type=bus)_   Cidade de destino.   **Max 100 chars, string.**
+      * origin_airport | _(obrigatório se type=flight)_   [Código aeroportuário IATA](https://pt.wikipedia.org/wiki/C%C3%B3digo_aeroportu%C3%A1rio_IATA) para o aeroporto de origem.   **Exatamente 3 chars, string.**
+      * destination_airport | _(obrigatório se type=flight)_   [Código aeroportuário IATA](https://pt.wikipedia.org/wiki/C%C3%B3digo_aeroportu%C3%A1rio_IATA) para o aeroporto de destino.   **Exatamente 3 chars, string.**
+      * date | _(obrigatório)_   Date e hora do embarque em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)   **Max. 17 chars, string.**
+      * number_of_connections | _(recomendado)_   Número de conexões.   **Integer.**
+      * class | _(recomendado)_   Nome da classe, como `economy`, `business` e `first`.   **Max. 8 chars, string.**
+      * fare_basis | _(recomendado)_   Código da classe.   **Max 20 chars, string.**
+      * company | _(recomendado)_   Nome da cia aérea.   **Max. 255 chars, string.**
+  --- Table 3 (Parâmetro, Descrição):
+      * name | _(obrigatório)_   Nome completo do passageiro.   **Max 100 chars, string.**
+      * document | _(obrigatório)_   Número do documento.   **Max 100 chars, string.**
+      * document_type | _(obrigatório)_   Tipo do documento. Pode ser `passport `ou `id`.   **Max 8 chars, string.**
+      * dob | _(recomendado)_   Data de nascimento do passageiro no formato YYYY-MM-DD [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**
+      * nationality | _(recomendado)_   País de nascimento do passageniro [(ISO 3166-2)](https://en.wikipedia.org/wiki/ISO_3166-2).   **Max. 2 chars, string.**
+      * frequent_traveler | _(recomendado)_   Flag de viajante frequente.   **Boolean, padrão é `false`.**
+      * special_needs | _(recomendado)_   Flag de viajante frequente.   **Boolean, padrão é `false`.**
+  --- Table 4 (Parâmetro, Descrição):
+      * program | _(recomendado)_   Tipo de programa de fidelidade   **Max. 255 chars, String**   Ex.: `smiles`
+      * category | _(recomendado)_   Categoria do programa de fidelidade.   **Max. 255 chars, String**   Ex.: `gold`, `silver`
+
+======================================================================
+SLUG: dispositivo-externo | TITLE: Dispositivo Externo
+  --- Table 1 (Parâmetro, Descrição):
+      * fingerprint | _(obrigatório)_   Identificação do navegador.   **Max. 255 e min. 3, string**
+      * provider | _(recomendado)_   Tipo de provedor   **Max. 225 e min. 2 chars, string.**
+      * category | _(recomendado)_   Tipo de device   **Max. 100 e min. 2 chars, string.**
+      * model | _(recomendado)_   Tipo do modelo utilizado   **Max. 225 chars, string.**
+      * platform | _(recomendado)_   Tipo de dispositivo pelo cliente   **Max. 225 e min. 2 chars, string.**
+      * manufacturer | _(recomendado)_   Qual o Fabricante   **Max. 225 e min. 2 chars, string.**
+      * os | _(recomendado)_   Qual o Sistema Operacional   **Max. 225 e min. 2 chars, string.**
+      * browser | _(recomendado)_   Qual navegador   **Max. 225 e min. 2 chars, string.**
+      * language | _(recomendado)_   Linguagem utilizada   **Max. 255, string**
+      * flash | _(recomendado)_   Flag indicando se o cliente tem Flash habilitados.   **Boolean (Max, 5 chars)**
+      * cookie | _(recomendado)_   Flag indicando se o cliente possui cookies habilitados.   **Boolean (Max, 5 chars)**
+      * javascript | _(recomendado)_   Flag indicando se o cliente tem JavaScript habilitados.   **Boolean (Max, 5 chars)**
+      * timezone | _(recomendado)_   Fuso horário do cliente em GMT.   **String (Timezone) (Max. 100 chars)**
+      * user_id | _(recomendado)_   Identificador único do visitante.   **Max. 225 e min. 2 chars, string.**
+
+======================================================================
+SLUG: delivery | TITLE: Delivery
+  --- Table 1 (Parâmetro, Descrição):
+      * delivery_company | _(recomendado)_   Adiciona o nome da empresa que fará a entrega do produto ao cliente.   Exemplo: `GFL`   **String, até 100 chars.**
+      * delivery_method | _(recomendado)_   Detalha o tipo de tipo de retirada, se aplicável.   Exemplo:  `retira_loja`   **String, até 100 chars.**
+      * estimated_shipping_date | _(obrigatório)_   Informa a data estimada de entrega do produto.   Exemplo: `2021-05-06`   **String,  formato YYYY-MM-DD** [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)
+      * estimated_delivery_date | _(obrigatório)_   Informa a data estimada de retirada do produto.   Exemplo: `2021-05-06`   **String,  formato YYYY-MM-DD** [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)
+
+======================================================================
+SLUG: vendedor | TITLE: Agente (Vendedor)
+  --- Table 1 (Parâmetro, Descrição):
+      * id | _(obrigatório)_   Identificador único do vendedor.   **Max. 100 chars, string.**
+      * login | _(recomendado)_   Login do vendedor.   **Max. 100 chars, string.**
+      * name | _(obrigatório)_   Nome completo do vendedor.   **Max. 100 chars, string.**
+      * tax_id | _(recomendado)_   Número de documento fiscal do vendedor (CPF, etc).   **Max. 100 chars, string.**
+      * dob | _(recomendado)_   Data de nascimento do vendedor no formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**
+      * category | _(recomendado)_   Código da categoria do produto vendido.   **Max. 100 chars, string.**
+      * created_at | _(obrigatório)_   Data de criação da conta ou cadastro do vendedor no site, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max 10 chars, string.**
+
+======================================================================
+SLUG: loja-física | TITLE: Loja Física
+  --- Table 1 (Parâmetro, Descrição):
+      * id | _(obrigatório)_   Identificador único da loja física.   **Max. 100 chars, string.**
+      * name | _(obrigatório)_   Nome completo da loja física.   **Max. 100 chars, string.**
+      * lat | _(recomendado)_   Latitude da loja física.   Atualmente suportamos maximum: -90, maximum: 90   **Max. 10 chars, número.**
+      * long | _(recomendado)_   Longitude da loja física.   Atualmente suportamos maximum: -180, maximum: 180.   **Max. 10 chars, número.**
+      * address | _(recomendado)_   Endereço da loja física.   **Max. 255 chars, string.**
+      * city | _(recomendado)_   Cidade da loja física.   **Max. 100 chars, string.**
+      * state | _(recomendado)_   Estado da loja física.   **Max. 100 chars, string.**
+      * zip | _(recomendado)_   CEP da loja física.   **Max. 100 chars, string.**
+      * country | _(recomendado)_   Código do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2) .   **Max. 2 chars, string.**
+
+======================================================================
+SLUG: tenant | TITLE: Tenant
+  --- Table 1 (Parâmetro, Descrição):
+      * id | _(obrigatório)_   Identificador único do tenant.   **Max. 100 chars, string.**
+      * name | _(obrigatório)_   Nome do tenant.   **Max. 100 chars, string.**
+      * created_at | _(obrigatório)_   Data de criação do tenant em UTC no formato YYYY-MM-DD (ISO 8601) . [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601) .   **Timestamp (ISO 8601) (Max. 20 chars).**
+
+======================================================================
+SLUG: payment | TITLE: Pagamento
+  --- Table 1 (Parâmetro, Descrição):
+      * type | _(obrigatório) _   Meio de pagamento usado pelo cliente. Atualmente suportamos `credit`, `boleto`, `debit`, `transfer `, `voucher`, `balance` e `pix`.   **Max. 8 chars, string.**
+      * status | _(**obrigatório **apenas para cartões de débito e crédito)_   O status do pagamento retornado pela operadora de cartão.   Pode ser `approved` (aprovado), `declined` (negado) ou `pending`(pendente), caso o pagamento não tenha sido feito ainda.   **Max. 8 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**
+      * bin | _(**obrigatório** apenas para cartões de débito e crédito)_   Os primeiros seis a dez números do cartão de crédito é usado para identificar o tipo de cartão usado.   **Max. 10 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**   **Atenção:** A politica de tokenização de cartões das bandeiras não substitui o armazenamento e envio do BIN aberto pelo lojista ao sistema antifraude.
+      * last4 | _(**obrigatório **apenas para cartões de débito e crédito)_   Os últimos quatro dígitos do cartão de crédito.   **Max. 4 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**   **Atenção:** A politica de tokenização de cartões das bandeiras não substitui o armazenamento e envio dos quatro últimos dígitos  do cartão aberto pelo lojista ao sistema antifraude.
+      * amount | _(recomendado)_   Valor total do pedido.   **Max. 10 chars, número.**
+      * expiration_date | _(**obrigatório **apenas para cartões de débito e crédito)_   Data de validade do cartão no formato MMAAAA.   **Max. 10 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**
+      * description | _(recomendado)_   Alguma informação referente ao desconto.   **Max. 100 chars, string.**
+      * tax_id | _(recomendado)_   cpf do portador do cartão   **Max. 100 chars, string.**
+      * cvv_result | _(recomendado)_   Código de resultado da verificação CVV (verificação do cartão).   **Max. 4 chars, string.**      pagamento `payment.type=credit` e  `payment.type=debit`\*\*
+      * avs_result | _(recomendado)_   Código de resultado da verificação do AVS (Serviço de Verificação de Endereço).   **Max. 4 chars, string.**      pagamento `payment.type=credit` e  `payment.type=debit`\*\*
+      * sha1 | _(recomendado)_   **Código de pagamento de integridade (É um HMAC-SHA-256 dos campos da notificação)**      pagamento `payment.type=credit` e  `payment.type=debit`\*\*
+      * name | _(opcional)_   Nome do comprador.   **Max. 100 chars, string.**
+      * holder | _(opcional)_   Nome do portador do cartão de crédito.   **Max. 100 chars, string.**
+      * mcc | _(opcional)_   MCC do Estabelecimento (Merchant Category Code - Código de Categoria de Comerciante)   **Min. 0, Max. 99999 chars, integer.**
+      * mid | _(opcional)_   MID do Estabelecimento (Merchant Identification Number)   **Max. 100 chars, string.**
+      * 3ds_id | _(opcional)_   Identificador 3DS (3D - Secure)   **Max. 100 chars, string.**
+      * merchant_tax_id | _(opcional)_   CNPJ do Estabelecimento   **Max. 100 chars, string.**
+      * voucher_type | _(recomendado)_   Tipo de voucher   **Max. 100 chars, string.**
+
+======================================================================
+SLUG: cliente | TITLE: Cliente
+  --- Table 1 (Parameter, Description):
+      * id | _(obrigatório) _   Identificador único do cliente. Pode ser qualquer valor (sequencial, documento, e-mail), desde que seja consistente em pedidos futuros.   **Max. 100 chars, string.**
+      * name | _(obrigatório) _   Nome completo do cliente.   **Max. 100 chars, string.**
+      * email | _(obrigatório) _   Endereço de e-mail do cliente.   **Max. 100 chars, string.**
+      * dob | _(opcional)_   Data de nascimento do cliente em YYYY-MM-DD format  [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**
+      * tax_id | _(obrigatório) _   Número do documento fiscal do cliente (CPF, CNPJ, SSN, CUIT, EIN, etc).   **Max. 100 chars, string.**
+      * phone1 | _(obrigatório) _   Número de telefone principal do cliente.   **Max. 100 chars, string.**
+      * phone2 | _(opcional)_   Número de telefone secundário do cliente.   **Max. 100 chars, string.**
+      * created_at | _(recomendado)_   Data de criação da conta ou registro do cliente no site, em YYYY-MM-DD format  [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).   **Max 10 chars, string.**
+      * new | _(opcional)_   Flag indicando se o cliente está usando uma conta recém-criada nesta compra.   **Boolean.**
+      * vip | _(opcional)_   Flag indicando se este é um cliente VIP ou um comprador frequente.   **Boolean.**
+      * type | _(opcional)_   Identificador de tipo de cliente.   **String.**
+      * risk_level | _(opcional)_   Identificador do nível de risco do cliente.   Atualmente usamos `low`, `medium`, `high`.   **String.**
+      * risk_score | _(opcional)_   Identificador de pontuação de risco do cliente.   **Number.**
+      * mother_name | _(opcional)_   Nome completo da mãe do cliente.   **Max. 100 chars, string**
+
+======================================================================
+SLUG: shopping_cart | TITLE: Carrinho
+  --- Table 1 (Parâmetro, Descrição):
+      * sku | _(recomendado)_   [SKU](https://pt.wikipedia.org/wiki/Stock_Keeping_Unit) ou número de inventário do produto ou serviço.   **Max. 100 chars, string.**
+      * product_code | _(obrigatório)_   Código de barras ou [UPC ](https://pt.wikipedia.org/wiki/C%C3%B3digo_de_barras)do produto ou serviço.   **Max. 100 chars, string.**
+      * category | _(recomendado)_   Código da categoria do produto comprado.   Veja nossa [lista de categorias](https://docs.konduto.com/reference/categorias-de-produtos-e-c%C3%B3digos) para mais informações.   **Max. 4 chars, número.**
+      * name | _(obrigatório)_   Nome do produto ou serviço.   **Max. 100 chars, string.**
+      * description | _(obrigatório)_   Descrição de detalhada do produto ou serviço.   **Max. 100 chars, string.**
+      * unit_cost | _(recomendado)_   Custo unitário deste produto ou serviço.   **Max. 10 chars, número.**
+      * quantity | _(recomendado)_   Quantidade de unidades compradas.   **Max. 10 chars, número.**
+      * discount | _(recomendado)_   Valor de desconto do produto.   **Max. 10 chars, número.**
+      * created_at | _(recomendado)_   Data de publicação do produto no site, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**
+      * deliveryType | _(opcional)_   Tipo de entrega.   **Max. 255 chars, string.**
+      * deliverySlaInMinutes | _(opcional) _   Tempo estimado de entrega em minutos.   **Min. 0. Max. 9999999999, número.**
+      * sellerId | _(opcional)_   Identificador do vendedor.   **Max. 255 chars, string.**
+      * image | _(recomendado)_   Link da imagem do produto.   **String (URL) (Max. 255 chars)**
+
+======================================================================
+SLUG: enviar-um-pedido | TITLE: Enviar Pedidos
+  --- Table 1 (Parâmetro, Descrição):
+      * id | _(obrigatório)_   Identificador único para cada pedido.   **Max. 100 chars, alpha-numérico.**
+      * visitor | _(obrigatório)_   Identificador do visitante obtido do nosso JavaScript.   **Max. 40 chars, alpha-numérico.**
+      * total_amount | _(obrigatório)_   Valor total do pedido.   **Max. 10 chars, número.**
+      * shipping_amount | _(opcional)_   Valor do frete.   **Max. 10 chars, número.**
+      * tax_amount | _(opcional)_   Valor dos impostos.   **Max. 10 chars, número.**
+      * currency | _(opcional)_   Código da moeda com 3 letras [(ISO-4712)](https://pt.wikipedia.org/wiki/ISO_4217).   **Max. 3 chars, string.**
+      * installments | _(obrigatório)_   Número de parcelas do pagamento.   **Min 1 e Max 999, número.**
+      * ip | _(recomendado)_   Endereço IPv4 do cliente.   Ex: IPV4 - 189.68.156.100   **Max. 15 chars, string.**      Endereço IPV6 do cliente, sem abreviações.   Ex: IPV6 - 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1   **String.**
+      * first_message | _(opcional)_   No **Marketplace**, traz a data e hora da primeira mensagem trocada entre comprador e vendedor. Formato AAAA-MM-DDTHH:mm:ssZ [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 20 chars, string.**
+      * messages_exchanged | _(opcional)_   No **Marketplace**, deve trazer o número de mensagens trocadas entre comprador e vendedor até o momento da transação.   **Número.**
+      * purchase_at | _(opcional)_   No **Marketplace**, traz a data e hora do fechamento do pedido no site. Formato AAAA-MM-DDTHH:mm:ssZ (ISO 8601)   **Exatamente 20 chars, string.**
+      * analyze | _(opcional)_   Se `false`o sistema levará em conta a transação nas próximas análises mas não devolve uma recomendação e você não é cobrado.   **Boolean. Se não enviado o padrão é `true`.**
+      * customer | _(obrigatório)_   Objeto que contém os detalhes do cliente.
+      * payment | _(opcional)_   Lista que contém os meios de pagamento.
+      * billing | _(opcional)_   Objeto que contém o endereço de cobrança.
+      * shipping | _(opcional)_   Objeto que contém o endereço de entrega.
+      * shopping_cart | _(opcional)_   Lista que contém os itens comprados.
+      * hotel | _(opcional)_   Objeto que contém os dados de hotel e hóspede.
+      * travel | _(opcional)_   Objeto que contém os dados de viagem e passageiros.
+      * seller | _(opcional)_   Objeto destinado aos dados do vendedor do produto.
+      * events | _(opcional)_   Lista de eventos promovidos pela loja.
+      * scheduled | _(opcional)_   PARA PIX/SAFEBAKING      Indica se uma transação é recorrente.   **Boolean. Se não enviado o padrão é `false.`**
+      * origin_account | _(opcional)_   PARA PIX/SAFEBAKING      Objeto que contem as informações da conta de origem em transações.
+      * destination_accounts | _(opcional)_   PARA PIX/SAFEBAKING      Lista que contem informações das contas de destino em transações.
+      * tenant | _(opcional)_   PARA PIX/SAFEBAKING      Objeto que contem as informações da plataforma que está realizando transação.
+      * point_of_sale | _(opcional)_   Objeto que contém os detalhes do ponto de vendas físico.
+      * agent | _(opcional)_   Objeto que contém os detalhes do vendedor do ponto de vendas físico.
+
+======================================================================
+SLUG: vehicles-1 | TITLE: Veículo
+  --- Table 1 (Parâmetro, Descrição):
+      * vid | _(recomendado)_   Identificador único do veículo.   **Max. Min. 17 chars, string**
+      * renavam | _(recomendado)_   Identificação Renavam do veículo.   **Max. 11 chars, string**
+      * registration | _(recomendado)_   Licença do veículo.   **Max. 15 chars, string**
+      * make | _(obrigatório)_   Marca do veículo.   **Max. 63 chars, string**
+      * model | _(obrigatório)_   Modelo do veículo.   **Max. 100 chars, string**
+      * owner | _(obrigatório)_   Array para informações do proprietário do veículo.
+      * type | _(recomendado)_   Descreve o tipo do veículo, como por exemplo: `car`, `bus`, `truck`, `motorcycle`, `aircraft`, `boat`, `bicycle`.   **Max. 15 chars, string**
+      * usage | _(recomendado)_   Descreve o uso do veículo na operação. Aceita valores como: `private`, `commercial`, `experimental`, `government`, `military`, `instruction`.   **String**
+  --- Table 2 (Parâmetro, Descrição):
+      * name | _(recomendado)_   Nome do proprietário do veículo.   **Max 255 chars, string.**
+      * tax_id | _(obrigatório)_   Documento do proprietário do veículo.   **Max 100 chars, string.**

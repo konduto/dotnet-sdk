@@ -48,9 +48,17 @@ namespace KdtSdk.Models
 
             KondutoTravel that = o as KondutoTravel;
 
-            if (!Passengers.SequenceEqual<KondutoPassenger>(that.Passengers)) return false;
+            if (Passengers != null && that.Passengers != null)
+            {
+                if (!Passengers.SequenceEqual(that.Passengers)) return false;
+            }
+            else if (Passengers != that.Passengers) return false;
+
             if (!object.Equals(Departure, that.Departure)) return false;
             if (!object.Equals(Return, that.Return)) return false;
+
+
+            if (!object.Equals(ExpirationDate, that.ExpirationDate)) return false;
 
             return true;
         }

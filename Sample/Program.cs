@@ -32,7 +32,8 @@ namespace Sample
                     Phone1 = "(11)912345678",
                     Phone2 = "(12)998765432",
                     IsNew = true,
-                    IsVip = true
+                    IsVip = true,
+                    DocumentType = "CPF"
                 },
                 Payments = new List<KondutoPayment> {
                     new KondutoCreditCardPayment {

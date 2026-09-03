@@ -13,6 +13,8 @@ namespace KdtSdk.Models
         debit,
         voucher,
         transfer,
+        balance,
+        pix,
         error
     }
 }

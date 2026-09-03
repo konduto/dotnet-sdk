@@ -40,6 +40,12 @@ namespace KdtSdk.Utils
                 if (GetPaymentType("type", jObject) == KondutoPaymentType.voucher)
                     return new KondutoVoucherPayment();
 
+                if (GetPaymentType("type", jObject) == KondutoPaymentType.pix)
+                    return new KondutoPixPayment();
+
+                if (GetPaymentType("type", jObject) == KondutoPaymentType.balance)
+                    return new KondutoBalancePayment();
+
                 return null;
             }
 
@@ -61,6 +67,12 @@ namespace KdtSdk.Utils
 
                     if (jObject[fieldName].ToString() == "voucher")
                         return KondutoPaymentType.voucher;
+
+                    if (jObject[fieldName].ToString() == "pix")
+                        return KondutoPaymentType.pix;
+
+                    if (jObject[fieldName].ToString() == "balance")
+                        return KondutoPaymentType.balance;
                 }
 
                 return KondutoPaymentType.credit;

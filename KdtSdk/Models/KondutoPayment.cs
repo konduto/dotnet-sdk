@@ -14,10 +14,16 @@ namespace KdtSdk.Models
         [JsonProperty("type"), JsonConverter(typeof(StringEnumConverter))]
         public KondutoPaymentType Type { get; set; }
 
-        [JsonProperty("amount"), DefaultValue(null)]
+        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
         public Double? Amount { get; set; }
 
-        [JsonProperty("description"), DefaultValue("")]
+        [JsonProperty("currency", NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public String Currency { get; set; }
+
+        [JsonProperty("installments", NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public int? Installments { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore), DefaultValue("")]
         public String Description { get; set; }
 
 

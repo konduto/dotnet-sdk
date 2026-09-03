@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using KdtSdk.Exceptions;
+using KdtSdk.Utils;
 
 namespace KdtSdk.Models
 {
@@ -14,7 +15,7 @@ namespace KdtSdk.Models
         [JsonProperty("id", Required = Required.Always)]
         public String Id { get; set; }
 
-        [JsonProperty("visitor"), DefaultValue(null)]
+        [JsonProperty("visitor", Required = Required.Always)]
         public String Visitor { get; set; }
 
         [JsonProperty("timestamp", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(0)]
@@ -35,7 +36,7 @@ namespace KdtSdk.Models
         [JsonProperty("currency", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
         public String Currency { get; set; }
 
-        [JsonProperty("installments", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(0)]
+        [JsonProperty("installments", Required = Required.Always)]
         public int Installments { get; set; }
 
         [JsonProperty("ip", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
@@ -96,13 +97,59 @@ namespace KdtSdk.Models
         public int MessagesExchanged { get; set; }
 
         /// <summary>
-        /// YYYY-MM-DDThh:mmZ
+        /// YYYY-MM-DDTHH:mm:ssZ
         /// </summary>
-        [JsonProperty("purchased_at", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
-        public String PurchasedAt { get; set; }
+        [JsonProperty("purchase_at", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public String PurchaseAt { get; set; }
 
         [JsonProperty("seller", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public KondutoSeller Seller { get; set; }
+
+        [JsonProperty("recurring", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Recurring { get; set; }
+
+        [JsonProperty("risk_level", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public String RiskLevel { get; set; }
+
+        [JsonProperty("sales_channel", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public String SalesChannel { get; set; }
+
+        [JsonProperty("scheduled", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Scheduled { get; set; }
+
+        [JsonProperty("hotel", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoHotel Hotel { get; set; }
+
+        [JsonProperty("events", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        [JsonConverter(typeof(SingleOrArrayConverter<KondutoEvent>))]
+        public List<KondutoEvent> Events { get; set; }
+
+        [JsonProperty("vehicles", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoVehicle Vehicles { get; set; }
+
+        [JsonProperty("delivery", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoDelivery Delivery { get; set; }
+
+        [JsonProperty("point_of_sale", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoPointOfSale PointOfSale { get; set; }
+
+        [JsonProperty("agent", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoAgent Agent { get; set; }
+
+        [JsonProperty("tenant", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoTenant Tenant { get; set; }
+
+        [JsonProperty("event_type", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public String EventType { get; set; }
+
+        [JsonProperty("event_details", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public String EventDetails { get; set; }
+
+        [JsonProperty("origin_account", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public KondutoBankingAccount OriginAccount { get; set; }
+
+        [JsonProperty("destination_accounts", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore), DefaultValue(null)]
+        public List<KondutoBankingAccount> DestinationAccounts { get; set; }
 
         /* Constructors */
         public KondutoOrder() { }
@@ -137,8 +184,17 @@ namespace KdtSdk.Models
             if (!object.Equals(TotalAmount, that.TotalAmount)) return false;
             if (!object.Equals(Visitor, that.Visitor)) return false;
 
-            if (!Payments.SequenceEqual<KondutoPayment>(that.Payments)) return false;
-            if (!ShoppingCart.SequenceEqual<KondutoItem>(that.ShoppingCart)) return false;
+            if (Payments != null && that.Payments != null)
+            {
+                if (!Payments.SequenceEqual(that.Payments)) return false;
+            }
+            else if (Payments != that.Payments) return false;
+
+            if (ShoppingCart != null && that.ShoppingCart != null)
+            {
+                if (!ShoppingCart.SequenceEqual(that.ShoppingCart)) return false;
+            }
+            else if (ShoppingCart != that.ShoppingCart) return false;
 
             if (!object.Equals(Device, that.Device)) return false;
             if (!object.Equals(NavigationInfo, that.NavigationInfo)) return false;
@@ -147,15 +203,54 @@ namespace KdtSdk.Models
 
             if (!object.Equals(Travel, that.Travel)) return false;
 
-            if (!object.Equals(PurchasedAt, that.PurchasedAt)) return false;
+            if (!object.Equals(PurchaseAt, that.PurchaseAt)) return false;
             if (!object.Equals(MessagesExchanged, that.MessagesExchanged)) return false;
             if (!object.Equals(FirstMessage, that.FirstMessage)) return false;
 
-            if (object.Equals(BureauxQueries, that.BureauxQueries)) return false;
-            if (object.Equals(TriggeredRules, that.TriggeredRules)) return false;
-            if (object.Equals(TriggeredDecisionList, that.TriggeredDecisionList)) return false;
+            if (BureauxQueries != null && that.BureauxQueries != null)
+            {
+                if (BureauxQueries.Count != that.BureauxQueries.Count) return false;
+            }
+            else if (BureauxQueries != that.BureauxQueries) return false;
+
+            if (TriggeredRules != null && that.TriggeredRules != null)
+            {
+                if (TriggeredRules.Count != that.TriggeredRules.Count) return false;
+            }
+            else if (TriggeredRules != that.TriggeredRules) return false;
+
+            if (TriggeredDecisionList != null && that.TriggeredDecisionList != null)
+            {
+                if (TriggeredDecisionList.Count != that.TriggeredDecisionList.Count) return false;
+            }
+            else if (TriggeredDecisionList != that.TriggeredDecisionList) return false;
 
             if (!object.Equals(Seller, that.Seller)) return false;
+
+            if (!object.Equals(Recurring, that.Recurring)) return false;
+            if (!object.Equals(RiskLevel, that.RiskLevel)) return false;
+            if (!object.Equals(SalesChannel, that.SalesChannel)) return false;
+            if (!object.Equals(Scheduled, that.Scheduled)) return false;
+            if (!object.Equals(Hotel, that.Hotel)) return false;
+            if (Events != null && that.Events != null)
+            {
+                if (!Events.SequenceEqual(that.Events)) return false;
+            }
+            else if (Events != that.Events) return false;
+            if (!object.Equals(Vehicles, that.Vehicles)) return false;
+            if (!object.Equals(Delivery, that.Delivery)) return false;
+            if (!object.Equals(PointOfSale, that.PointOfSale)) return false;
+            if (!object.Equals(Agent, that.Agent)) return false;
+            if (!object.Equals(Tenant, that.Tenant)) return false;
+            if (!object.Equals(EventType, that.EventType)) return false;
+            if (!object.Equals(EventDetails, that.EventDetails)) return false;
+            if (!object.Equals(OriginAccount, that.OriginAccount)) return false;
+
+            if (DestinationAccounts != null && that.DestinationAccounts != null)
+            {
+                if (!DestinationAccounts.SequenceEqual(that.DestinationAccounts)) return false;
+            }
+            else if (DestinationAccounts != that.DestinationAccounts) return false;
 
             return true;
         }

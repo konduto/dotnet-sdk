@@ -10,7 +10,9 @@ namespace KdtTests.Factories
             {
                 Id = "1",
                 Name = "Jose da Silva",
-                Email = "jose.silva@gmail.com"
+                Email = "jose.silva@gmail.com",
+                TaxId = "01234567890",
+                Phone1 = "11987654321"
             };
         }
 

@@ -34,7 +34,6 @@ namespace KdtTests.Factories
 
                 FirstMessage = "2014-12-31T13:00:00Z",
                 MessagesExchanged = 2,
-                PurchasedAt = "2014-12-31T13:00:00Z",
 
                 Status = "approved",
 
@@ -47,7 +46,9 @@ namespace KdtTests.Factories
             return new KondutoOrder
             {
                 Id = "1",
+                Visitor = "visitor-basic-1",
                 TotalAmount = 120.5,
+                Installments = 1,
                 Customer = KondutoCustomerFactory.BasicCustomer(),
                 Recommendation = KondutoRecommendation.none,
                 Analyze = true

@@ -217,6 +217,8 @@ namespace KdtTests
                 Id = "28372",
                 Name = "KdtUser",
                 Email = "developer@example.com",
+                TaxId = "613.815.776-10",
+                Phone1 = "+559912345678",
                 DocumentType = "cpf"
             };
 
@@ -225,6 +227,7 @@ namespace KdtTests
                 Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
+                Installments = 1,
                 Customer = Customer,
                 Analyze = true
             };
@@ -334,12 +337,13 @@ namespace KdtTests
                 TaxAmount = 12.00,
                 Ip = "201.27.127.73",
                 Currency = "BRL",
+                Installments = 1,
                 Customer = Customer,
                 Payments = payments,
                 BillingAddress = billing,
                 ShippingAddress = shipping,
                 MessagesExchanged = 2,
-                PurchasedAt = "2014-12-31T13:00:00Z",
+                PurchaseAt = "2014-12-31T13:00:00Z",
                 FirstMessage = "2014-12-31T13:00:00Z",
                 Seller = seller,
                 ShoppingCart = new List<KondutoItem>{
@@ -381,6 +385,8 @@ namespace KdtTests
                 Id = "28372",
                 Name = "KdtUser",
                 Email = "developer@example.com",
+                TaxId = "613.815.776-10",
+                Phone1 = "+559912345678",
                 DocumentType = "cpf"
             };
 
@@ -389,6 +395,7 @@ namespace KdtTests
                 Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
+                Installments = 1,
                 Customer = Customer,
                 Payments = KondutoPaymentFactory.CreatePayments(),
                 Analyze = true
@@ -416,14 +423,17 @@ namespace KdtTests
                 Id = "28372",
                 Name = "KdtUser",
                 Email = "developer@example.com",
+                TaxId = "613.815.776-10",
+                Phone1 = "+559912345678",
                 DocumentType = "cpf"
             };
 
             KondutoOrder order = new KondutoOrder
             {
-                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Id = ((long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds).ToString() + "_" + Guid.NewGuid().ToString("N").Substring(0, 4),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
+                Installments = 1,
                 Customer = Customer,
                 Payments = KondutoPaymentFactory.CreateNonCreditPayments(),
                 Analyze = true
@@ -451,14 +461,17 @@ namespace KdtTests
                 Id = "28372",
                 Name = "KdtUser",
                 Email = "developer@example.com",
+                TaxId = "613.815.776-10",
+                Phone1 = "+559912345678",
                 DocumentType = "cpf"
             };
 
             KondutoOrder order = new KondutoOrder
             {
-                Id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString(),
+                Id = ((long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds).ToString() + "_" + Guid.NewGuid().ToString("N").Substring(0, 4),
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
+                Installments = 1,
                 Customer = Customer,
                 Travel = KondutoFlightFactory.CreateFlight(),
                 Analyze = true
@@ -520,7 +533,7 @@ namespace KdtTests
         [TestMethod]
         public void PutIntegrationTest()
         {
-            String id = ((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
+            String id = ((long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds).ToString() + "_" + Guid.NewGuid().ToString("N").Substring(0, 4);
 
             //Konduto konduto = new Konduto("T738D516F09CAB3A2C1EE");
             Konduto konduto = new Konduto(API_KEY);
@@ -530,6 +543,8 @@ namespace KdtTests
                 Id = "28372",
                 Name = "KdtUser",
                 Email = "developer@example.com",
+                TaxId = "613.815.776-10",
+                Phone1 = "+559912345678",
                 DocumentType = "cpf"
             };
 
@@ -538,6 +553,7 @@ namespace KdtTests
                 Id = id,
                 Visitor = "38a9412f0b01b4dd1762ae424169a3e490d75c7a",
                 TotalAmount = 100.00,
+                Installments = 1,
                 Customer = Customer,
                 Analyze = true
             };

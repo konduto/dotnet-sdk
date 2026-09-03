@@ -1,0 +1,1992 @@
+{
+  "enviar-um-pedido": {
+    "title": "Enviar Pedidos",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(obrigatório)_   Identificador único para cada pedido.   **Max. 100 chars, alpha-numérico.**"
+          ],
+          [
+            "visitor",
+            "_(obrigatório)_   Identificador do visitante obtido do nosso JavaScript.   **Max. 40 chars, alpha-numérico.**"
+          ],
+          [
+            "total_amount",
+            "_(obrigatório)_   Valor total do pedido.   **Max. 10 chars, número.**"
+          ],
+          [
+            "shipping_amount",
+            "_(opcional)_   Valor do frete.   **Max. 10 chars, número.**"
+          ],
+          [
+            "tax_amount",
+            "_(opcional)_   Valor dos impostos.   **Max. 10 chars, número.**"
+          ],
+          [
+            "currency",
+            "_(opcional)_   Código da moeda com 3 letras [(ISO-4712)](https://pt.wikipedia.org/wiki/ISO_4217).   **Max. 3 chars, string.**"
+          ],
+          [
+            "installments",
+            "_(obrigatório)_   Número de parcelas do pagamento.   **Min 1 e Max 999, número.**"
+          ],
+          [
+            "ip",
+            "_(recomendado)_   Endereço IPv4 do cliente.   Ex: IPV4 - 189.68.156.100   **Max. 15 chars, string.**      Endereço IPV6 do cliente, sem abreviações.   Ex: IPV6 - 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1   **String.**"
+          ],
+          [
+            "first_message",
+            "_(opcional)_   No **Marketplace**, traz a data e hora da primeira mensagem trocada entre comprador e vendedor. Formato AAAA-MM-DDTHH:mm:ssZ [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 20 chars, string.**"
+          ],
+          [
+            "messages_exchanged",
+            "_(opcional)_   No **Marketplace**, deve trazer o número de mensagens trocadas entre comprador e vendedor até o momento da transação.   **Número.**"
+          ],
+          [
+            "purchase_at",
+            "_(opcional)_   No **Marketplace**, traz a data e hora do fechamento do pedido no site. Formato AAAA-MM-DDTHH:mm:ssZ (ISO 8601)   **Exatamente 20 chars, string.**"
+          ],
+          [
+            "analyze",
+            "_(opcional)_   Se `false`o sistema levará em conta a transação nas próximas análises mas não devolve uma recomendação e você não é cobrado.   **Boolean. Se não enviado o padrão é `true`.**"
+          ],
+          [
+            "customer",
+            "_(obrigatório)_   Objeto que contém os detalhes do cliente."
+          ],
+          [
+            "payment",
+            "_(opcional)_   Lista que contém os meios de pagamento."
+          ],
+          [
+            "billing",
+            "_(opcional)_   Objeto que contém o endereço de cobrança."
+          ],
+          [
+            "shipping",
+            "_(opcional)_   Objeto que contém o endereço de entrega."
+          ],
+          [
+            "shopping_cart",
+            "_(opcional)_   Lista que contém os itens comprados."
+          ],
+          [
+            "hotel",
+            "_(opcional)_   Objeto que contém os dados de hotel e hóspede."
+          ],
+          [
+            "travel",
+            "_(opcional)_   Objeto que contém os dados de viagem e passageiros."
+          ],
+          [
+            "seller",
+            "_(opcional)_   Objeto destinado aos dados do vendedor do produto."
+          ],
+          [
+            "events",
+            "_(opcional)_   Lista de eventos promovidos pela loja."
+          ],
+          [
+            "scheduled",
+            "_(opcional)_   PARA PIX/SAFEBAKING      Indica se uma transação é recorrente.   **Boolean. Se não enviado o padrão é `false.`**"
+          ],
+          [
+            "origin_account",
+            "_(opcional)_   PARA PIX/SAFEBAKING      Objeto que contem as informações da conta de origem em transações."
+          ],
+          [
+            "destination_accounts",
+            "_(opcional)_   PARA PIX/SAFEBAKING      Lista que contem informações das contas de destino em transações."
+          ],
+          [
+            "tenant",
+            "_(opcional)_   PARA PIX/SAFEBAKING      Objeto que contem as informações da plataforma que está realizando transação."
+          ],
+          [
+            "point_of_sale",
+            "_(opcional)_   Objeto que contém os detalhes do ponto de vendas físico."
+          ],
+          [
+            "agent",
+            "_(opcional)_   Objeto que contém os detalhes do vendedor do ponto de vendas físico."
+          ]
+        ]
+      }
+    ],
+    "body": "A estrutura de como você enviará esses dados contém uma raiz que será detalhada nessa sessão e terá os demais objetos que ela abriga, descritos nas sessões seguintes.\n\nA raiz do objeto (`ORDER`) conterá os dados básicos do pedido como número, valor e moeda.\n\nAbaixo você pode acompanhar um exemplo de código para envio de um pedido e a tabela a seguir detalhará melhor os parâmetros a serem enviados na raiz, assim como a descrição de cada um deles.\n\n```json\n{\n \"id\":\"10000000001\",\n \"visitor\":\"da39a3ee5e6b4\",\n \"total_amount\":100.00,\n \"shipping_amount\":20.00,\n \"tax_amount\":3.45,\n \"currency\":\"BRL\",\n \"installments\":2,\n \"ip\":\"189.68.156.100\",\n \"first_message\":\"2018-12-20T15:59:01Z\",\n \"messages_exchanged\":30,\n \"purchased_at\":\"2018-12-25T12:00:25Z\",\n \"recurring\":true,\n \"risk_level\":\"low\", \n \"analyze\":true,\n \"sales_channel\": \"e-commerce\",\n \"customer\":{ },\n \"payment\":[ ],\n \"billing\":{ },\n \"shipping\":{ },\n \"shopping_cart\":[ ],\n \"hotel\": { },\n \"travel\":{ },\n \"seller\":{ },\n \"events\":[ ],  \n \"point_of_sale\": { },\n \"agent\": { } \n  \n}\n```\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(obrigatório)_  \\nIdentificador único para cada pedido.  \\n**Max. 100 chars, alpha-numérico.**\",\n    \"1-0\": \"visitor\",\n    \"1-1\": \"_(obrigatório)_  \\nIdentificador do visitante obtido do nosso JavaScript.  \\n**Max. 40 chars, alpha-numérico.**\",\n    \"2-0\": \"total_amount\",\n    \"2-1\": \"_(obrigatório)_  \\nValor total do pedido.  \\n**Max. 10 chars, número.**\",\n    \"3-0\": \"shipping_amount\",\n    \"3-1\": \"_(opcional)_  \\nValor do frete.  \\n**Max. 10 chars, número.**\",\n    \"4-0\": \"tax_amount\",\n    \"4-1\": \"_(opcional)_  \\nValor dos impostos.  \\n**Max. 10 chars, número.**\",\n    \"5-0\": \"currency\",\n    \"5-1\": \"_(opcional)_  \\nCódigo da moeda com 3 letras [(ISO-4712)](https://pt.wikipedia.org/wiki/ISO_4217).  \\n**Max. 3 chars, string.**\",\n    \"6-0\": \"installments\",\n    \"6-1\": \"_(obrigatório)_  \\nNúmero de parcelas do pagamento.  \\n**Min 1 e Max 999, número.**\",\n    \"7-0\": \"ip\",\n    \"7-1\": \"_(recomendado)_  \\nEndereço IPv4 do cliente.  \\nEx: IPV4 - 189.68.156.100  \\n**Max. 15 chars, string.**  \\n  \\nEndereço IPV6 do cliente, sem abreviações.  \\nEx: IPV6 - 2001:0DB8:AD1F:25E2:CADE:CAFE:F0CA:84C1  \\n**String.**\",\n    \"8-0\": \"first_message\",\n    \"8-1\": \"_(opcional)_  \\nNo **Marketplace**, traz a data e hora da primeira mensagem trocada entre comprador e vendedor. Formato AAAA-MM-DDTHH:mm:ssZ [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 20 chars, string.**\",\n    \"9-0\": \"messages_exchanged\",\n    \"9-1\": \"_(opcional)_  \\nNo **Marketplace**, deve trazer o número de mensagens trocadas entre comprador e vendedor até o momento da transação.  \\n**Número.**\",\n    \"10-0\": \"purchase_at\",\n    \"10-1\": \"_(opcional)_  \\nNo **Marketplace**, traz a data e hora do fechamento do pedido no site. Formato AAAA-MM-DDTHH:mm:ssZ (ISO 8601)  \\n**Exatamente 20 chars, string.**\",\n    \"11-0\": \"analyze\",\n    \"11-1\": \"_(opcional)_  \\nSe `false`o sistema levará em conta a transação nas próximas análises mas não devolve uma recomendação e você não é cobrado.  \\n**Boolean. Se não enviado o padrão é `true`.**\",\n    \"12-0\": \"customer\",\n    \"12-1\": \"_(obrigatório)_  \\nObjeto que contém os detalhes do cliente.\",\n    \"13-0\": \"payment\",\n    \"13-1\": \"_(opcional)_  \\nLista que contém os meios de pagamento.\",\n    \"14-0\": \"billing\",\n    \"14-1\": \"_(opcional)_  \\nObjeto que contém o endereço de cobrança.\",\n    \"15-0\": \"shipping\",\n    \"15-1\": \"_(opcional)_  \\nObjeto que contém o endereço de entrega.\",\n    \"16-0\": \"shopping_cart\",\n    \"16-1\": \"_(opcional)_  \\nLista que contém os itens comprados.\",\n    \"17-0\": \"hotel\",\n    \"17-1\": \"_(opcional)_  \\nObjeto que contém os dados de hotel e hóspede.\",\n    \"18-0\": \"travel\",\n    \"18-1\": \"_(opcional)_  \\nObjeto que contém os dados de viagem e passageiros.\",\n    \"19-0\": \"seller\",\n    \"19-1\": \"_(opcional)_  \\nObjeto destinado aos dados do vendedor do produto.\",\n    \"20-0\": \"events\",\n    \"20-1\": \"_(opcional)_  \\nLista de eventos promovidos pela loja.\",\n    \"21-0\": \"scheduled\",\n    \"21-1\": \"_(opcional)_  \\nPARA PIX/SAFEBAKING  \\n  \\nIndica se uma transação é recorrente.  \\n**Boolean. Se não enviado o padrão é `false.`**\",\n    \"22-0\": \"origin_account\",\n    \"22-1\": \"_(opcional)_  \\nPARA PIX/SAFEBAKING  \\n  \\nObjeto que contem as informações da conta de origem em transações.\",\n    \"23-0\": \"destination_accounts\",\n    \"23-1\": \"_(opcional)_  \\nPARA PIX/SAFEBAKING  \\n  \\nLista que contem informações das contas de destino em transações.\",\n    \"24-0\": \"tenant\",\n    \"24-1\": \"_(opcional)_  \\nPARA PIX/SAFEBAKING  \\n  \\nObjeto que contem as informações da plataforma que está realizando transação.\",\n    \"25-0\": \"point_of_sale\",\n    \"25-1\": \"_(opcional)_  \\nObjeto que contém os detalhes do ponto de vendas físico.\",\n    \"26-0\": \"agent\",\n    \"26-1\": \"_(opcional)_  \\nObjeto que contém os detalhes do vendedor do ponto de vendas físico.\"\n  },\n  \"cols\": 2,\n  \"rows\": 27,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]"
+  },
+  "cliente": {
+    "title": "Cliente",
+    "tables": [
+      {
+        "headers": [
+          "Parameter",
+          "Description"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(obrigatório) _   Identificador único do cliente. Pode ser qualquer valor (sequencial, documento, e-mail), desde que seja consistente em pedidos futuros.   **Max. 100 chars, string.**"
+          ],
+          [
+            "name",
+            "_(obrigatório) _   Nome completo do cliente.   **Max. 100 chars, string.**"
+          ],
+          [
+            "email",
+            "_(obrigatório) _   Endereço de e-mail do cliente.   **Max. 100 chars, string.**"
+          ],
+          [
+            "dob",
+            "_(opcional)_   Data de nascimento do cliente em YYYY-MM-DD format  [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**"
+          ],
+          [
+            "tax_id",
+            "_(obrigatório) _   Número do documento fiscal do cliente (CPF, CNPJ, SSN, CUIT, EIN, etc).   **Max. 100 chars, string.**"
+          ],
+          [
+            "phone1",
+            "_(obrigatório) _   Número de telefone principal do cliente.   **Max. 100 chars, string.**"
+          ],
+          [
+            "phone2",
+            "_(opcional)_   Número de telefone secundário do cliente.   **Max. 100 chars, string.**"
+          ],
+          [
+            "created_at",
+            "_(recomendado)_   Data de criação da conta ou registro do cliente no site, em YYYY-MM-DD format  [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).   **Max 10 chars, string.**"
+          ],
+          [
+            "new",
+            "_(opcional)_   Flag indicando se o cliente está usando uma conta recém-criada nesta compra.   **Boolean.**"
+          ],
+          [
+            "vip",
+            "_(opcional)_   Flag indicando se este é um cliente VIP ou um comprador frequente.   **Boolean.**"
+          ],
+          [
+            "type",
+            "_(opcional)_   Identificador de tipo de cliente.   **String.**"
+          ],
+          [
+            "risk_level",
+            "_(opcional)_   Identificador do nível de risco do cliente.   Atualmente usamos `low`, `medium`, `high`.   **String.**"
+          ],
+          [
+            "risk_score",
+            "_(opcional)_   Identificador de pontuação de risco do cliente.   **Number.**"
+          ],
+          [
+            "mother_name",
+            "_(opcional)_   Nome completo da mãe do cliente.   **Max. 100 chars, string**"
+          ]
+        ]
+      }
+    ],
+    "body": "O objeto `cliente` deve ser usado para enviar informações sobre a pessoa que está realizando a compra e que, na maioria dos casos, é a pessoa que está logada no seu sistema.\n\nPara passar informações sobre o titular do cartão ou o destinatário do produto, você deve usar os objetos `cobrança` e `entrega`, respectivamente. A tabela abaixo detalha cada parâmetro deste objeto e, a seguir, você verá o código para enviar os dados:\n\n<br />\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parameter\",\n    \"h-1\": \"Description\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(obrigatório) _  \\nIdentificador único do cliente. Pode ser qualquer valor (sequencial, documento, e-mail), desde que seja consistente em pedidos futuros.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"name\",\n    \"1-1\": \"_(obrigatório) _  \\nNome completo do cliente.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"email\",\n    \"2-1\": \"_(obrigatório) _  \\nEndereço de e-mail do cliente.  \\n**Max. 100 chars, string.**\",\n    \"3-0\": \"dob\",\n    \"3-1\": \"_(opcional)_  \\nData de nascimento do cliente em YYYY-MM-DD format  [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).  \\n**Max. 10 chars, string.**\",\n    \"4-0\": \"tax_id\",\n    \"4-1\": \"_(obrigatório) _  \\nNúmero do documento fiscal do cliente (CPF, CNPJ, SSN, CUIT, EIN, etc).  \\n**Max. 100 chars, string.**\",\n    \"5-0\": \"phone1\",\n    \"5-1\": \"_(obrigatório) _  \\nNúmero de telefone principal do cliente.  \\n**Max. 100 chars, string.**\",\n    \"6-0\": \"phone2\",\n    \"6-1\": \"_(opcional)_  \\nNúmero de telefone secundário do cliente.  \\n**Max. 100 chars, string.**\",\n    \"7-0\": \"created_at\",\n    \"7-1\": \"_(recomendado)_  \\nData de criação da conta ou registro do cliente no site, em YYYY-MM-DD format  [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).  \\n**Max 10 chars, string.**\",\n    \"8-0\": \"new\",\n    \"8-1\": \"_(opcional)_  \\nFlag indicando se o cliente está usando uma conta recém-criada nesta compra.  \\n**Boolean.**\",\n    \"9-0\": \"vip\",\n    \"9-1\": \"_(opcional)_  \\nFlag indicando se este é um cliente VIP ou um comprador frequente.  \\n**Boolean.**\",\n    \"10-0\": \"type\",\n    \"10-1\": \"_(opcional)_  \\nIdentificador de tipo de cliente.  \\n**String.**\",\n    \"11-0\": \"risk_level\",\n    \"11-1\": \"_(opcional)_  \\nIdentificador do nível de risco do cliente.  \\nAtualmente usamos `low`, `medium`, `high`.  \\n**String.**\",\n    \"12-0\": \"risk_score\",\n    \"12-1\": \"_(opcional)_  \\nIdentificador de pontuação de risco do cliente.  \\n**Number.**\",\n    \"13-0\": \"mother_name\",\n    \"13-1\": \"_(opcional)_  \\nNome completo da mãe do cliente.  \\n**Max. 100 chars, string**\"\n  },\n  \"cols\": 2,\n  \"rows\": 14,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n<br />\n\n```json\n{\n  \"customer\": {\n    \"id\":\"28372\",\n    \"name\":\"Júlia da Silva\",\n    \"tax_id\":\"12345678909\",\n    \"dob\":\"1970-12-25\",\n    \"phone1\":\"11-1234-5678\",\n    \"phone2\":\"21-2143-6578\",\n    \"email\":\"jsilva@gmail.com.br\",\n    \"created_at\":\"2010-12-25\",\n    \"new\":false,\n    \"vip\":false, \n    \"type\":\"interno\",\n    \"risk_level\": \"low\", \n    \"risk_score\": 0.5, \n    \"mother_name\":\"Maria da Silva\" \n  }\n}\n```\n```php\n\"customer\" => array(\n    \"id\" => \"28372\",\n    \"name\" => \"Júlia da Silva\",\n    \"tax_id\" => \"12345678909\",\n    \"dob\" => \"1970-12-25\",\n    \"phone1\" => \"11-1234-5678\",\n    \"phone2\" => \"21-2143-6578\",\n    \"email\" => \"jsilva@exemplo.com.br\",\n    \"dob\" => \"1988-10-02\",\n    \"created_at\" => \"2010-12-25\",\n    \"is_new\" => true,\n    \"vip\" => false\n)\n```\n```java\nKondutoCustomer customer = new KondutoCustomer();\ncustomer.setId(\"28372\");\ncustomer.setName(\"Júlia da Silva\");\ncustomer.setTaxId(\"12345678909\");\ncustomer.setDob(new Date(\"1970-12-25\"));\ncustomer.setPhone1(\"11-1234-5678\");\ncustomer.setPhone2(\"21-2143-6578\");\ncustomer.setEmail(\"jsilva@exemplo.com.br\");\ncustomer.setCreatedAt(new Date(\"1970-12-25\");\ncustomer.setIsNew(false);\ncustomer.setIsVip(false);\n```\n```csharp\nKondutoCustomer customer = new KondutoCustomer\n{\n  Id = \"28372\",\n  Name = \"Júlia da Silva\",\n  TaxId = \"12345678909\",\n\n  dob MISSING_SDK\n\n  Phone1 = \"11-1234-5678\",\n  Phone2 = \"21-2143-6578\",\n  Email = \"jsilva@exemplo.com.br\",\n  CreatedAt = \"2010-12-25\",\n  IsNew = false,\n  IsVip = false\n};\n```\n```ruby\norder = KondutoOrder.new;\n\ncustomer = KondutoCustomer.new;\ncustomer.id = \"28372\";\ncustomer.name = \"Júlia da Silva\";\ncustomer.tax_id = \"12345678909\";\ncustomer.dob = \"1970-12-25\";\ncustomer.phone1 = \"11-1234-5678\";\ncustomer.phone2 = \"11-1234-5678\";\ncustomer.email = \"jsilva@exemplo.com.br\";\ncustomer.createdAt = \"2010-12-25\";\ncustomer.new = false;\ncustomer.vip = false;\n\norder.customer = customer;\n```"
+  },
+  "payment": {
+    "title": "Pagamento",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "type",
+            "_(obrigatório) _   Meio de pagamento usado pelo cliente. Atualmente suportamos `credit`, `boleto`, `debit`, `transfer `, `voucher`, `balance` e `pix`.   **Max. 8 chars, string.**"
+          ],
+          [
+            "status",
+            "_(**obrigatório **apenas para cartões de débito e crédito)_   O status do pagamento retornado pela operadora de cartão.   Pode ser `approved` (aprovado), `declined` (negado) ou `pending`(pendente), caso o pagamento não tenha sido feito ainda.   **Max. 8 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**"
+          ],
+          [
+            "bin",
+            "_(**obrigatório** apenas para cartões de débito e crédito)_   Os primeiros seis a dez números do cartão de crédito é usado para identificar o tipo de cartão usado.   **Max. 10 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**   **Atenção:** A politica de tokenização de cartões das bandeiras não substitui o armazenamento e envio do BIN aberto pelo lojista ao sistema antifraude."
+          ],
+          [
+            "last4",
+            "_(**obrigatório **apenas para cartões de débito e crédito)_   Os últimos quatro dígitos do cartão de crédito.   **Max. 4 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**   **Atenção:** A politica de tokenização de cartões das bandeiras não substitui o armazenamento e envio dos quatro últimos dígitos  do cartão aberto pelo lojista ao sistema antifraude."
+          ],
+          [
+            "amount",
+            "_(recomendado)_   Valor total do pedido.   **Max. 10 chars, número.**"
+          ],
+          [
+            "expiration_date",
+            "_(**obrigatório **apenas para cartões de débito e crédito)_   Data de validade do cartão no formato MMAAAA.   **Max. 10 chars, string.**   **Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**"
+          ],
+          [
+            "description",
+            "_(recomendado)_   Alguma informação referente ao desconto.   **Max. 100 chars, string.**"
+          ],
+          [
+            "tax_id",
+            "_(recomendado)_   cpf do portador do cartão   **Max. 100 chars, string.**"
+          ],
+          [
+            "cvv_result",
+            "_(recomendado)_   Código de resultado da verificação CVV (verificação do cartão).   **Max. 4 chars, string.**      pagamento `payment.type=credit` e  `payment.type=debit`\\*\\*"
+          ],
+          [
+            "avs_result",
+            "_(recomendado)_   Código de resultado da verificação do AVS (Serviço de Verificação de Endereço).   **Max. 4 chars, string.**      pagamento `payment.type=credit` e  `payment.type=debit`\\*\\*"
+          ],
+          [
+            "sha1",
+            "_(recomendado)_   **Código de pagamento de integridade (É um HMAC-SHA-256 dos campos da notificação)**      pagamento `payment.type=credit` e  `payment.type=debit`\\*\\*"
+          ],
+          [
+            "name",
+            "_(opcional)_   Nome do comprador.   **Max. 100 chars, string.**"
+          ],
+          [
+            "holder",
+            "_(opcional)_   Nome do portador do cartão de crédito.   **Max. 100 chars, string.**"
+          ],
+          [
+            "mcc",
+            "_(opcional)_   MCC do Estabelecimento (Merchant Category Code - Código de Categoria de Comerciante)   **Min. 0, Max. 99999 chars, integer.**"
+          ],
+          [
+            "mid",
+            "_(opcional)_   MID do Estabelecimento (Merchant Identification Number)   **Max. 100 chars, string.**"
+          ],
+          [
+            "3ds_id",
+            "_(opcional)_   Identificador 3DS (3D - Secure)   **Max. 100 chars, string.**"
+          ],
+          [
+            "merchant_tax_id",
+            "_(opcional)_   CNPJ do Estabelecimento   **Max. 100 chars, string.**"
+          ],
+          [
+            "voucher_type",
+            "_(recomendado)_   Tipo de voucher   **Max. 100 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "Detalharemos nessa sessão como enviar informações de pagamento por meio do objeto `Payment`.\n\nEsta lista de objetos deve ser usada para enviar informações sobre os meios de pagamentos utilizados na compra. \n\nVocê pode mandar um pedido que contém múltiplos meios de pagamento como compras com dois `cartões de crédito`, `voucher`, `débito` e `boleto`.\n\nEmbora como possa verificar na tabela abaixo alguns parâmetros sejam opcionais, quanto mais informações relacionadas ao pagamento você enviar, mais informações teremos para análise e pesquisa da transação, agilizando o processo de aprendizagem e calibração do algoritmo.\n\nAo lado, você pode utilizar o exemplo dado para saber como enviar os meios de pagamento e na tabela abaixo, os parâmetros a serem enviados terão a descrição técnica de cada campo:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"type\",\n    \"0-1\": \"_(obrigatório) _  \\nMeio de pagamento usado pelo cliente. Atualmente suportamos `credit`, `boleto`, `debit`, `transfer `, `voucher`, `balance` e `pix`.  \\n**Max. 8 chars, string.**\",\n    \"1-0\": \"status\",\n    \"1-1\": \"_(**obrigatório **apenas para cartões de débito e crédito)_  \\nO status do pagamento retornado pela operadora de cartão.  \\nPode ser `approved` (aprovado), `declined` (negado) ou `pending`(pendente), caso o pagamento não tenha sido feito ainda.  \\n**Max. 8 chars, string.**  \\n**Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**\",\n    \"2-0\": \"bin\",\n    \"2-1\": \"_(**obrigatório** apenas para cartões de débito e crédito)_  \\nOs primeiros seis a dez números do cartão de crédito é usado para identificar o tipo de cartão usado.  \\n**Max. 10 chars, string.**  \\n**Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**  \\n**Atenção:** A politica de tokenização de cartões das bandeiras não substitui o armazenamento e envio do BIN aberto pelo lojista ao sistema antifraude.\",\n    \"3-0\": \"last4\",\n    \"3-1\": \"_(**obrigatório **apenas para cartões de débito e crédito)_  \\nOs últimos quatro dígitos do cartão de crédito.  \\n**Max. 4 chars, string.**  \\n**Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**  \\n**Atenção:** A politica de tokenização de cartões das bandeiras não substitui o armazenamento e envio dos quatro últimos dígitos  do cartão aberto pelo lojista ao sistema antifraude.\",\n    \"4-0\": \"amount\",\n    \"4-1\": \"_(recomendado)_  \\nValor total do pedido.  \\n**Max. 10 chars, número.**\",\n    \"5-0\": \"expiration_date\",\n    \"5-1\": \"_(**obrigatório **apenas para cartões de débito e crédito)_  \\nData de validade do cartão no formato MMAAAA.  \\n**Max. 10 chars, string.**  \\n**Este campo só deve ser enviado pra o tipo de pagamento `payment.type=credit` e  `payment.type=debit`**\",\n    \"6-0\": \"description\",\n    \"6-1\": \"_(recomendado)_  \\nAlguma informação referente ao desconto.  \\n**Max. 100 chars, string.**\",\n    \"7-0\": \"tax_id\",\n    \"7-1\": \"_(recomendado)_  \\ncpf do portador do cartão  \\n**Max. 100 chars, string.**\",\n    \"8-0\": \"cvv_result\",\n    \"8-1\": \"_(recomendado)_  \\nCódigo de resultado da verificação CVV (verificação do cartão).  \\n**Max. 4 chars, string.**  \\n  \\npagamento `payment.type=credit` e  `payment.type=debit`\\\\*\\\\*\",\n    \"9-0\": \"avs_result\",\n    \"9-1\": \"_(recomendado)_  \\nCódigo de resultado da verificação do AVS (Serviço de Verificação de Endereço).  \\n**Max. 4 chars, string.**  \\n  \\npagamento `payment.type=credit` e  `payment.type=debit`\\\\*\\\\*\",\n    \"10-0\": \"sha1\",\n    \"10-1\": \"_(recomendado)_  \\n**Código de pagamento de integridade (É um HMAC-SHA-256 dos campos da notificação)**  \\n  \\npagamento `payment.type=credit` e  `payment.type=debit`\\\\*\\\\*\",\n    \"11-0\": \"name\",\n    \"11-1\": \"_(opcional)_  \\nNome do comprador.  \\n**Max. 100 chars, string.**\",\n    \"12-0\": \"holder\",\n    \"12-1\": \"_(opcional)_  \\nNome do portador do cartão de crédito.  \\n**Max. 100 chars, string.**\",\n    \"13-0\": \"mcc\",\n    \"13-1\": \"_(opcional)_  \\nMCC do Estabelecimento (Merchant Category Code - Código de Categoria de Comerciante)  \\n**Min. 0, Max. 99999 chars, integer.**\",\n    \"14-0\": \"mid\",\n    \"14-1\": \"_(opcional)_  \\nMID do Estabelecimento (Merchant Identification Number)  \\n**Max. 100 chars, string.**\",\n    \"15-0\": \"3ds_id\",\n    \"15-1\": \"_(opcional)_  \\nIdentificador 3DS (3D - Secure)  \\n**Max. 100 chars, string.**\",\n    \"16-0\": \"merchant_tax_id\",\n    \"16-1\": \"_(opcional)_  \\nCNPJ do Estabelecimento  \\n**Max. 100 chars, string.**\",\n    \"17-0\": \"voucher_type\",\n    \"17-1\": \"_(recomendado)_  \\nTipo de voucher  \\n**Max. 100 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 18,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{\n   \"payment\":[\n      {\n         \"type\":\"credit\",\n         \"bin\":\"490172\",\n         \"last4\":\"0012\",\n         \"expiration_date\":\"072015\",\n         \"status\":\"approved\",\n         \"amount\":90.0,\n       },\n      {\n         \"type\":\"credit\",\n         \"bin\":\"514800\",\n         \"last4\":\"3752\",\n         \"sha1\":\"3da541559918a808c2402bba5012f6c60b27661c\",\n         \"expiration_date\":\"082016\",\n         \"status\":\"approved\",\n         \"cvv_result\":\"Y\",\n         \"avs_result\":\"X\",\n         \"tax_id\":\"11111111111\",\n         \"amount\":100.0,\n         \"description\":\"pagamento via cartão de crédito\"\n      },\n      {\n         \"type\":\"voucher\",\n         \"amount\":10.0,\n        \"description\":\"Desconto de 10%\",\n\t\"voucher_type\": \"Vale Presente\"\n      },\n      {\n         \"type\":\"debit\"\n      },\n      {\n         \"type\":\"transfer\"\n      },\n      {\n         \"type\":\"ted\"\n      },\n      {\n         \"type\":\"pix\"\n      }\n   ]\n}\n```\n```php\n\"payment\" => array(\n    array(\n      \"type\" => \"credit\",\n      \"bin\" => \"490172\",\n      \"last4\" => \"0012\",\n      \"expiration_date\" => \"072015\",\n      \"status\" => \"approved\",\n      \"amount\" => 90.0\n   ),\n   array(\n      \"type\" => \"credit\",\n      \"bin\" => \"514800\",\n      \"last4\" => \"3752\",\n      \"expiration_date\" => \"082016\",\n      \"status\" => \"approved\",\n      \"amount\" => 100.0\n   ),\n   array(\n      \"type\" => \"voucher\",\n      \"amount\" => 10.0,\n      \"descripition\" => \"Desconto de 10%\"\n      \n   )\n)\n```\n```java\nKondutoCreditCardPayment creditCardPayment1 = new KondutoCreditCardPayment();\ncreditCardPayment1.setBin(\"490172\");\ncreditCardPayment1.setExpirationDate(\"072015\");\ncreditCardPayment1.setLast4(\"0012\");\ncreditCardPayment1.setStatus(KondutoCreditCardPaymentStatus.APPROVED);\n\nKondutoCreditCardPayment creditCardPayment2 = new KondutoCreditCardPayment();\ncreditCardPayment2.setBin(\"514800\");\ncreditCardPayment2.setSha1(\"3da541559918a808c2402bba5012f6c60b27661c\");\ncreditCardPayment2.setExpirationDate(\"082016\");\ncreditCardPayment2.setLast4(\"3752\");\ncreditCardPayment2.setAvsResult(\"X\");\ncreditCardPayment2.setCvvResult(\"Y\");\ncreditCardPayment2.setTaxId(\"11111111111\");\ncreditCardPayment2.setStatus(KondutoPaymentStatus.APPROVED);\ncreditCardPayment2.setDescription(\"pagamento via cartão de crédito\");\ncreditCardPayment2.setAmount(12.39);\n\n\nKondutoVoucherPayment voucher = new KondutoVoucherPayment();\nvoucher.setType(\"voucher\");\nvoucher.setAmount(10.0);\nvoucher.setDescription(\"Desconto de 10%\");\n\nKondutoBoletoPayment boleto = new KondutoBoletoPayment();\nboleto.setType(\"boleto\");\nboleto.setExpirationDate(\"2023-01-04\");\nboleto.setAmount(316.50);\n\nKondutoPixPayment pix = new KondutoPixPayment();\npix.setType(\"pix\");\npix.setAmount(1000.0);\npix.setDescription(\"Transferência via PIX - Phone\");\n\n\nCollection<KondutoPayment> payments = new HashSet<KondutoPayment>();\npayments.add(creditCardPayment1);\npayments.add(creditCardPayment2);\npayments.add(voucher);\npayments.add(boleto);\npayments.add(pix);\n```\n```csharp\nKondutoCreditCardPayment payment1 = new KondutoCreditCardPayment\n{\n  Bin = \"490172\",\n  Last4 = \"0012\",\n  ExpirationDate = \"072015\",\n  Status = KondutoCreditCardPaymentStatus.approved,\n  Type = KondutoPaymentType.credit\n};\n\nKondutoCreditCardPayment payment2 = new KondutoCreditCardPayment\n{\n  Bin = \"514800\",\n  Last4 = \"3752\",\n  ExpirationDate = \"082016\",\n  Status = KondutoCreditCardPaymentStatus.approved,\n  Type = KondutoPaymentType.credit\n};\n\nKondutoVoucher voucher - new KondutoVoucher()\n{\n  Type = \"voucher\",\n  Amount = \"amount\",\n  Description = \"Desconto de 10%\"\n}\nList<KondutoPayment> payment = new List<KondutoPayment> { payment1, payment2, voucher };\n```\n```ruby\npayment1 = KondutoPayment.new;\npayment1.type = :credit;\npayment1.bin = \"490172\";\npayment1.last4 = \"0012\";\npayment1.expiration_date = \"072015\";\npayment1.status = 'approved';\n\npayment2 = KondutoPayment.new;\npayment2.type = :credit;\npayment2.bin = \"514800\";\npayment2.last4 = \"3752\";\npayment2.expiration_date = \"082016\";\npayment2.status = 'approved';\n\nvoucher = KondutoVoucher.new;\nvoucher.type = :voucher;\nvoucher.amount = 10.0;\nvoucher.description = \"Desconto de 10%\";\n\norder.payment = [payment1, payment2, voucher];\n```"
+  },
+  "billing-1": {
+    "title": "Cobrança",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(obrigatório)_   Nome do titular do cartão.   **Max. 100 chars, string.**"
+          ],
+          [
+            "address1",
+            "_(obrigatório)_   Endereço primário da fatura.   **Max. 255 chars, string.**"
+          ],
+          [
+            "address2",
+            "_(recomendado)_\t   Endereço secundário da fatura (se houver).   **Max. 255 chars, string.**"
+          ],
+          [
+            "city",
+            "_(obrigatório)_   Cidade do titular.   **Max. 100 chars, string.**"
+          ],
+          [
+            "state",
+            "_(obrigatório)_   Estado do titular.   **Max. 100 chars, string.**"
+          ],
+          [
+            "zip",
+            "_(obrigatório)_   CEP do titular.   **Max. 100 chars, string.**"
+          ],
+          [
+            "country",
+            "_(obrigatório)_   Código do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2).   **Max. 2 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "O Objeto `billing` trará os dados de localização referentes ao meio de pagamento que seu cliente escolheu.\n\nÉ importante receber esse tipo de informação, pois conseguimos identificar se o endereço de cobrança do cliente é o mesmo de entrega ou se pode haver alguma possível ação de fraude envolvendo esses dados.\n\n> 🚧 Atenção!\n> \n> Este objeto deve conter informações do titular do cartão. É o mesmo nome e endereço que consta na fatura.\n\nAcompanhe ao lado o código que precisa enviar e na tabela abaixo, o descritivo dos parâmetros:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(obrigatório)_  \\nNome do titular do cartão.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"address1\",\n    \"1-1\": \"_(obrigatório)_  \\nEndereço primário da fatura.  \\n**Max. 255 chars, string.**\",\n    \"2-0\": \"address2\",\n    \"2-1\": \"_(recomendado)_\\t  \\nEndereço secundário da fatura (se houver).  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"city\",\n    \"3-1\": \"_(obrigatório)_  \\nCidade do titular.  \\n**Max. 100 chars, string.**\",\n    \"4-0\": \"state\",\n    \"4-1\": \"_(obrigatório)_  \\nEstado do titular.  \\n**Max. 100 chars, string.**\",\n    \"5-0\": \"zip\",\n    \"5-1\": \"_(obrigatório)_  \\nCEP do titular.  \\n**Max. 100 chars, string.**\",\n    \"6-0\": \"country\",\n    \"6-1\": \"_(obrigatório)_  \\nCódigo do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2).  \\n**Max. 2 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 7,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{  \n  \"billing\":{  \n    \"name\":\"Júlia da Silva\",\n    \"address1\":\"Rua Dez de Abril, 23\",\n    \"address2\":\"Apto. 45\",\n    \"city\":\"São Paulo\",\n    \"state\":\"SP\",\n    \"zip\":\"01001-001\",\n    \"country\":\"BR\"\n  }\n}\n```\n```php\n\"billing\" => array(\n    \"name\" => \"Júlia da Silva\",\n    \"address1\" => \"Rua Primeiro de Abril, 123\",\n    \"address2\" => \"Apto. 45\",\n    \"city\" => \"São Paulo\",\n    \"state\" => \"SP\",\n    \"zip\" => \" 01001-001\",\n    \"country\" => \"BR\"\n  )\n```\n```java\nKondutoAddress billing = new KondutoAddress();\naddress.setName(\"Júlia da Silva\");\naddress.setAddress1(\"Rua Primeiro de Abril, 123\");\naddress.setAddress2(\"Apto. 45\");\naddress.setZip(\"01001-001\");\naddress.setCity(\"São Paulo\");\naddress.setState(\"SP\");\naddress.setCountry(\"BR\");\n```\n```csharp\nKondutoAddress billing = new KondutoAddress\n{\n  Name = \"Júlia da Silva\",\n  Address1 = \"Rua Primeiro de Abril, 123\",\n  Address2 = \"Apto. 45\",\n  Zip = \"01001-001\",\n  City = \"Sao Paulo\",\n  State = \"SP\",\n  Country = \"BR\"\n};\n```\n```ruby\norder = KondutoOrder.new;\n\nbilling = KondutoAddress.new;\nbilling.name = \"Júlia da Silva\";\nbilling.address1 = \"Rua Primeiro de Abriel, 123\";\nbilling.address2 = \"Apt. 45\";\nbilling.city = \"São Paulo\";\nbilling.state = \"SP\";\nbilling.zip = \"01001-001\";\nbilling.country = \"BR\";\n\norder.billing = billing;\n```"
+  },
+  "shipping": {
+    "title": "Entrega",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(obrigatório)_   Nome do titular do cartão.   **Max. 100 chars, string.**"
+          ],
+          [
+            "address1",
+            "_(obrigatório)_   Endereço primário da entrega.   **Max. 255 chars, string.**"
+          ],
+          [
+            "address2",
+            "_(recomendado)_   Endereço secundário da entrega.   **Max. 255 chars, string.**"
+          ],
+          [
+            "city",
+            "_(obrigatório)_   Cidade do titular.   **Max. 100 chars, string.**"
+          ],
+          [
+            "state",
+            "_(obrigatório)_   Estado do titular   **Max. 100 chars, string.**"
+          ],
+          [
+            "zip",
+            "_(obrigatório)_   CEP do titular.   **Max. 100 chars, string.**"
+          ],
+          [
+            "country",
+            "_(obrigatório)_   Código do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2) .   **Max. 2 chars, string.**"
+          ],
+          [
+            "estimatedDate",
+            "_(opcional)_   Data estimada de entrega.   **Formato AAAA-MM-DDTHH:mm:ssZ (ISO 8601)   Exatamente 20 chars, string.**"
+          ],
+          [
+            "value",
+            "_(opcional)_   Valor do frete da entrega.   **Número.**"
+          ],
+          [
+            "lat",
+            "_(recomendado)_   Latitude do endereço de entrega. Atualmente suportamos maximum: -90, maximum: 90   **Decimal (Coordenada).**"
+          ],
+          [
+            "lon",
+            "_(recomendado)_   Longitude do endereço de entrega. Atualmente suportamos maximum: -90, maximum: 90   **Decimal (Coordenada).**"
+          ]
+        ]
+      }
+    ],
+    "body": "Em `shipping` os parâmetros enviados seguem o mesmo padrão do objeto `billing`, porém referem-se ao endereço de entrega do cliente.\n\nComo já mencionado na sessão anterior, o envio desses dados nos ajuda a comparar se a relação entre essas duas localizações, distintas ou iguais, potencializam uma chance de fraude ou não.\n\n> 🚧 \n> \n> Este objeto deve conter informações do destinatário que vai receber os produtos. Não há necessidade de enviá-lo caso você forneça um serviço como download de softwares e pacotes de assinaturas, por exemplo.\n\nAbaixo acompanharemos a descrição dos parâmetros a serem enviados e ao lado, a codificação que você utilizará:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(obrigatório)_  \\nNome do titular do cartão.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"address1\",\n    \"1-1\": \"_(obrigatório)_  \\nEndereço primário da entrega.  \\n**Max. 255 chars, string.**\",\n    \"2-0\": \"address2\",\n    \"2-1\": \"_(recomendado)_  \\nEndereço secundário da entrega.  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"city\",\n    \"3-1\": \"_(obrigatório)_  \\nCidade do titular.  \\n**Max. 100 chars, string.**\",\n    \"4-0\": \"state\",\n    \"4-1\": \"_(obrigatório)_  \\nEstado do titular  \\n**Max. 100 chars, string.**\",\n    \"5-0\": \"zip\",\n    \"5-1\": \"_(obrigatório)_  \\nCEP do titular.  \\n**Max. 100 chars, string.**\",\n    \"6-0\": \"country\",\n    \"6-1\": \"_(obrigatório)_  \\nCódigo do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2) .  \\n**Max. 2 chars, string.**\",\n    \"7-0\": \"estimatedDate\",\n    \"7-1\": \"_(opcional)_  \\nData estimada de entrega.  \\n**Formato AAAA-MM-DDTHH:mm:ssZ (ISO 8601)  \\nExatamente 20 chars, string.**\",\n    \"8-0\": \"value\",\n    \"8-1\": \"_(opcional)_  \\nValor do frete da entrega.  \\n**Número.**\",\n    \"9-0\": \"lat\",\n    \"9-1\": \"_(recomendado)_  \\nLatitude do endereço de entrega. Atualmente suportamos maximum: -90, maximum: 90  \\n**Decimal (Coordenada).**\",\n    \"10-0\": \"lon\",\n    \"10-1\": \"_(recomendado)_  \\nLongitude do endereço de entrega. Atualmente suportamos maximum: -90, maximum: 90  \\n**Decimal (Coordenada).**\"\n  },\n  \"cols\": 2,\n  \"rows\": 11,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{  \n  \"shipping\":{ \n    \"name\":\"Júlia da Silva\",\n    \"address1\":\"Rua Dez de Abril, 23\",\n    \"address2\":\"Apto. 45\",\n    \"city\":\"São Paulo\",\n    \"state\":\"SP\",\n    \"zip\":\"01001-001\",\n    \"country\":\"BR\",\n    \"estimatedDate\":\"2018-12-25T12:00:25Z\",\n    \"value\": 8.41\n  }\n}\n```\n```php\n\"shipping\" => array(\n    \"name\" => \"Júlia da Silva\",\n    \"address1\" => \"Rua Primeiro de Abril, 123\",\n    \"address2\" => \"Apto. 45\",\n    \"city\" => \"São Paulo\",\n    \"state\" => \"SP\",\n    \"zip\" => \" 01001-001\",\n    \"country\" => \"BR\"\n  )\n```\n```java\nKondutoAddress shipping = new KondutoAddress();\naddress.setName(\"Júlia da Silva\");\naddress.setAddress1(\"Rua Primeiro de Abril, 123\");\naddress.setAddress2(\"Apto. 45\");\naddress.setZip(\"01001-001\");\naddress.setCity(\"São Paulo\");\naddress.setState(\"SP\");\naddress.setCountry(\"BR\");\n```\n```csharp\nKondutoAddress shipping = new KondutoAddress\n{\n  Name = \"Júlia da Silva\",\n  Address1 = \"Rua Primeiro de Abril, 123\",\n  Address2 = \"Apto. 45\",\n  Zip = \"01001-001\",\n  City = \"Sao Paulo\",\n  State = \"SP\",\n  Country = \"BR\"\n};\n```\n```ruby\norder = KondutoOrder.new;\n\nshipping = KondutoAddress.new;\nshipping.name = \"Júlia da Silva\";\nshipping.address1 = \"Rua Primeiro de Abriel, 123\";\nshipping.address2 = \"Apt. 45\";\nshipping.city = \"São Paulo\";\nshipping.state = \"SP\";\nshipping.zip = \"01001-001\";\nshipping.country = \"BR\";\n\norder.shipping = shipping;\n```"
+  },
+  "delivery": {
+    "title": "Delivery",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "delivery_company",
+            "_(recomendado)_   Adiciona o nome da empresa que fará a entrega do produto ao cliente.   Exemplo: `GFL`   **String, até 100 chars.**"
+          ],
+          [
+            "delivery_method",
+            "_(recomendado)_   Detalha o tipo de tipo de retirada, se aplicável.   Exemplo:  `retira_loja`   **String, até 100 chars.**"
+          ],
+          [
+            "estimated_shipping_date",
+            "_(obrigatório)_   Informa a data estimada de entrega do produto.   Exemplo: `2021-05-06`   **String,  formato YYYY-MM-DD** [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)"
+          ],
+          [
+            "estimated_delivery_date",
+            "_(obrigatório)_   Informa a data estimada de retirada do produto.   Exemplo: `2021-05-06`   **String,  formato YYYY-MM-DD** [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)"
+          ]
+        ]
+      }
+    ],
+    "body": "O objeto `delivery` nos trará detalhes acerca do processo de entrega do produto. Nele conseguimos adicionar detalhes como o nome da empresa envolvida na entrega, opções de retirada em loja e data de entrega estimada.\n\n> 👍 \n> \n> Se você trabalha com serviço de \"Retira em loja\" este campo te possibilita entregar uma informação mais precisa para o contexto da análise de fraude.\n\nAnalise a tabela abaixo para identificar o que cada parâmetro significa e veja ao lado como enviar o código:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"delivery_company\",\n    \"0-1\": \"_(recomendado)_  \\nAdiciona o nome da empresa que fará a entrega do produto ao cliente.  \\nExemplo: `GFL`  \\n**String, até 100 chars.**\",\n    \"1-0\": \"delivery_method\",\n    \"1-1\": \"_(recomendado)_  \\nDetalha o tipo de tipo de retirada, se aplicável.  \\nExemplo:  `retira_loja`  \\n**String, até 100 chars.**\",\n    \"2-0\": \"estimated_shipping_date\",\n    \"2-1\": \"_(obrigatório)_  \\nInforma a data estimada de entrega do produto.  \\nExemplo: `2021-05-06`  \\n**String,  formato YYYY-MM-DD** [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)\",\n    \"3-0\": \"estimated_delivery_date\",\n    \"3-1\": \"_(obrigatório)_  \\nInforma a data estimada de retirada do produto.  \\nExemplo: `2021-05-06`  \\n**String,  formato YYYY-MM-DD** [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)\"\n  },\n  \"cols\": 2,\n  \"rows\": 4,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{\n\"delivery\":{\n\"delivery_company\":\"GFL\",\n\"delivery_method\":\"retira_loja\",\n\"estimated_shipping_date\":\"2025-06-10\",\n\"estimated_delivery_date\":\"2025-06-10\"\n}\n}\n```\n```java JAVA\nKondutoDelivery kondutoDelivery = new KondutoDelivery();\nkondutoDelivery.setDeliveryCompany(\"GFL\");\nkondutoDelivery.setDeliveryMethod(\"retira_loja\");\nkondutoDelivery.setEstimatedDeliveryDate(\"2021-05-06 00:00:00\");\nkondutoDelivery.setEstimatedShippingDate(\"2021-05-06 00:00:00\");\n```"
+  },
+  "dispositivo-externo": {
+    "title": "Dispositivo Externo",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "fingerprint",
+            "_(obrigatório)_   Identificação do navegador.   **Max. 255 e min. 3, string**"
+          ],
+          [
+            "provider",
+            "_(recomendado)_   Tipo de provedor   **Max. 225 e min. 2 chars, string.**"
+          ],
+          [
+            "category",
+            "_(recomendado)_   Tipo de device   **Max. 100 e min. 2 chars, string.**"
+          ],
+          [
+            "model",
+            "_(recomendado)_   Tipo do modelo utilizado   **Max. 225 chars, string.**"
+          ],
+          [
+            "platform",
+            "_(recomendado)_   Tipo de dispositivo pelo cliente   **Max. 225 e min. 2 chars, string.**"
+          ],
+          [
+            "manufacturer",
+            "_(recomendado)_   Qual o Fabricante   **Max. 225 e min. 2 chars, string.**"
+          ],
+          [
+            "os",
+            "_(recomendado)_   Qual o Sistema Operacional   **Max. 225 e min. 2 chars, string.**"
+          ],
+          [
+            "browser",
+            "_(recomendado)_   Qual navegador   **Max. 225 e min. 2 chars, string.**"
+          ],
+          [
+            "language",
+            "_(recomendado)_   Linguagem utilizada   **Max. 255, string**"
+          ],
+          [
+            "flash",
+            "_(recomendado)_   Flag indicando se o cliente tem Flash habilitados.   **Boolean (Max, 5 chars)**"
+          ],
+          [
+            "cookie",
+            "_(recomendado)_   Flag indicando se o cliente possui cookies habilitados.   **Boolean (Max, 5 chars)**"
+          ],
+          [
+            "javascript",
+            "_(recomendado)_   Flag indicando se o cliente tem JavaScript habilitados.   **Boolean (Max, 5 chars)**"
+          ],
+          [
+            "timezone",
+            "_(recomendado)_   Fuso horário do cliente em GMT.   **String (Timezone) (Max. 100 chars)**"
+          ],
+          [
+            "user_id",
+            "_(recomendado)_   Identificador único do visitante.   **Max. 225 e min. 2 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "O objeto ´external_device\\` irá trazer informações da máquina que seu cliente está usando para efetuar a transação/operação em sua loja, podendo ser configurado de acordo com o fingerprint utilizado por terceiros.\n\nAnalise a tabela abaixo para identificar o que cada parâmetro significa e veja ao lado como enviar o código:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"fingerprint\",\n    \"0-1\": \"_(obrigatório)_  \\nIdentificação do navegador.  \\n**Max. 255 e min. 3, string**\",\n    \"1-0\": \"provider\",\n    \"1-1\": \"_(recomendado)_  \\nTipo de provedor  \\n**Max. 225 e min. 2 chars, string.**\",\n    \"2-0\": \"category\",\n    \"2-1\": \"_(recomendado)_  \\nTipo de device  \\n**Max. 100 e min. 2 chars, string.**\",\n    \"3-0\": \"model\",\n    \"3-1\": \"_(recomendado)_  \\nTipo do modelo utilizado  \\n**Max. 225 chars, string.**\",\n    \"4-0\": \"platform\",\n    \"4-1\": \"_(recomendado)_  \\nTipo de dispositivo pelo cliente  \\n**Max. 225 e min. 2 chars, string.**\",\n    \"5-0\": \"manufacturer\",\n    \"5-1\": \"_(recomendado)_  \\nQual o Fabricante  \\n**Max. 225 e min. 2 chars, string.**\",\n    \"6-0\": \"os\",\n    \"6-1\": \"_(recomendado)_  \\nQual o Sistema Operacional  \\n**Max. 225 e min. 2 chars, string.**\",\n    \"7-0\": \"browser\",\n    \"7-1\": \"_(recomendado)_  \\nQual navegador  \\n**Max. 225 e min. 2 chars, string.**\",\n    \"8-0\": \"language\",\n    \"8-1\": \"_(recomendado)_  \\nLinguagem utilizada  \\n**Max. 255, string**\",\n    \"9-0\": \"flash\",\n    \"9-1\": \"_(recomendado)_  \\nFlag indicando se o cliente tem Flash habilitados.  \\n**Boolean (Max, 5 chars)**\",\n    \"10-0\": \"cookie\",\n    \"10-1\": \"_(recomendado)_  \\nFlag indicando se o cliente possui cookies habilitados.  \\n**Boolean (Max, 5 chars)**\",\n    \"11-0\": \"javascript\",\n    \"11-1\": \"_(recomendado)_  \\nFlag indicando se o cliente tem JavaScript habilitados.  \\n**Boolean (Max, 5 chars)**\",\n    \"12-0\": \"timezone\",\n    \"12-1\": \"_(recomendado)_  \\nFuso horário do cliente em GMT.  \\n**String (Timezone) (Max. 100 chars)**\",\n    \"13-0\": \"user_id\",\n    \"13-1\": \"_(recomendado)_  \\nIdentificador único do visitante.  \\n**Max. 225 e min. 2 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 14,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n<br />\n\n```json\n{\n  \"fingerprint\": \"e4f2c690951038a8f77aa583847\",\n  \"provider\": \"SO\",\n  \"category\": \"Mobile\",\n  \"model\": \"S10\",\n  \"platform\": \"Android\",\n  \"manufacturer\": \"Samsung\",\n  \"os\" : \"Android 11\",\n  \"browser\": \"Chrome\",\n  \"language\": \"pt\",\n  \"cookie\": true,\n  \"flash\":  false,\n  \"javascript\": true,\n  \"timezone\": \"GTM-3\",\n  \"user_id\": \"user_12345\"\n}\n```\n```java JAVA\npublic class KondutoExternalDeviceFactory {\n    public static KondutoExternalDevice getExternalDevice(){\n        KondutoExternalDevice externalDevice = new KondutoExternalDevice();\n        externalDevice.setBrowser(\"Chrome\");\n        externalDevice.setProvider(\"SO\");\n        externalDevice.setCategory(\"Mobile\");\n        externalDevice.setModel(\"S10\");\n        externalDevice.setManufacturer(\"Samsung\");\n        externalDevice.setOs(\"Android 11\");\n        externalDevice.setFingerprint(\"e4f2c690951038a8f77aa583847\");\n        externalDevice.setPlatform(\"Android\");\n        externalDevice.setLanguage(\"pt\");\n        return externalDevice;\n    }\n```"
+  },
+  "shopping_cart": {
+    "title": "Carrinho",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "sku",
+            "_(recomendado)_   [SKU](https://pt.wikipedia.org/wiki/Stock_Keeping_Unit) ou número de inventário do produto ou serviço.   **Max. 100 chars, string.**"
+          ],
+          [
+            "product_code",
+            "_(obrigatório)_   Código de barras ou [UPC ](https://pt.wikipedia.org/wiki/C%C3%B3digo_de_barras)do produto ou serviço.   **Max. 100 chars, string.**"
+          ],
+          [
+            "category",
+            "_(recomendado)_   Código da categoria do produto comprado.   Veja nossa [lista de categorias](https://docs.konduto.com/reference/categorias-de-produtos-e-c%C3%B3digos) para mais informações.   **Max. 4 chars, número.**"
+          ],
+          [
+            "name",
+            "_(obrigatório)_   Nome do produto ou serviço.   **Max. 100 chars, string.**"
+          ],
+          [
+            "description",
+            "_(obrigatório)_   Descrição de detalhada do produto ou serviço.   **Max. 100 chars, string.**"
+          ],
+          [
+            "unit_cost",
+            "_(recomendado)_   Custo unitário deste produto ou serviço.   **Max. 10 chars, número.**"
+          ],
+          [
+            "quantity",
+            "_(recomendado)_   Quantidade de unidades compradas.   **Max. 10 chars, número.**"
+          ],
+          [
+            "discount",
+            "_(recomendado)_   Valor de desconto do produto.   **Max. 10 chars, número.**"
+          ],
+          [
+            "created_at",
+            "_(recomendado)_   Data de publicação do produto no site, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**"
+          ],
+          [
+            "deliveryType",
+            "_(opcional)_   Tipo de entrega.   **Max. 255 chars, string.**"
+          ],
+          [
+            "deliverySlaInMinutes",
+            "_(opcional) _   Tempo estimado de entrega em minutos.   **Min. 0. Max. 9999999999, número.**"
+          ],
+          [
+            "sellerId",
+            "_(opcional)_   Identificador do vendedor.   **Max. 255 chars, string.**"
+          ],
+          [
+            "image",
+            "_(recomendado)_   Link da imagem do produto.   **String (URL) (Max. 255 chars)**"
+          ]
+        ]
+      }
+    ],
+    "body": "O objeto `shopping_cart` nos trará informações acerca do carrinho de compras. Esta lista de objetos contém uma relação dos produtos que foram comprados neste pedido. Não existe limite para a quantidade de objetos que esta lista aceita.\n\n> 🚧 \n> \n> Assim como nos casos anteriores, o envio dos parâmetros é opcional, porém quanto mais dados tivermos, mais completa será a análise do sistema.\n\nAnalise a tabela abaixo para identificar o que cada parâmetro significa e veja ao lado como enviar o código:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"sku\",\n    \"0-1\": \"_(recomendado)_  \\n[SKU](https://pt.wikipedia.org/wiki/Stock_Keeping_Unit) ou número de inventário do produto ou serviço.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"product_code\",\n    \"1-1\": \"_(obrigatório)_  \\nCódigo de barras ou [UPC ](https://pt.wikipedia.org/wiki/C%C3%B3digo_de_barras)do produto ou serviço.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"category\",\n    \"2-1\": \"_(recomendado)_  \\nCódigo da categoria do produto comprado.  \\nVeja nossa [lista de categorias](https://docs.konduto.com/reference/categorias-de-produtos-e-c%C3%B3digos) para mais informações.  \\n**Max. 4 chars, número.**\",\n    \"3-0\": \"name\",\n    \"3-1\": \"_(obrigatório)_  \\nNome do produto ou serviço.  \\n**Max. 100 chars, string.**\",\n    \"4-0\": \"description\",\n    \"4-1\": \"_(obrigatório)_  \\nDescrição de detalhada do produto ou serviço.  \\n**Max. 100 chars, string.**\",\n    \"5-0\": \"unit_cost\",\n    \"5-1\": \"_(recomendado)_  \\nCusto unitário deste produto ou serviço.  \\n**Max. 10 chars, número.**\",\n    \"6-0\": \"quantity\",\n    \"6-1\": \"_(recomendado)_  \\nQuantidade de unidades compradas.  \\n**Max. 10 chars, número.**\",\n    \"7-0\": \"discount\",\n    \"7-1\": \"_(recomendado)_  \\nValor de desconto do produto.  \\n**Max. 10 chars, número.**\",\n    \"8-0\": \"created_at\",\n    \"8-1\": \"_(recomendado)_  \\nData de publicação do produto no site, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 10 chars, string.**\",\n    \"9-0\": \"deliveryType\",\n    \"9-1\": \"_(opcional)_  \\nTipo de entrega.  \\n**Max. 255 chars, string.**\",\n    \"10-0\": \"deliverySlaInMinutes\",\n    \"10-1\": \"_(opcional) _  \\nTempo estimado de entrega em minutos.  \\n**Min. 0. Max. 9999999999, número.**\",\n    \"11-0\": \"sellerId\",\n    \"11-1\": \"_(opcional)_  \\nIdentificador do vendedor.  \\n**Max. 255 chars, string.**\",\n    \"12-0\": \"image\",\n    \"12-1\": \"_(recomendado)_  \\nLink da imagem do produto.  \\n**String (URL) (Max. 255 chars)**\"\n  },\n  \"cols\": 2,\n  \"rows\": 13,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{  \n  \"shopping_cart\":[\n    {  \n      \"sku\":\"9919023\",\n      \"product_code\":\"123456789999\",\n      \"category\":201,\n      \"name\":\"Camiseta Verde\",\n      \"description\":\"Camiseta M\",\n      \"unit_cost\":29.99,\n      \"quantity\":1,\n      \"created_at\":\"2008-12-25\",\n      \"deliveryType\":\"entrega expressa\",\n      \"deliverySlaInMinutes\": 50,\n      \"sellerId\":\"11\"\n    },\n    {  \n      \"sku\":\"0017273\",\n      \"category\":202,\n      \"name\":\"Par de meias amarelas\",\n      \"description\":\"Meias de Algodão\",\n      \"unit_cost\":7.50,\n      \"quantity\":2,\n      \"discount\":1.00\n    }\n  ]\n}\n```\n```php\n\"shopping_cart\" => array(\n    array(\n      \"sku\" => \"9919023\",\n      \"product_code\" => \"123456789999\",\n      \"category\" => 201,\n      \"name\" => \"Camiseta Verde\",\n      \"description\" => \"Camiseta M\",\n      \"unit_cost\" => 29.99,\n      \"quantity\" => 1,\n      \"created_at\" => \"2008-12-25\"\n\n      ),\n    array(\n      \"sku\" => \"0017273\",\n      \"category\" => 202,\n      \"name\" => \"Par de meias amarelas\",\n      \"description\" => \"Meias de Algodão\",\n      \"unit_cost\" => 7.50,\n      \"quantity\" => 2,\n      \"discount\" => 1.00\n    )\n  )\n```\n```java\nKondutoItem greenTShirt = new KondutoItem();\ngreenTShirt.setSku(\"9919023\");\ngreenTShirt.setProductCode(\"123456789999\");\ngreenTShirt.setCategory(201);\ngreenTShirt.setName(\"Camiseta Verde\");\ngreenTShirt.setDescription(\"Camiseta M\");\ngreenTShirt.setUnitCost(29.99);\ngreenTShirt.setQuantity(1);\ngreenTShirt.setCreated_at(new Date(1230163200000L));\n\nKondutoItem yellowSocks = new KondutoItem();\nyellowSocks.setSku(\"0017273\");\nyellowSocks.setCategory(202);\nyellowSocks.setName(\"Par de meias amarelas\");\nyellowSocks.setDescription(\"Meias de Algodão\");\nyellowSocks.setUnitCost(7.50);\nyellowSocks.setQuantity(1d);\nyellowSocks.setCreated_at(new Date(1230163200000L));\n\nCollection<KondutoItem> shoppingCart =  Arrays.asList(getGreenTShirt(), getYellowSocks());\n```\n```csharp\nKondutoItem item1 = new KondutoItem\n{\n  Sku = \"9919023\",\n  ProductCode = \"123456789999\",\n  Category = 201,\n  Name = \"Camiseta Verde\",\n  Description = \"Camiseta M\",\n  UnitCost = 29.99,\n  Quantity = 1,\n  CreatedAt = \"2008-12-25\"\n};\n\nKondutoItem item2 = new KondutoItem\n{\n  Sku = \"0017273\",\n  ProductCode = \"123456789999\",\n  Category = 202,\n  Name = \"Par de meias amarelas\",\n  Description = \"Meias de Algodão\",\n  UnitCost = 7.50,\n  Quantity = 1,\n  CreatedAt = \"2008-12-25\"\n};\n\nList<KondutoItem> shoppingCart = new List<KondutoItem> { item1, item2 };\n```\n```ruby\nshopping_cart1 = KondutoItem.new;\nshopping_cart1.product_code = \"123456789999\";\nshopping_cart1.category = 201;\nshopping_cart1.name = \"Camiseta Verde\";\nshopping_cart1.description = \"Camiseta M\";\nshopping_cart1.unit_cost = 29.99;\nshopping_cart1.quantity = 1;\nshopping_cart1.sku = \"919023\";\nshopping_cart1.created_at = Date.new(2008,12,15);\n\nshopping_cart2 = KondutoItem.new;\nshopping_cart2.sku = \"0017273\";\nshopping_cart2.category = 202;\nshopping_cart2.name = \"Par de meias amarelase\";\nshopping_cart2.description = \"Meias de Algodão\";\nshopping_cart2.unit_cost = 7.50;\nshopping_cart2.quantity = 2;\nshopping_cart2.discount = 1.00;\n\n\norder.shopping_cart = [shopping_cart1, shopping_cart2];\n```"
+  },
+  "travel": {
+    "title": "Viagem",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "type",
+            "_(obrigatório)_   Tipo de viagem. Atualmente são suportados `flight `ou `bus`."
+          ],
+          [
+            "expiration_date",
+            "_(opcional)_   Data de expiração.   **Datetime**"
+          ],
+          [
+            "departure",
+            "_(obrigatório)_   Objeto com as informações do viagem de **ida**."
+          ],
+          [
+            "return",
+            "_(recomendado)_   Objeto com as informações do viagem de **volta**."
+          ],
+          [
+            "passengers",
+            "_(obrigatório)_   Array de objetos com os dados dos passageiros."
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "origin_city",
+            "_(obrigatório se type=bus)_   Cidade de origem.   **Max 100 chars, string.**"
+          ],
+          [
+            "destination_city",
+            "_(obrigatório se type=bus)_   Cidade de destino.   **Max 100 chars, string.**"
+          ],
+          [
+            "origin_airport",
+            "_(obrigatório se type=flight)_   [Código aeroportuário IATA](https://pt.wikipedia.org/wiki/C%C3%B3digo_aeroportu%C3%A1rio_IATA) para o aeroporto de origem.   **Exatamente 3 chars, string.**"
+          ],
+          [
+            "destination_airport",
+            "_(obrigatório se type=flight)_   [Código aeroportuário IATA](https://pt.wikipedia.org/wiki/C%C3%B3digo_aeroportu%C3%A1rio_IATA) para o aeroporto de destino.   **Exatamente 3 chars, string.**"
+          ],
+          [
+            "date",
+            "_(obrigatório)_   Date e hora do embarque em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)   **Max. 17 chars, string.**"
+          ],
+          [
+            "number_of_connections",
+            "_(recomendado)_   Número de conexões.   **Integer.**"
+          ],
+          [
+            "class",
+            "_(recomendado)_   Nome da classe, como `economy`, `business` e `first`.   **Max. 8 chars, string.**"
+          ],
+          [
+            "fare_basis",
+            "_(recomendado)_   Código da classe.   **Max 20 chars, string.**"
+          ],
+          [
+            "company",
+            "_(recomendado)_   Nome da cia aérea.   **Max. 255 chars, string.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(obrigatório)_   Nome completo do passageiro.   **Max 100 chars, string.**"
+          ],
+          [
+            "document",
+            "_(obrigatório)_   Número do documento.   **Max 100 chars, string.**"
+          ],
+          [
+            "document_type",
+            "_(obrigatório)_   Tipo do documento. Pode ser `passport `ou `id`.   **Max 8 chars, string.**"
+          ],
+          [
+            "dob",
+            "_(recomendado)_   Data de nascimento do passageiro no formato YYYY-MM-DD [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**"
+          ],
+          [
+            "nationality",
+            "_(recomendado)_   País de nascimento do passageniro [(ISO 3166-2)](https://en.wikipedia.org/wiki/ISO_3166-2).   **Max. 2 chars, string.**"
+          ],
+          [
+            "frequent_traveler",
+            "_(recomendado)_   Flag de viajante frequente.   **Boolean, padrão é `false`.**"
+          ],
+          [
+            "special_needs",
+            "_(recomendado)_   Flag de viajante frequente.   **Boolean, padrão é `false`.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "program",
+            "_(recomendado)_   Tipo de programa de fidelidade   **Max. 255 chars, String**   Ex.: `smiles`"
+          ],
+          [
+            "category",
+            "_(recomendado)_   Categoria do programa de fidelidade.   **Max. 255 chars, String**   Ex.: `gold`, `silver`"
+          ]
+        ]
+      }
+    ],
+    "body": "Se você trabalha com viagens, deve utilizar esse objeto para encaminhar informações do seu pedido. Você perceberá que nele, alguns parâmetros são **obrigatórios**.\n\nTomamos o cuidado de separar em dois dos exemplos mais utilizados nesse segmento para operações aéreas e terrestres.\n\nEsse objeto contém informações de viagem e dos passageiros desta compra. Dados de viagem estão divididos em objetos de ida (`departure`) e volta (`return`), além do tipo de transporte. Informações dos passageiros ficam no array `passengers`.\n\nAo lado vemos um exemplo de código completo com um exemplo aplicável para `aéreo` , com cada um dos dados descritos nas tabelas seguintes dessa sessão.\n\nNa tabela abaixo, descreveremos os parâmetros da raiz `travel`:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"type\",\n    \"0-1\": \"_(obrigatório)_  \\nTipo de viagem. Atualmente são suportados `flight `ou `bus`.\",\n    \"1-0\": \"expiration_date\",\n    \"1-1\": \"_(opcional)_  \\nData de expiração.  \\n**Datetime**\",\n    \"2-0\": \"departure\",\n    \"2-1\": \"_(obrigatório)_  \\nObjeto com as informações do viagem de **ida**.\",\n    \"3-0\": \"return\",\n    \"3-1\": \"_(recomendado)_  \\nObjeto com as informações do viagem de **volta**.\",\n    \"4-0\": \"passengers\",\n    \"4-1\": \"_(obrigatório)_  \\nArray de objetos com os dados dos passageiros.\"\n  },\n  \"cols\": 2,\n  \"rows\": 5,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nAs informações sobre a Viagem, estarão contidas em `departure` e `return`.  \nEsses dados são os mesmos no geral, e suas descrições aparecem na tabela abaixo:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"origin_city\",\n    \"0-1\": \"_(obrigatório se type=bus)_  \\nCidade de origem.  \\n**Max 100 chars, string.**\",\n    \"1-0\": \"destination_city\",\n    \"1-1\": \"_(obrigatório se type=bus)_  \\nCidade de destino.  \\n**Max 100 chars, string.**\",\n    \"2-0\": \"origin_airport\",\n    \"2-1\": \"_(obrigatório se type=flight)_  \\n[Código aeroportuário IATA](https://pt.wikipedia.org/wiki/C%C3%B3digo_aeroportu%C3%A1rio_IATA) para o aeroporto de origem.  \\n**Exatamente 3 chars, string.**\",\n    \"3-0\": \"destination_airport\",\n    \"3-1\": \"_(obrigatório se type=flight)_  \\n[Código aeroportuário IATA](https://pt.wikipedia.org/wiki/C%C3%B3digo_aeroportu%C3%A1rio_IATA) para o aeroporto de destino.  \\n**Exatamente 3 chars, string.**\",\n    \"4-0\": \"date\",\n    \"4-1\": \"_(obrigatório)_  \\nDate e hora do embarque em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)  \\n**Max. 17 chars, string.**\",\n    \"5-0\": \"number_of_connections\",\n    \"5-1\": \"_(recomendado)_  \\nNúmero de conexões.  \\n**Integer.**\",\n    \"6-0\": \"class\",\n    \"6-1\": \"_(recomendado)_  \\nNome da classe, como `economy`, `business` e `first`.  \\n**Max. 8 chars, string.**\",\n    \"7-0\": \"fare_basis\",\n    \"7-1\": \"_(recomendado)_  \\nCódigo da classe.  \\n**Max 20 chars, string.**\",\n    \"8-0\": \"company\",\n    \"8-1\": \"_(recomendado)_  \\nNome da cia aérea.  \\n**Max. 255 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 9,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `passenger` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(obrigatório)_  \\nNome completo do passageiro.  \\n**Max 100 chars, string.**\",\n    \"1-0\": \"document\",\n    \"1-1\": \"_(obrigatório)_  \\nNúmero do documento.  \\n**Max 100 chars, string.**\",\n    \"2-0\": \"document_type\",\n    \"2-1\": \"_(obrigatório)_  \\nTipo do documento. Pode ser `passport `ou `id`.  \\n**Max 8 chars, string.**\",\n    \"3-0\": \"dob\",\n    \"3-1\": \"_(recomendado)_  \\nData de nascimento do passageiro no formato YYYY-MM-DD [(ISO 8601)](https://en.wikipedia.org/wiki/ISO_8601).  \\n**Max. 10 chars, string.**\",\n    \"4-0\": \"nationality\",\n    \"4-1\": \"_(recomendado)_  \\nPaís de nascimento do passageniro [(ISO 3166-2)](https://en.wikipedia.org/wiki/ISO_3166-2).  \\n**Max. 2 chars, string.**\",\n    \"5-0\": \"frequent_traveler\",\n    \"5-1\": \"_(recomendado)_  \\nFlag de viajante frequente.  \\n**Boolean, padrão é `false`.**\",\n    \"6-0\": \"special_needs\",\n    \"6-1\": \"_(recomendado)_  \\nFlag de viajante frequente.  \\n**Boolean, padrão é `false`.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 7,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `loyalty` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"program\",\n    \"0-1\": \"_(recomendado)_  \\nTipo de programa de fidelidade  \\n**Max. 255 chars, String**  \\nEx.: `smiles`\",\n    \"1-0\": \"category\",\n    \"1-1\": \"_(recomendado)_  \\nCategoria do programa de fidelidade.  \\n**Max. 255 chars, String**  \\nEx.: `gold`, `silver`\"\n  },\n  \"cols\": 2,\n  \"rows\": 2,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nExemplo de script para aéreo\n\n```json\n{  \n  \"travel\":{\n    \"type\":\"flight\",\n    \"expiration_date\":\"2028-12-25T18:00Z\",\n    \"departure\":{\n      \"origin_airport\":\"GRU\",\n      \"destination_airport\":\"JFK\",\n      \"origin_city\":\"Guarulhos\",\n      \"destination_city\":\"New York\",\n      \"date\":\"2018-12-25T18:00Z\",\n      \"class\":\"economy\",\n      \"number_of_connections\":1,\n      \"fare_basis\":\"Y\",\n      \"company\":\"VANTAN\"\n    },\n    \"return\":{\n      \"origin_airport\":\"JFK\",\n      \"destination_airport\":\"GRU\",\n      \"origin_city\":\"New York\",\n      \"destination_city\":\"Guarulhos\",\n      \"date\":\"2018-12-30T18:00Z\",\n      \"class\":\"business\",\n      \"number_of_connections\":1,\n      \"fare_basis\":\"Y\",\n      \"company\":\"VANTAN\"\n    },\n    \"passengers\":[\n       {  \n        \"name\":\"Júlia da Silva\",\n        \"document\":\"12345678909\",\n        \"document_type\":\"id\",\n        \"dob\":\"1970-01-01\",\n        \"nationality\":\"BR\",\n        \"loyalty\":{\n          \"program\":\"smiiles\",\n          \"category\":\"gold\"\n       },\n        \"frequent_traveler\":true,\n        \"special_needs\":false\n      },\n      {\n        \"name\":\"Carlos Siqueira\",\n        \"document\":\"XYZ1234\",\n        \"document_type\":\"passport\",\n        \"dob\":\"1970-12-01\",\n        \"nationality\":\"US\",\n        \"loyalty\":{\n          \"program\":\"multipleus\",\n          \"category\":\"silver\"\n        },\n        \"frequent_traveler\":false,\n        \"special_needs\":true\n      }\n    ]\n  }\n}\n```\n```php\n\"travel\" => array(\n   \"type\" => \"flight\",\n   \"expiration_date\" => \"2025-12-25T15:41:53Z\",\n   \"departure\" => array(\n      \"origin_airport\" => \"GRU\",\n      \"destination_airport\" => \"JFK\",\n      \"origin_city\" => \"Guarulhos\",\n      \"destination_city\" => \"New York\",\n      \"date\" => \"2018-12-25T18:00Z\",\n      \"class\" => \"business\",\n      \"number_of_connections\" => 1,\n      \"fare_basis\": \"Y\",\n      \"company\" => \"LATAM\"\n   ),\n   \"return\" => array(\n      \"origin_airport\" => \"JFK\",\n      \"destination_airport\" => \"GRU\",\n      \"origin_city\" => \"New York\",\n      \"destination_city\" => \"Guarulhos\",\n      \"date\" => \"2018-12-25T18:00Z\",\n      \"class\" => \"business\",\n      \"number_of_connections\" => 1,\n      \"fare_basis\": \"Y\",\n      \"company\" => \"LATAM\"\n   ),\n   \"passengers\" => array(\n      array(\n         \"name\"=> \"Júlia da Silva\",\n         \"document\" => \"12345678909\",\n         \"document_type\" => \"id\",\n         \"dob\" => \"1970-01-01\",\n         \"nationality\" => \"BR\",\n         \"loyalty\" => array(\n             \"program\" => \"smiles\",\n             \"category\" => \"gold\"\n         ),\n         \"frequent_traveler\" => true,\n         \"special_needs\" => false\n      ),\n      array(\n         \"name\" => \"Carlos Siqueira\",\n         \"document\" => \"XYZ1234\",\n         \"document_type\" => \"passport\",\n         \"dob\" => \"1970-12-01\",\n         \"nationality\" => \"US\",\n         \"loyalty\" => array(\n            \"program\" => \"multiplus\",\n            \"category\" => \"silver\",\n         ),\n         \"frequent_traveler\" => false,\n         \"special_needs\" => true\n      )\n)\n```\n```java\nKondutoPassenger passenger1 = new KondutoPassenger();\npassenger1.setName(\"Júlia da Silva\");\npassenger1.setDocument(\"12345678909\");\npassenger1.setDocumentType(KondutoDocumentType.ID);\nDateFormat format = new SimpleDateFormat(\"yyyy-MM-dd\");\npassenger1.setDateOfBirth(format.parse(\"1970-01-01\"));\npassenger1.setNationality(\"BR\");\npassenger1.setFrequentTraveler(true);\npassenger1.setSpecialNeeds(false);\npassenger1.setLoyaltyProgram(\"smiles\");\npassenger1.setLoyaltyCategory(\"gold\");\n\nKondutoPassenger passenger2 = new KondutoPassenger();\npassenger2.setName(\"Carlos Siqueira\");\npassenger2.setDocument(\"XYZ1234\");\npassenger2.setDocumentType(KondutoDocumentType.PASSPORT);\nDateFormat format = new SimpleDateFormat(\"yyyy-MM-dd\");\npassenger2.setDateOfBirth(format.parse(\"1970-12-01\"));\npassenger2.setNationality(\"US\");\npassenger2.setFrequentTraveler(false);\npassenger2.setSpecialNeeds(false);\npassenger2.setLoyaltyProgram(\"multiplus\");\npassenger2.setLoyaltyCategory(\"silver\");\n\nKondutoFlightTravelLeg departure = new KondutoFlightTravelLeg();\ndeparture.setOriginAirport(\"GRU\");\ndeparture.setDestinationAirport(\"JFK\");\ndeparture.setOriginCity(\"Guarulhos\");\ndeparture.setDestinationCity(\"New York\");\ndeparture.setDate(new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm'Z'\").parse(\"2018-12-25T18:00Z\"));\ndeparture.setTravelClass(KondutoTravelClass.ECONOMY);\ndeparture.setNumberOfConnections(1);\ndeparture.setFareBasis(\"Y\");\ndeparture.setCompany(\"LATAM\");\n\nKondutoFlightTravelLeg returnInfo = new KondutoFlightTravelLeg();\nreturnInfo.setOriginAirport(\"JFK\");\nreturnInfo.setDestinationAirport(\"GRU\");\nreturnInfo.setOriginCity(\"New York\");\nreturnInfo.setDestinationCity(\"Guarulhos\");\nreturnInfo.setDate(new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm'Z'\").parse(\"2018-12-30T18:00Z\"));\nreturnInfo.setTravelClass(KondutoTravelClass.BUSINESS);\nreturnInfo.setNumberOfConnections(1)\nreturnInfo.setFareBasis(\"Y\");\nreturn.setCompany(\"LATAM\");\n\nList<KondutoPassenger> passengers = new ArrayList<KondutoPassenger>();\npassengers.add(passenger1);\npassengers.add(passenger2);\n\nKondutoTravel travel = new KondutoTravel();\ntravel.setDepartureLeg(departure);\ntravel.setReturnLeg(returnInfo);\ntravel.setPassengers(passengers);\ntravel.setTravelType(KondutoTravelType.FLIGHT);\n```\n```csharp\nKondutoLoyaltyProgram loyalty1 = new KondutoLoyaltyProgram\n{\n  Program = \"smiles\",\n  Category = \"gold\"\n}\n\nKondutoPassenger passenger1 = new KondutoPassenger\n{\n  Name = \"Julia da Silva\",\n  Document = \"12345678909\",\n  DocumentType = \"id\",\n  Dob = \"1970-01-01\",\n  Nationality = \"BR\",\n  FrequentTraveler = true,\n  SpecialNeeds = false,\n  Loyalty = loyalty1\n};\n\nKondutoLoyaltyProgram loyalty2 = new KondutoLoyaltyProgram\n{\n  Program = \"multiplus\",\n  Category = \"silver\"\n}\n\nKondutoPassenger passenger2 = new KondutoPassenger\n{\n  Name = \"Carlos Siqueira\",\n  Document = \"XYZ1234\",\n  DocumentType = \"passport\",\n  Dob = \"1970-12-01\",\n  Nationality = \"US\",\n  FrequentTraveler = false,\n  SpecialNeeds = false,\n  Loyalty = loyalty2\n};\n\nKondutoTravelInformation departure = new KondutoTravelInformation\n{\n  OriginAirport = \"GRU\",\n  DestinationAirport = \"JFK\",\n  OriginCity = \"Guarulhos\",\n  DestinationCity = \"New York\",\n  Date = \"2018-12-25T18:00Z\",\n  Class = \"economy\",\n  NumberOfConnections = 1,\n  FareBasis = \"Y\",\n  Company = \"LATAM\"\n};\n\nKondutoTravelInformation returnInfo = new KondutoTravelInformation\n{\n  OriginAirport = \"SFO\",\n  DestinationAirport = \"JFK\",\n  OriginCity = \"New York\",\n  DestinationCity = \"Guarulhos\",\n  Date = \"2018-12-25T18:00Z\",\n  Class = \"economy\",\n  NumberOfConnections = 1,\n  FareBasis = \"Y\",\n  Company = \"LATAM\"\n};\n\nKondutoTravel travel = new KondutoTravel\n{\n  TravelType = KondutoTravelType.flight\n  Departure = departure,\n  Return = returnInfo,\n  Passengers = new List<KondutoPassenger>\n  {\n      passenger1,\n      passenger2\n  }\n}\n```\n```ruby\ntravel = KondutoTravel.new;\ntravel.type = \"flight\";\n\ndeparture = KondutoDeparture.new;\ndeparture.origin_airport = \"GRU\";\ndeparture.destination_airport = \"JFK\";\ndeparture.origin_city = \"Guarulhos\";\ndeparture.destination_city = \"New York\";\ndeparture.date = \"2018-12-30T18:00Z\";\ndeparture.class = \"business\";\ndeparture.number_of_connections = 1;\ndeparture.fare_basis = \"Y\";\ndeparture.company = \"LATAM\";\n \ntravel.departure = departure;\n\nreturn = KondutoDeparture.new;\nreturn.origin_airport = \"JFK\";\nreturn.destination_airport = \"GRU\";\nreturn.origin_city = \"New York\";\nreturn.destination_city = \"Guarulhos\";\nreturn.date = \"2018-12-30T18:00Z\";\nreturn.class = \"business\";\nreturn.number_of_connections = 1;\nreturn.fare_basis = \"Y\";\nreturn.company = \"LATAM\";\n\ntravel.departure = return;\n\npassenger1 = KondutoPassengers.new;\npassenger1.name = \"Júlia da Silva\";\npassenger1.document = \"12345678909\";\npassenger1.document_type = \"id\";\npassenger1.dob = \"1970-01-01\";\npassenger1.nationality = \"BR\";\n\nloyalty1 = KondutoLoyalty.new;\nloyalty1.program = \"smiles\";\nloyalty1.category = \"gold\";\n\npassenger1.loyalty = loyalty1;\npassenger1.frequent_traveler = true;\npassenger1.special_needs = false;\n\npassenger2 = KondutoPassengers.new;\npassenger2.name = \"Carlos Siqueira\";\npassenger2.document = \"XYZ1234\";\npassenger2.document_type = \"passport\";\npassenger2.dob = \"1970-12-01\";\npassenger2.nationality = \"US\";\n\nloyalty2 = KondutoLoyalty.new;\nloyalty2.program = \"multiplus\";\nloyalty2.category = \"silver\";\n\npassenger2.loyalty = loyalty2;\npassenger2.frequent_traveler = false;\npassenger2.special_needs = true;\n\ntravel.passengers = [passenger1, passenger2];\n```\n\nExemplo de script para ônibus\n\n```json\n{\n  \"travel\":{\n    \"type\":\"bus\",\n    \"departure\":{\n      \"origin_city\":\"Santos\",\n      \"destination_city\":\"São Paulo\",\n      \"date\":\"2018-12-25T18:00Z\",\n      \"number_of_connections\":1,\n      \"company\": \"Asas Livres\",\n      \"class\":\"economy\",\n      \"fare_basis\":\"Y\"\n    },\n    \"return\":{\n      \"origin_city\":\"São Paulo\",\n      \"destination_city\":\"Santos\",\n      \"date\":\"2018-12-30T18:00Z\",\n      \"number_of_connections\":1,\n      \"class\":\"business\"\n    },\n    \"passengers\":[\n      {\n        \"name\":\"Passageiro 1\",\n        \"document\":\"123123123\",\n        \"document_type\":\"id\",\n        \"dob\":\"1970-01-01\",\n        \"nationality\":\"BR\",\n        \"loyalty\":{\n          \"program\":\"smiles\",\n          \"category\":\"gold\"\n        },\n        \"frequent_traveler\":true,\n        \"special_needs\":false\n      },\n      {\n        \"name\":\"Passageiro 2\",\n        \"document\":\"3333333333\",\n        \"document_type\":\"passport\",\n        \"dob\":\"1970-12-01\",\n        \"nationality\":\"AR\",\n        \"loyalty\":{\n          \"program\":\"multiplus\",\n          \"category\":\"silver\"\n        },\n        \"frequent_traveler\":false,\n        \"special_needs\":true\n      }\n    ]\n  }\n}\n```"
+  },
+  "obj-hotel": {
+    "title": "Hotel",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(obrigatório)_   Nome do hotel.   **Max. 100 chars, string.**"
+          ],
+          [
+            "address1",
+            "_(recomendado)_   Endereço do hotel.   **Max. 255 chars, string.**"
+          ],
+          [
+            "address2",
+            "_(recomendado)_   Complemento do endereço hotel.   **Max. 255 chars, string.**"
+          ],
+          [
+            "city",
+            "_(recomendado)_   Cidade do hotel.   **Max. 100 chars, string.**"
+          ],
+          [
+            "state",
+            "_(recomendado)_   Sigla do estado do hotel.   **Max. 100 chars, string.**"
+          ],
+          [
+            "zip",
+            "_(recomendado)_   CEP do hotel.   **Max. 100 chars, string.**"
+          ],
+          [
+            "country",
+            "_(recomendado)_   País do hotel.   **Max. 2 chars, string.**"
+          ],
+          [
+            "category",
+            "_(recomendado)_   Categoria do hotel.   **Max. 100 chars, string.**"
+          ],
+          [
+            "rooms",
+            "_(obrigátorio)_   Objeto com informações dos quartos do hotel.   **Max. 20 itens, array.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "number",
+            "_(recomendado)_   Número do quarto.   **Max. 100 chars, string.**"
+          ],
+          [
+            "code",
+            "_(recomendado)_   Código do quarto   **Max. 100 chars, string.**"
+          ],
+          [
+            "type",
+            "_(recomendado)_   Tipo do quarto.   **Max. 100 chars, string.**"
+          ],
+          [
+            "check_in_date",
+            "_(obrigátorio)_   Date e hora do entrada em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 17 chars, string.**"
+          ],
+          [
+            "check_out_date",
+            "_(recomendado)_   Date e hora de saída em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 17 chars, string.**"
+          ],
+          [
+            "number_of_guests",
+            "_(recomendado)_   Número de pessoas.   **Max. 9999 chars, número.**"
+          ],
+          [
+            "board_basis",
+            "_(recomendado)_   Regime de alimentação.   **Max. 100 chars, string.**"
+          ],
+          [
+            "guests",
+            "_(obrigatório)_   Hóspedes do quarto.   **Max. 20 itens, array.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descriação"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(obrigátorio)_   Nome do hóspede.   **Max. 100 chars, string.**"
+          ],
+          [
+            "document",
+            "_(recomendado)_   Número do documento do hóspede.   **Max. 8 chars, string.**"
+          ],
+          [
+            "document_type",
+            "_(recomendado)_   Documento usado pelo cliente. Atualmente suportamos `cpf`, `rg`, `passport`, `id` e `other`.   **string.**"
+          ],
+          [
+            "dob",
+            "_(recomendado)_   Data de nascimento do cliente no formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max 10 chars, string.**"
+          ],
+          [
+            "nationality",
+            "_(recomendado)_   Nacionalidade do hóspede.   **Max. 2 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "Quando falamos de hospedagem, temos uma sessão dedicada apenas à integração desses parâmetros e você perceberá assim como em outros itens da nossa documentação, alguns parâmetros são **obrigatórios** para obtermos a melhor performance do nosso algoritmo.\n\nEsse objeto trará informações do hotel e dos hospedes desta compra. Você pode detalhar a quantidade de quartos no array `rooms` e dar informações acerca dos hospedes no array `guests`.\n\nAo lado temos outro exemplo de código completo, com cada um dos dados descritos nas tabelas seguintes dessa sessão e na tabela abaixo descreveremos os parâmetros da raiz `hotel`:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(obrigatório)_  \\nNome do hotel.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"address1\",\n    \"1-1\": \"_(recomendado)_  \\nEndereço do hotel.  \\n**Max. 255 chars, string.**\",\n    \"2-0\": \"address2\",\n    \"2-1\": \"_(recomendado)_  \\nComplemento do endereço hotel.  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"city\",\n    \"3-1\": \"_(recomendado)_  \\nCidade do hotel.  \\n**Max. 100 chars, string.**\",\n    \"4-0\": \"state\",\n    \"4-1\": \"_(recomendado)_  \\nSigla do estado do hotel.  \\n**Max. 100 chars, string.**\",\n    \"5-0\": \"zip\",\n    \"5-1\": \"_(recomendado)_  \\nCEP do hotel.  \\n**Max. 100 chars, string.**\",\n    \"6-0\": \"country\",\n    \"6-1\": \"_(recomendado)_  \\nPaís do hotel.  \\n**Max. 2 chars, string.**\",\n    \"7-0\": \"category\",\n    \"7-1\": \"_(recomendado)_  \\nCategoria do hotel.  \\n**Max. 100 chars, string.**\",\n    \"8-0\": \"rooms\",\n    \"8-1\": \"_(obrigátorio)_  \\nObjeto com informações dos quartos do hotel.  \\n**Max. 20 itens, array.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 9,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `rooms` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"number\",\n    \"0-1\": \"_(recomendado)_  \\nNúmero do quarto.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"code\",\n    \"1-1\": \"_(recomendado)_  \\nCódigo do quarto  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"type\",\n    \"2-1\": \"_(recomendado)_  \\nTipo do quarto.  \\n**Max. 100 chars, string.**\",\n    \"3-0\": \"check_in_date\",\n    \"3-1\": \"_(obrigátorio)_  \\nDate e hora do entrada em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 17 chars, string.**\",\n    \"4-0\": \"check_out_date\",\n    \"4-1\": \"_(recomendado)_  \\nDate e hora de saída em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 17 chars, string.**\",\n    \"5-0\": \"number_of_guests\",\n    \"5-1\": \"_(recomendado)_  \\nNúmero de pessoas.  \\n**Max. 9999 chars, número.**\",\n    \"6-0\": \"board_basis\",\n    \"6-1\": \"_(recomendado)_  \\nRegime de alimentação.  \\n**Max. 100 chars, string.**\",\n    \"7-0\": \"guests\",\n    \"7-1\": \"_(obrigatório)_  \\nHóspedes do quarto.  \\n**Max. 20 itens, array.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 8,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `guests` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descriação\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(obrigátorio)_  \\nNome do hóspede.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"document\",\n    \"1-1\": \"_(recomendado)_  \\nNúmero do documento do hóspede.  \\n**Max. 8 chars, string.**\",\n    \"2-0\": \"document_type\",\n    \"2-1\": \"_(recomendado)_  \\nDocumento usado pelo cliente. Atualmente suportamos `cpf`, `rg`, `passport`, `id` e `other`.  \\n**string.**\",\n    \"3-0\": \"dob\",\n    \"3-1\": \"_(recomendado)_  \\nData de nascimento do cliente no formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max 10 chars, string.**\",\n    \"4-0\": \"nationality\",\n    \"4-1\": \"_(recomendado)_  \\nNacionalidade do hóspede.  \\n**Max. 2 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 5,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{\n  \"hotel\":{\n      \"name\": \"Hotel Konduto\", \n      \"address1\": \"Rod Três, 46\",\n      \"address2\": \"Vidinha\",\n      \"city\": \"Pouso Alto\",\n      \"state\": \"MG\",\n      \"zip\": \"12345-123\",\n      \"country\": \"BR\",\n      \"category\": \"xxx\",\n      \"rooms\": [\n        {\t   \t\n         \"number\": \"1003\",\n         \"code\": \"xxx\",\n         \"type\": \"double\",\n         \"check_in_date\": \"2090-02-15\",\n         \"check_out_date\": \"2090-02-22\",\n         \"number_of_guests\": 2,\n         \"board_basis\": \"xxx\",\n         \"guests\": [\n           {\n            \"name\":\"Mary Jane\",\n            \"document\":\"6253407\",\n            \"document_type\":\"id\",\n            \"dob\":\"1970-01-01\",\n            \"nationality\":\"BR\"\n           },\n           {\n            \"name\":\"John Smith\",\n            \"document\":\"XYZ1234\",\n            \"document_type\":\"passport\",\n            \"dob\":\"1970-12-01\",\n            \"nationality\":\"US\"\n           }\n          ]\n         },\n         {\n          \"number\":\"1004\",\n          \"code\":\"xxx\",\n          \"type\":\"double\",\n          \"check_in_date\":\"2016-02-15\",\n          \"check_out_date\":\"2016-02-22\",\n          \"number_of_guests\":1,\n          \"board_basis\":\"xxx\",\n          \"guests\": [\n            {\n             \"name\":\"Jorge Oliveira\",\n             \"document\":\"6253407\",\n             \"document_type\":\"id\",\n             \"dob\":\"1970-01-01\",\n             \"nationality\":\"BR\"\n            }\n         ]\n      }\n   ]\n }\n```\n```php\n\"hotel\" => array(\n   \"name\" => \"Hotel Konduto\",\n   \"address1\" => \"Rod Três Lagoas, 46\",\n   \"address2\" => \"Vidinha\",\n   \"city\" => \"Pouso Alto\",\n   \"state\" => \"MG\",\n   \"zip\" => \"37468-000\",\n   \"country\" => \"BR\",\n   \"category\" => \"xxx\",\n   \"rooms\" => array(\n      \"number\" => \"1003\",\n      \"code\" => \"xxx\",\n      \"type\" => \"double\",\n      \"check_in_date\" => \"2016-02-15\",\n      \"check_out_date\" => \"2016-02-22\",\n      \"number_of_guests\" => 2,\n      \"board_basis\" => \"xxx\",\n      \"guests\" => array(\n         \"name\" => \"1003\",\n         \"code\" => \"xxx\",\n         \"type\" => \"double\",\n         \"check_in_date\" => \"2016-02-15\".\n         \"check_out_date\" => \"2016-02-22\",\n         \"number_of_guests\" => 2,\n         \"board_basis\" => \"xxx\".\n         \"guests\" => array(\n            \"name\" => \"Mary Jane\",\n            \"document\" => \"6253107\",\n            \"document_type\" => \"id\",\n            \"dob\" => \"1970-01-01\",\n            \"nationality\" => \"BR\"\n         ),\n         array(\n            \"name\" => \"John Smith\",\n            \"document\" => \"XYZ1234\",\n            \"document_type\" => \"passport\",\n            \"dob\" => \"1970-12-01\",\n            \"nationality\" => \"US\"\n         )\n      ),\n      array(\n         \"number\" => \"1004\",\n         \"code\" => \"xxx\",\n         \"type\" => \"double\",\n         \"check_in_date\" => \"2016-02-15\",\n         \"check_out_date\" => \"2016-02-15\",\n         \"number_of_guests\" => 1,\n         \"board_basis\" => \"xxx\",\n         \"guests\" => array(\n            \"name\" => \"Jorge Oliveira\",\n            \"document\" => \"6253407\",\n            \"document_type\" => \"id\",\n            \"dob\" => \"1970-01-01\",\n            \"nationality\" => \"BR\"\n         )\n      )\n    )\n  )\n)\n```\n```java\nKondutoHotel hotel = new KondutoHotel();\nhotel.setName(\"Hotel Konduto\");\nhotel.setAddress1(\"Rod Pouso Alto, 460\");\nhotel.setAddress2(\"Vidinha\");\nhotel.setCity(\"Pouso Alto\");\nhotel.setState(\"MG\");\nhotel.setZip(\"37468-000\");\nhotel.setCountry(\"BR\");\nhotel.setCategory(\"xxx\");\n\nList<KondutoHotelRoom> rooms = new ArrayList<KondutoHotelRoom>();\n\nKondutoRoom room1 = new KondutoRoom();\nroom1.setNumber(\"1003\");\nroom1.setCode(\"xxx\");\nroom1.setType(\"double\");\n\nDateFormat format = new SimpleDateFormat(\"yyyy-MM-dd\");\n\nroom1.setCheckinDate(format.parse(\"2016-02-15\"));\nroom1.setCheckoutDate(format.parse(\"2016-02-22\"));\nroom1.setNumberofGuests(2);\nroom1.setBoardBasis(\"xxx\");\n\nList<KondutoGuest> guests1 = new ArrayList<KondutoGuest>();\n\nKondutoGuest guest1room1 = new KondutoGuest();\nguest1room1.setName(\"Mary Jane\");\nguest1room1.setDocument(\"6253407\");\n\nKondutoDocumentType documentType1room1 = new KondutoDocumentType();\ndocumentType1room1.setID(\"id\");\n\nguest1room1.setDocumentType(documentType1room1);\nguest1room1.setDob(format.parse(\"1970-01-01\"));\nguest1room1.setNationality(\"BR\");\n\nKondutoGuest guest2room1 =  KondutoGuest();\nguest2room1.setName(\"John Smith\");\nguest2room1.setDocument(\"XYZ1234\");\n\nKondutoDocumentType documentType2room1 = new KondutoDocumentType();\ndocumentType2room1.setID(\"passport\");\n\nguest2room1.setDocumentType(documentType1room2);\nguest2room1.setDob(format.parse(\"1970-12-01\"));\nguest2room1.setNationality(\"US\");\n\n\nguests1.add(guest1room1);\nguests1.add(guest2room1);\n\nroom1.setGuests(guests1);\n\nrooms.add(room1);\n\nKondutoRoom room2 = new KondutoRoom();\nroom2.setNumber(\"1003\");\nroom2.setCode(\"xxx\");\nroom2.setType(\"double\");\nroom2.setCheckinDate(format.parse(\"2016-02-15\"));\nroom2.setCheckoutDate(format.parse(\"2016-02-22\"));\nroom2.setNumberofGuests(1);\nroom2.setBoardBasis(\"xxx\");\n\nList<KondutoGuest> guests2 = new ArrayList<KondutoGuest>();\n\nKondutoGuest guest1room2 = new KondutoGuest();\nguest1room2.setName(\"Jorge Oliveira\");\nguest1room2.setDocument(\"6253407\");\n\nKondutoDocumentType documentType1room2 = new KondutoDocumentType();\ndocumentType1room2.setID(\"id\");\n\nguest1room2.setDocumentType(documentType1room2);\nguest1room2.setDob(format.parse(\"1970-01-01\"));\nguest1room2.setNationality(\"BR\");\n\nguest2.add(guest1room2);\nroom2.setGuests(guests2);\n\nrooms.add(room2);\n```\n```csharp\nKondutoGuest room1guest1 = new KondutoGuest\n{\n  Name = \"Mary Jane\",\n  Document = \"6253407\",\n  DocumentType = new KondutoDocumentType(\"id\"),\n  Dob = new DateTime(1970,12,01),\n  Nationality = \"BR\"\n};\n\nKondutoGuest room1guest2 = new KondutoGuest\n{\n  Name = \"John Smith\",\n  Document = \"XYZ1234\",\n  DocumentType = new KondutoDocumentType(\"passaport\"),\n  Dob = new DateTime(1970,12,01),\n  Nationality = \"US\"\n};\n\nKondutoHotelRoom room1 = new KondutoHotelRoom\n{\n  Number = \"1003\",\n  Code = \"xxx\",\n  Type = \"double\",\n  CheckinDate = new DateTime(2016,02,15),\n  CheckoutDate = new DateTime(2016,02,22),\n  NumberofGuests = 2,\n  BoardBasis = \"xxx\",\n  Guestes = new List<KondutoGuests>\n  {\n    room1guest1,\n    room1guest2\n  }\n};\n\nKondutoGuest room2guest1 = new KondutoGuest\n{\n  Name = \"Jorge Oliveira\",\n  Document = \"6253407\",\n  DocumentType = new KondutoDocumentType(\"id\"),\n  Dob = new DateTime(1970,01,01),\n  Nationality = \"BR\"\n};\n\nKondutoHotelRoom room2 = new KondutoHotelRoom\n{\n  Number = \"1004\",\n  Code = \"xxx\",\n  Type = \"double\",\n  CheckinDate = new DateTime(2016,02,15),\n  CheckoutDate = new DateTime(2016,02,22),\n  NumberofGuests = 1,\n  BoardBasis = \"xxx\",\n  Guests = room2guest1\n};\n\nKondutoHotel hotel = KondutoHotel\n{\n  Name = \"Hotel Konduto\", \n  Address1 = \"Rod Pouso Alto, 460\",\n  Address2 = \"Vidinha\", \n  City = \"Pouso Alto\",\n  State = \"MG\",\n  Zip = \"37468-000\",\n  Country = \"BR\",\n  Category = \"xxx\", \n  Rooms = new List<KondutoHotelRoom>\n  {\n    room1,\n    room2\n  }\n};\n```\n```ruby\nhotel = KondutoHotel.new;\nhotel.name = \"Hotel Konduto\";\nhotel.address1 = \"Rod Pouso Alto, 460\";\nhotel.address2 = \"Vidinha\";\nhotel.city = \"Pouso Alto\";\nhotel.state = \"MG\";\nhotel.zip = \"37468-000\";\nhotel.country = \"BR\";\nhotel.category = \"xxx\";\n\nroom1 = KondutoHotel.new;\nroom1.number = \"1003\";\nroom1.code = \"xxx\";\nroom1.type = \"double\";\nroom1.check_in_date = \"2016-02-15\";\nroom1.check_out_date = \"2016-02-22\";\nroom1.number_of_guests = 2;\nroom1.board_basis = \"xxx\";\n\nroom1guest1 = KondutoGuest.new;\nroom1guest1.name = \"Mary Jane\";\nroom1guest1.document = \"6253407\";\nroom1guest1.document_type = \"id\";\nroom1guest1.dob = \"1970-01-01\";\nroom1guest1.nationality = \"BR\";\n\nroom1guest2 = KondutoGuest.new;\nroom1guest2.name = \"John Smith\";\nroom1guest2.document = \"XYZ1234\";\nroom1guest2.document_type = \"passport\";\nroom1guest2.dob = \"1970-12-01\";\nroom1guest2.nationality = \"US\";\n\nroom1.guests = [room1guest1, room1guest2];\n\nroom2 = KondutoHotel.new;\nroom2.number = \"1004\";\nroom2.code = \"xxx\";\nroom2.type = \"double\";\nroom2.check_in_date = \"2016-02-15\";\nroom2.check_out_date = \"2016-02-22\";\nroom2.number_of_guests = 1;\nroom2.board_basis = \"xxx\";\n\nroom2guest1 = KondutoGuest.new;\nroom2guest1.name = \"Jorge Oliveira\";\nroom2guest1.document = \"6253407\";\nroom2guest1.document_type = \"id\";\nroom2guest1.dob = \"1970-01-01\";\nroom2guest1.nationality = \"BR\";\n\nroom2.guests = [room2guest1];\n\nrooms = KondutoHotelRoom.new;\nrooms = [room1, room2];\nhotel.rooms = rooms;\n```"
+  },
+  "event": {
+    "title": "Evento",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(obrigatório)_   Nome do evento.   **Max. 255 chars, string.**"
+          ],
+          [
+            "date",
+            "_(obrigatório)_   Date e hora do evento em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)   **Max. 17 chars, datetime, string.**"
+          ],
+          [
+            "type",
+            "_(obrigatório)_   Tipo do evento. Atualmente suportamos `show`, `theater`, `movies`, `party`,  `festival`,  `course`, `sports` e `corporate`   **string.**"
+          ],
+          [
+            "subtype",
+            "_(recomendado)_   Detalhe do tipo do evento.   **Max. 255 chars, string.**"
+          ],
+          [
+            "venue",
+            "_(recomendado)_   Objeto com as informações do local do evento."
+          ],
+          [
+            "tickets",
+            "_(recomendado)_   Array de objetos com os dados dos ingressos."
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(recomendado)_   Nome do local   **Max. 255 chars, string.**"
+          ],
+          [
+            "address",
+            "_(recomendado)_   Endereço do local   **Max. 255 chars, string.**"
+          ],
+          [
+            "city",
+            "_(recomendado)_   Cidade do local   **Max. 255 chars, string.**"
+          ],
+          [
+            "state",
+            "_(recomendado)_   Estado do local   **Max. 100, string.**"
+          ],
+          [
+            "country",
+            "_(recomendado)_   Pais do local conforme [ISO 3166-2](https://pt.wikipedia.org/wiki/ISO_3166-2)   **Max. 2 chars, string**"
+          ],
+          [
+            "capacity",
+            "_(recomendado)_   Capacidade do local   **integer.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Observação"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(recomendado)_   Identificador único do ticket.   **Max. 255 chars, string.**"
+          ],
+          [
+            "category",
+            "_(obrigatório)_   Categoria do ticket. Atualmente suportamos `student`, `senior`, `government`, `social` e `regular`.   **string**"
+          ],
+          [
+            "section",
+            "_(recomendado)_   Identificador único do ticket.   **Max. 255 chars, string.**"
+          ],
+          [
+            "premium",
+            "_(obrigatório)_   Indicador de ticket premium, recebe apenas `true` ou `false`.   **boolean**"
+          ],
+          [
+            "attendee",
+            "_(obrigatório)_   Array de objetos com os dados do participante."
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Observação"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(recomendado)_   Nome do participante.   **Max. 255 chars, string.**"
+          ],
+          [
+            "document",
+            "_(obrigatório)_   Documento do participante.   **Max. 100 chars, string.**"
+          ],
+          [
+            "document_type",
+            "_(recomendado)_   Tipo de documento do participante. Atualmente suportamos `cpf`, `cnpj`, `rg`, `passport` e `other`.   **string**"
+          ],
+          [
+            "dob",
+            "_(recomendado)_   Date de nascimento do participante em UTC no formato YYYY-MM-DD [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 17 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "Se o seu negócio é a venda de ingressos também temos uma sessão exclusiva para implementação. Alguns parâmetros são **obrigatórios**, como temos acompanhado até aqui.\n\nNeste objeto teremos informações do evento, local e ingressos da compra. As informações sobre local estão no array `venue` e informações dos ingressos ficam no array `tickets`.\n\nAo lado um exemplo de código para seus testes, com cada um dos dados descritos nas tabelas seguintes dessa sessão.\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(obrigatório)_  \\nNome do evento.  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"date\",\n    \"1-1\": \"_(obrigatório)_  \\nDate e hora do evento em UTC no formato YYYY-MM-DDThh:mmZ [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601)  \\n**Max. 17 chars, datetime, string.**\",\n    \"2-0\": \"type\",\n    \"2-1\": \"_(obrigatório)_  \\nTipo do evento. Atualmente suportamos `show`, `theater`, `movies`, `party`,  `festival`,  `course`, `sports` e `corporate`  \\n**string.**\",\n    \"3-0\": \"subtype\",\n    \"3-1\": \"_(recomendado)_  \\nDetalhe do tipo do evento.  \\n**Max. 255 chars, string.**\",\n    \"4-0\": \"venue\",\n    \"4-1\": \"_(recomendado)_  \\nObjeto com as informações do local do evento.\",\n    \"5-0\": \"tickets\",\n    \"5-1\": \"_(recomendado)_  \\nArray de objetos com os dados dos ingressos.\"\n  },\n  \"cols\": 2,\n  \"rows\": 6,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `venue` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(recomendado)_  \\nNome do local  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"address\",\n    \"1-1\": \"_(recomendado)_  \\nEndereço do local  \\n**Max. 255 chars, string.**\",\n    \"2-0\": \"city\",\n    \"2-1\": \"_(recomendado)_  \\nCidade do local  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"state\",\n    \"3-1\": \"_(recomendado)_  \\nEstado do local  \\n**Max. 100, string.**\",\n    \"4-0\": \"country\",\n    \"4-1\": \"_(recomendado)_  \\nPais do local conforme [ISO 3166-2](https://pt.wikipedia.org/wiki/ISO_3166-2)  \\n**Max. 2 chars, string**\",\n    \"5-0\": \"capacity\",\n    \"5-1\": \"_(recomendado)_  \\nCapacidade do local  \\n**integer.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 6,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `tickets` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Observação\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(recomendado)_  \\nIdentificador único do ticket.  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"category\",\n    \"1-1\": \"_(obrigatório)_  \\nCategoria do ticket. Atualmente suportamos `student`, `senior`, `government`, `social` e `regular`.  \\n**string**\",\n    \"2-0\": \"section\",\n    \"2-1\": \"_(recomendado)_  \\nIdentificador único do ticket.  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"premium\",\n    \"3-1\": \"_(obrigatório)_  \\nIndicador de ticket premium, recebe apenas `true` ou `false`.  \\n**boolean**\",\n    \"4-0\": \"attendee\",\n    \"4-1\": \"_(obrigatório)_  \\nArray de objetos com os dados do participante.\"\n  },\n  \"cols\": 2,\n  \"rows\": 5,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros a serem enviados em `attendee` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Observação\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(recomendado)_  \\nNome do participante.  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"document\",\n    \"1-1\": \"_(obrigatório)_  \\nDocumento do participante.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"document_type\",\n    \"2-1\": \"_(recomendado)_  \\nTipo de documento do participante. Atualmente suportamos `cpf`, `cnpj`, `rg`, `passport` e `other`.  \\n**string**\",\n    \"3-0\": \"dob\",\n    \"3-1\": \"_(recomendado)_  \\nDate de nascimento do participante em UTC no formato YYYY-MM-DD [(ISO 8601) ](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 17 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 4,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{\n  \"events\":[\n    {\n      \"name\":\"Tia Ana no Maracanã\",\n      \"date\":\"2021-01-01T03:00:00Z\",\n      \"type\":\"show\",\n      \"subtype\":\"sertanejo\",\n      \"venue\":{\n        \"name\":\"Estádio do Maracanã\",\n        \"capacity\":80000,\n        \"address\":\"Av. Maracanã s/n\",\n        \"city\":\"Rio de Janeiro\",\n        \"state\":\"RJ\",\n        \"country\":\"BR\"\n      },\n      \"tickets\":[\n        {\n          \"category\":\"regular\",\n          \"premium\":true,\n          \"section\":\"Pista Premium\",\n          \"attendee\":{\n            \"document\":\"123456789\",\n            \"document_type\":\"cpf\",\n            \"dob\":\"1990-10-28\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\":\"Heat @ Knicks\",\n      \"date\":\"2020-11-21T01:00:00Z\",\n      \"type\":\"sports\",\n      \"subtype\":\"NBA\",\n      \"tickets\":[\n        {\n          \"category\":\"regular\",\n          \"section\":\"General\",\n          \"premium\":true\n        },\n        {\n          \"category\":\"regular\",\n          \"section\":\"General\",\n          \"premium\":true\n        }\n      ]\n    }\n  ]\n}\n```\n```php\n\"event\" => array(\n        \"name\" => \"Cirque de La Lune\",\n        \"date\" => \"2020-02-10T20:00Z\",\n        \"type\" => \"show\",\n        \"subtype\" => \"circus\",\n        \"venue\" => array(\n           \"name\" => \"United Hall\",\n           \"address\" => \"Av. das Nações\",\n           \"city\" => \"São Paulo\",\n           \"state\" => \"SP\",\n           \"country\" => \"Brazil\",\n           \"capacity\" => \"7000\"\n        ),\n        \"tickets\" => array(\n           \"id\" => \"t1012390\",\n           \"category\" => \"student\",\n           \"section\" => \"pista premium\",\n           \"premium\" => true,\n           \"attendee\" => array(\n              \"name\" => \"Alfredo Borges\",\n              \"document\" => \"12345678900\",\n              \"document_type\" => \"cpf\",\n              \"dob\" => \"2000-02-20\"\n        )\n    )\n)\n```\n```java\nKondutoEvent event = new KondutoEvent();\nevent.setName(\"Cirque de La Lune\");\nSimpleDateFormat format = new SimpleDateFormat();\nevent.setDate(format.parse(\"2020-02-10 20:00:00\"));\nevent.setType(\"show\");\nevent.setSubType(\"circus\");\nKondutoVenue venue = new KondutoVenue();\nvenue.setName(\"United Hall\");\nvenue.setAddress(\"Av. das Nações\");\nvenue.setCity(\"São Paulo\");\nvenue.setState(\"SP\");\nvenue.setCountry(\"Brasil\");\nvenue.setcapacity(\"7000\");\nevent.setVenue(venue);\nKondutoTickets tickets = new KondutoTickets();\ntickets.setId(\"t012390\");\ntickets.setCategory(\"student\");\ntickets.setSection(\"Pista Premium\");\ntickets.setPremium(true);\nKondutoAttendee attendee = new KondutoAttendee();\nattendee.setName(\"Alfredo Borges\");\nattendee.setDocument(\"12345678900\");\nattendee.setDocumentType(\"cpf\");\nattendee.setDob(format.parse(\"2000-02-20\"));\n```\n```csharp\nKondutoAttendee attendee = new KondutoAttendee\n{\n  Name = \"Alfredo Borges\",\n  Document = \"12345678900\",\n  DocumentType = new KondutoDocumentType(\"cpf\"),\n  Dob = new DateTime(2000,02,20)\n};\n\nKondutoTickets tickets = new KondutoTickets\n{\n  Id = \"t1012390\",\n  Category = \"student\",\n  Section = \"pista prenmium\",\n  Premium = True,\n  Attendee = attendee\n};\n\nKondutoVenue venue = new KondutoVenue\n{\n  Name = \"United Hall\",\n  Address = \"Av. das Nações\",\n  City = \"São Paulo\",\n  State = \"SP\",\n  Country = \"Brazil\",\n  Capacity = \"7000\"\n};\n\nKondutoEvent event = new KondutoEvent\n{\n  Name = \"Cirque de La Lune\",\n  Date = \"2020-02-10T20:00Z\",\n  Type = \"show\",\n  Subtype = \"circus\",\n  Venue = venue,\n  Tickets = tickets\n};\n```\n```ruby\nevent = KondutoEvent.new;\nevent.name = \"Cirque de La Lune\";\nevent.date = \"2020-02-10T20:00Z\";\nevent.type = \"show\";\nevent.subtype = \"circus\";\n\nvenue = KondutoVenue.new;\nvenue.name = \"United Hall\";\nvenue.address = \"Av. das Nações\";\nvenue.city = \"São Paulo\";\nvenue.state = \"SP\";\nvenue.country = \"Brazil\";\nvenue.capacity = \"7000\";\n\nevent.venue = venue;\n\ntickets = KondutoTickets.new;\ntickets.id = \"t1012390\";\ntickets.category = \"student\";\ntickets.section = \"pista premium\";\ntickets.premium = true;\n\nattendee = KondutoAttendee.new;\n\nattendee.name = \"Alfredo Borges\";\nattendee.document = \"12345678900\";\nattendee.document_type = \"cpf\";\nattendee.dob = \"2000-02-20\";\n\ntickets.attendee = attendee;\n\nevent.tickets = tickets;\n```"
+  },
+  "vehicles-1": {
+    "title": "Veículo",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "vid",
+            "_(recomendado)_   Identificador único do veículo.   **Max. Min. 17 chars, string**"
+          ],
+          [
+            "renavam",
+            "_(recomendado)_   Identificação Renavam do veículo.   **Max. 11 chars, string**"
+          ],
+          [
+            "registration",
+            "_(recomendado)_   Licença do veículo.   **Max. 15 chars, string**"
+          ],
+          [
+            "make",
+            "_(obrigatório)_   Marca do veículo.   **Max. 63 chars, string**"
+          ],
+          [
+            "model",
+            "_(obrigatório)_   Modelo do veículo.   **Max. 100 chars, string**"
+          ],
+          [
+            "owner",
+            "_(obrigatório)_   Array para informações do proprietário do veículo."
+          ],
+          [
+            "type",
+            "_(recomendado)_   Descreve o tipo do veículo, como por exemplo: `car`, `bus`, `truck`, `motorcycle`, `aircraft`, `boat`, `bicycle`.   **Max. 15 chars, string**"
+          ],
+          [
+            "usage",
+            "_(recomendado)_   Descreve o uso do veículo na operação. Aceita valores como: `private`, `commercial`, `experimental`, `government`, `military`, `instruction`.   **String**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "name",
+            "_(recomendado)_   Nome do proprietário do veículo.   **Max 255 chars, string.**"
+          ],
+          [
+            "tax_id",
+            "_(obrigatório)_   Documento do proprietário do veículo.   **Max 100 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "A nossa API está preparada para usar informações de veículos que possam ser relevantes ao seu negócio e ao segmento de antifraude.\n\nNo abaixo, você observará como implementar informações significativas como `Renavam`, `modelo do veículo`, `marca`, `tipo do veículo` e seu `uso`.\n\nDetalharemos na tabela abaixo também a descrição de cada campo e o tipo de dado esperado neles.\n\n```json\n{\n  \"make\": \"Bentley\",\n  \"model\": \"Bacalar\",\n  \"renavam\": \"12312312312\",\n  \"registration\": \"ABC1234\",\n  \"vid\": \"5GZCZ43D13S812715\",\n  \"type\": \"car\",\n  \"usage\": \"private\",\n  \"owner\": {\n    \"tax_id\": \"540.830.640-21\",\n    \"name\": \"Cicero\"\n  }\n}\n```\n```java JAVA\nKondutoVehicleOwner owner = new KondutoVehicleOwner();\nowner.setTaxId(\"540.830.640-21\");\nowner.setName(\"Cicero\");\n\nKondutoVehicle vehicle = new KondutoVehicle();\nvehicle.setMake(\"Bentley\");\nvehicle.setModel(\"Bacalar\");\nvehicle.setRenavam(\"12312312312\");\nvehicle.setRegistration(\"ABC1234\");\nvehicle.setVid(\"5GZCZ43D13S812715\");\nvehicle.setType(KondutoVehicleType.CAR);\nvehicle.setUsage(KondutoVehicleUsage.PRIVATE);\nvehicle.setOwner(owner);\n```\n\n\n\nOs parâmetros a serem enviados em `vehicle` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"vid\",\n    \"0-1\": \"_(recomendado)_  \\nIdentificador único do veículo.  \\n**Max. Min. 17 chars, string**\",\n    \"1-0\": \"renavam\",\n    \"1-1\": \"_(recomendado)_  \\nIdentificação Renavam do veículo.  \\n**Max. 11 chars, string**\",\n    \"2-0\": \"registration\",\n    \"2-1\": \"_(recomendado)_  \\nLicença do veículo.  \\n**Max. 15 chars, string**\",\n    \"3-0\": \"make\",\n    \"3-1\": \"_(obrigatório)_  \\nMarca do veículo.  \\n**Max. 63 chars, string**\",\n    \"4-0\": \"model\",\n    \"4-1\": \"_(obrigatório)_  \\nModelo do veículo.  \\n**Max. 100 chars, string**\",\n    \"5-0\": \"owner\",\n    \"5-1\": \"_(obrigatório)_  \\nArray para informações do proprietário do veículo.\",\n    \"6-0\": \"type\",\n    \"6-1\": \"_(recomendado)_  \\nDescreve o tipo do veículo, como por exemplo: `car`, `bus`, `truck`, `motorcycle`, `aircraft`, `boat`, `bicycle`.  \\n**Max. 15 chars, string**\",\n    \"7-0\": \"usage\",\n    \"7-1\": \"_(recomendado)_  \\nDescreve o uso do veículo na operação. Aceita valores como: `private`, `commercial`, `experimental`, `government`, `military`, `instruction`.  \\n**String**\"\n  },\n  \"cols\": 2,\n  \"rows\": 8,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\nOs parâmetros a serem enviados em `owner` estão descritos na tabela abaixo também:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"name\",\n    \"0-1\": \"_(recomendado)_  \\nNome do proprietário do veículo.  \\n**Max 255 chars, string.**\",\n    \"1-0\": \"tax_id\",\n    \"1-1\": \"_(obrigatório)_  \\nDocumento do proprietário do veículo.  \\n**Max 100 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 2,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]"
+  },
+  "seller": {
+    "title": "Vendedor",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(obrigatório) _   Identificador único do vendedor dentro do Marketplace.   **Max. 100 chars, string.**"
+          ],
+          [
+            "name",
+            "_(recomendado)_   Nome da loja ou do vendedor.   **Max. 100 chars, string.**"
+          ],
+          [
+            "created_at",
+            "_(recomendado)_   Data de criação da loja no Marketplace, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "Finalizando esse último objeto da raiz `order`, trataremos agora os parâmetros que você precisa e pode encaminhar em `seller`.\n\nNo **Marketplace**são você nos informa os campos destinados aos dados do Vendedor do produto.\n\nA tabela abaixo descreve os itens necessários para envio e ao lado, você confere o código que será usado:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(obrigatório) _  \\nIdentificador único do vendedor dentro do Marketplace.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"name\",\n    \"1-1\": \"_(recomendado)_  \\nNome da loja ou do vendedor.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"created_at\",\n    \"2-1\": \"_(recomendado)_  \\nData de criação da loja no Marketplace, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 10 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 3,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n```json\n{ \n  \"id\":\"37\",\n  \"name\":\"Loja do João\",\n  \"created_at\":\"2009-11-25\"\n}\n```\n```php\n\"seller\" => array(\n  \"id\" => \"37\",\n  \"name\" => \"Loja do João\",\n  \"created_at\" => \"2009-11-25\"\n)\n```\n```java\nKondutoSeller seller = new KondutoSeller();\nseller.setId(\"37\");\nseller.setName(\"Loja do João\");\nseller.setCreatedAt(new Date(1259107200000L));\n```\n```csharp\nKondutoSeller seller = new KondutoSeller{\n  Id = \"37\",\n  Name = \"Loja\",\n  CreatedAt = new DateTime(2009,11,25)\n};\n```\n```ruby\nseller = KondutoSeller.new;\nseller.id = \"37\";\nseller.name = \"Loja do João\";\nseller.created_at = Date.new(2009,11,25);\n```"
+  },
+  "loja-física": {
+    "title": "Loja Física",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(obrigatório)_   Identificador único da loja física.   **Max. 100 chars, string.**"
+          ],
+          [
+            "name",
+            "_(obrigatório)_   Nome completo da loja física.   **Max. 100 chars, string.**"
+          ],
+          [
+            "lat",
+            "_(recomendado)_   Latitude da loja física.   Atualmente suportamos maximum: -90, maximum: 90   **Max. 10 chars, número.**"
+          ],
+          [
+            "long",
+            "_(recomendado)_   Longitude da loja física.   Atualmente suportamos maximum: -180, maximum: 180.   **Max. 10 chars, número.**"
+          ],
+          [
+            "address",
+            "_(recomendado)_   Endereço da loja física.   **Max. 255 chars, string.**"
+          ],
+          [
+            "city",
+            "_(recomendado)_   Cidade da loja física.   **Max. 100 chars, string.**"
+          ],
+          [
+            "state",
+            "_(recomendado)_   Estado da loja física.   **Max. 100 chars, string.**"
+          ],
+          [
+            "zip",
+            "_(recomendado)_   CEP da loja física.   **Max. 100 chars, string.**"
+          ],
+          [
+            "country",
+            "_(recomendado)_   Código do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2) .   **Max. 2 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "O objeto `point_of_sale` nos trará informações acerca da loja física. Esta lista de objetos contém uma relação de informações referentes ao endereço do ponto de venda. \n\n> 🚧 \n> \n> Assim como nos casos anteriores, o envio de alguns parâmetros é opcional, porém quanto mais dados tivermos, mais completa será a análise do sistema.\n\nAnalise a tabela abaixo para identificar o que cada parâmetro significa e veja ao lado como enviar o código:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(obrigatório)_  \\nIdentificador único da loja física.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"name\",\n    \"1-1\": \"_(obrigatório)_  \\nNome completo da loja física.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"lat\",\n    \"2-1\": \"_(recomendado)_  \\nLatitude da loja física.  \\nAtualmente suportamos maximum: -90, maximum: 90  \\n**Max. 10 chars, número.**\",\n    \"3-0\": \"long\",\n    \"3-1\": \"_(recomendado)_  \\nLongitude da loja física.  \\nAtualmente suportamos maximum: -180, maximum: 180.  \\n**Max. 10 chars, número.**\",\n    \"4-0\": \"address\",\n    \"4-1\": \"_(recomendado)_  \\nEndereço da loja física.  \\n**Max. 255 chars, string.**\",\n    \"5-0\": \"city\",\n    \"5-1\": \"_(recomendado)_  \\nCidade da loja física.  \\n**Max. 100 chars, string.**\",\n    \"6-0\": \"state\",\n    \"6-1\": \"_(recomendado)_  \\nEstado da loja física.  \\n**Max. 100 chars, string.**\",\n    \"7-0\": \"zip\",\n    \"7-1\": \"_(recomendado)_  \\nCEP da loja física.  \\n**Max. 100 chars, string.**\",\n    \"8-0\": \"country\",\n    \"8-1\": \"_(recomendado)_  \\nCódigo do país do titular [(ISO 3166-2)](https://pt.wikipedia.org/wiki/ISO_3166-2) .  \\n**Max. 2 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 9,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json JSON\n{\n   \"point_of_sale\":{\n      \"id\":\"000500\",\n      \"name\":\"Capital Representações\",\n      \"lat\":-23.5677666,\n      \"long\":-46.6487763,\n      \"address\":\"Rua Dez de Abril, 23\",\n      \"city\":\"São Paulo\",\n      \"state\":\"SP\",\n      \"zip\":\"01001-001\",\n      \"country\":\"BR\"\n   }\n}\n```\n```java JAVA\nKondutoPointOfSale pointOfSale = new KondutoPointOfSale();\npointOfSale.setId(\"000500\");\npointOfSale.setName(\"Capital Representações\");\npointOfSale.setLat(-23.5677666);\npointOfSale.setLon(-46.6487763);\npointOfSale.setAddress(\"Rua Dez de Abril, 23\");\npointOfSale.setCity(\"São Paulo\");\npointOfSale.setState(\"SP\");\npointOfSale.setZip(\"01001-001\");\npointOfSale.setCountry(\"BR\");\n```"
+  },
+  "vendedor": {
+    "title": "Agente (Vendedor)",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(obrigatório)_   Identificador único do vendedor.   **Max. 100 chars, string.**"
+          ],
+          [
+            "login",
+            "_(recomendado)_   Login do vendedor.   **Max. 100 chars, string.**"
+          ],
+          [
+            "name",
+            "_(obrigatório)_   Nome completo do vendedor.   **Max. 100 chars, string.**"
+          ],
+          [
+            "tax_id",
+            "_(recomendado)_   Número de documento fiscal do vendedor (CPF, etc).   **Max. 100 chars, string.**"
+          ],
+          [
+            "dob",
+            "_(recomendado)_   Data de nascimento do vendedor no formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max. 10 chars, string.**"
+          ],
+          [
+            "category",
+            "_(recomendado)_   Código da categoria do produto vendido.   **Max. 100 chars, string.**"
+          ],
+          [
+            "created_at",
+            "_(obrigatório)_   Data de criação da conta ou cadastro do vendedor no site, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).   **Max 10 chars, string.**"
+          ]
+        ]
+      }
+    ],
+    "body": "O objeto `agent` deve ser usado para enviar informações sobre a pessoa que está fazendo a venda.  \nA tabela abaixo detalha melhor cada parâmetro desse objeto e ao lado, você visualizará o código para envio dos dados:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(obrigatório)_  \\nIdentificador único do vendedor.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"login\",\n    \"1-1\": \"_(recomendado)_  \\nLogin do vendedor.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"name\",\n    \"2-1\": \"_(obrigatório)_  \\nNome completo do vendedor.  \\n**Max. 100 chars, string.**\",\n    \"3-0\": \"tax_id\",\n    \"3-1\": \"_(recomendado)_  \\nNúmero de documento fiscal do vendedor (CPF, etc).  \\n**Max. 100 chars, string.**\",\n    \"4-0\": \"dob\",\n    \"4-1\": \"_(recomendado)_  \\nData de nascimento do vendedor no formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max. 10 chars, string.**\",\n    \"5-0\": \"category\",\n    \"5-1\": \"_(recomendado)_  \\nCódigo da categoria do produto vendido.  \\n**Max. 100 chars, string.**\",\n    \"6-0\": \"created_at\",\n    \"6-1\": \"_(obrigatório)_  \\nData de criação da conta ou cadastro do vendedor no site, em formato AAAA-MM-DD [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601).  \\n**Max 10 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 7,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json Json\n{\n  \"agent\": {\n    \"id\":\"28372\",\n    \"login\":\"julia.silva\",\n    \"name\":\"Júlia da Silva\",\n    \"tax_id\":\"12345678909\",\n    \"dob\":\"1970-12-25\",\n    \"category\":\"\",\n    \"created_at\":\"2010-12-25\"\n    }\n}\n```\n```java JAVA\nKondutoAgentSeller agent = new KondutoAgentSeller();\nagent.setId(\"1\");\nagent.setLogin(\"igor.rodrigues\");\nagent.setName(\"Igor F Rodrigues\");\nagent.setTaxId(\"012014567890\");\nagent.setCategory(\"\");\nagent.setCreated_at(new Date(1433818800000L));\n```"
+  },
+  "tenant": {
+    "title": "Tenant",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(obrigatório)_   Identificador único do tenant.   **Max. 100 chars, string.**"
+          ],
+          [
+            "name",
+            "_(obrigatório)_   Nome do tenant.   **Max. 100 chars, string.**"
+          ],
+          [
+            "created_at",
+            "_(obrigatório)_   Data de criação do tenant em UTC no formato YYYY-MM-DD (ISO 8601) . [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601) .   **Timestamp (ISO 8601) (Max. 20 chars).**"
+          ]
+        ]
+      }
+    ],
+    "body": "A tabela abaixo detalha melhor cada parâmetro desse objeto e ao lado, você visualizará o código para envio dos dados:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(obrigatório)_  \\nIdentificador único do tenant.  \\n**Max. 100 chars, string.**\",\n    \"1-0\": \"name\",\n    \"1-1\": \"_(obrigatório)_  \\nNome do tenant.  \\n**Max. 100 chars, string.**\",\n    \"2-0\": \"created_at\",\n    \"2-1\": \"_(obrigatório)_  \\nData de criação do tenant em UTC no formato YYYY-MM-DD (ISO 8601) . [(ISO 8601)](https://pt.wikipedia.org/wiki/ISO_8601) .  \\n**Timestamp (ISO 8601) (Max. 20 chars).**\"\n  },\n  \"cols\": 2,\n  \"rows\": 3,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n```json\n{\n  \"tenant\": {\n    \"id\": \"37\",\n    \"name\": \"Loja do João\",\n    \"created_at\": \"2009-11-25\"\n  }\n}\n```"
+  },
+  "safe-banking-e-pix": {
+    "title": "Safe Banking e Pix",
+    "tables": [
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(recomendado)_   Identificador único da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "key_type",
+            "_(recomendado)_   Tipo de chave usada para identificar a conta. Atualmente suportamos `pix_cpf`, `pix_cnpj`, `pix_phone`, `pix_email`, `pix_evp`, `p2p` e `none`."
+          ],
+          [
+            "key_value",
+            "_(recomendado)_   Valor da chave usada para identificar a conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "holder_name",
+            "_(recomendado)_   Nome do titular da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "holder_tax_id",
+            "_(recomendado)_   CPF/CNPJ do titular da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_code",
+            "_(recomendado)_   Código do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_name",
+            "_(recomendado)_   Nome do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_branch",
+            "_(recomendado)_   Agência do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_account",
+            "_(recomendado)_   Número da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "balance",
+            "_(recomendado)_   Saldo atual da conta.   **Max. 10 chars, número.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(recomendado)_   Identificador único da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "key_type",
+            "_(recomendado)_   Tipo de chave usada para identificar a conta. Atualmente suportamos `pix_cpf`, `pix_cnpj`, `pix_phone`, `pix_email`, `pix_evp`, `p2p` e `none`.   **Max. 8 chars, string.**"
+          ],
+          [
+            "key_value",
+            "_(recomendado)_   Valor da chave usada para identificar a conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "holder_name",
+            "_(recomendado)_   Nome do titular da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "holder_tax_id",
+            "_(recomendado)_   CPF do titular da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_code",
+            "_(recomendado)_   Código do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_name",
+            "_(recomendado)_   Nome do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_branch",
+            "_(recomendado)_   Agência do banco ao qual a conta é vinculado.   **Max. 255 chars, string.**"
+          ],
+          [
+            "bank_account",
+            "_(recomendado)_   Número da conta.   **Max. 255 chars, string.**"
+          ],
+          [
+            "amount",
+            "_(recomendado)_   Quantia enviada à conta.   **Max. 10 chars, número.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "id",
+            "_(recomendado)_   Identificador único da plataforma.   **Max. 255 chars, string.**"
+          ],
+          [
+            "name",
+            "_(recomendado)_   Nome da plataforma.   **Max. 255 chars, string.**"
+          ],
+          [
+            "created_at",
+            "_(recomendado)_   Data de criação da plataforma, em formato AAAA-MM-DD (ISO 8601).   **Max 10 chars, string.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Objetos",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "event_type",
+            "_(obrigatório)_   Abaixo segue os tipos de eventos permitidos para envio:  pix_register | pix_claim | pix_exclusion | pix_query | cashin | pix_portability | pix_reconciliation pix_update | pix_password_reset | pix_password_change      ** ver detalhes na tabela de _\"tipos de evento do nó event_type\"_**"
+          ],
+          [
+            "event_details",
+            "_(obrigatório)_   Objeto que contém as informações detalhadas relacionada ao evento.      ** ver detalhes na tabela de _\"tipos de evento do nó event_detail\"_**"
+          ],
+          [
+            "origin_account",
+            "_(recomendado)_   Objeto que contém as informações da conta de origem.      ** ver detalhes na tabela de _\"tipos de evento do nó event_detail\"_**"
+          ],
+          [
+            "customer",
+            "_(recomendado)_   Objeto que contém as informações sobre a pessoa relacionada ao evento.      ** ver detalhes na tabela de _\"tipos de evento do nó event_detail\"_**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Parâmetros",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "key_type",
+            "_(obrigatório)_   A String pode conter os seguintes tipos:   cpf | cnpj | email | evp (número aleatório) | phone."
+          ],
+          [
+            "key_value",
+            "_(recomendado)_   Valor da chave usada para identificar a conta.    **Max. 255 chars, string.**"
+          ],
+          [
+            "portability_source",
+            "_(recomendado)_   Útil para o evento de portabilidade. Origem   **Max. 255 chars, string.**"
+          ],
+          [
+            "last_change",
+            "_(recomendado)_   Data da última alteração   **Max. 255 chars, string.**"
+          ],
+          [
+            "new_key_value",
+            "_(recomendado)_   Atualização do Valor da chave para identificar a conta   **Max. 255 chars, string.**"
+          ],
+          [
+            "cashin_amount",
+            "_(recomendado)_   Valor do cashin   **Min. 0 chars, Decimal.**"
+          ],
+          [
+            "cashin_source",
+            "_(recomendado)_   Nome do recurso utilizado no cashin   **Max. 255 chars, string.**"
+          ],
+          [
+            "origin_account",
+            "_(recomendado)_   Objeto que contém as informações da conta de origem do evento      **Parâmetros do objeto:**      - key_type (recomendado)     valores permitidos: cpf | cnpj | email | evp | Phone     **Max. 255 chars, string.**  - key_value (recomendado)     **Max. 255 chars, string.**  - bank_code (recomendado)     **Max. 255 chars, string.**  - bank_name (recomendado)     **Max. 255 chars, string.**  - bank_branch (recomendado)     **Max. 255 chars, string.**  - bank_account (recomendado)     **Max. 255 chars, string.**"
+          ],
+          [
+            "customer",
+            "_(recomendado)_   Objeto que contem as informações de identificação do cliente      **Parâmetros do objeto:**      - id (obrigatório)     **Max. 100 chars, string.**"
+          ],
+          [
+            "timestamp",
+            "_(obrigatório)_   Data do evento   **Min. 1000000000 chars, Integer.**"
+          ]
+        ]
+      }
+    ],
+    "body": "## O que é?\n\nFalar de **Safebanking** requer antes de tudo uma definição sobre o que é o **Pix**.  \nIsto ocorre porque o produto de Safe Baking é uma adaptação para a operação de bancos digitais que possui a mesma estrutura do Pix, então como você observará nas descrições de campos seguintes, a natureza dos dados coletados é exatamente a mesma, entretanto, usada para análise em contextos diferentes.\n\nO Pix é um sistema de pagamentos criado pelo Banco Central que permite transações em tempo real, independentemente do dia/hora em que elas ocorrem e sem a cobrança de taxas bancárias mais frequentemente adotadas nas operações de TED e DOC.\n\nDentre muitas vantagens, quando falamos de tempo real podemos dizer mais claramente: sem tempo de compensação bancária.\n\n## Como funcionam os pagamentos?\n\nAtreladas às inúmeras vantagens de utilização que serão detalhadas no decorrer deste tópico, a proposta do Pix é substituir as transações de TED, DOC e diminuir as transações por boleto praticadas atualmente em grande escala.\n\nPor meio de chaves previamente cadastradas na entidade que mediará a transação, um usuário consegue realizar um pagamento PIX sem a necessidade de informar todos os dados da sua conta bancária, por exemplo.\n\nPara concluir o pagamento de uma conta ou de um amigo, basta informar a chave cadastrada e imediatamente por meio deste dado (chave), a transação será concluída.\n\nOutra forma de pagamento também é escanear via aplicativo da entidade responsável o QR Code da pessoa ou instituição a quem se pretende transferir o valor.\n\nEntendo que agora que esclarecemos estes pontos, você talvez tenha muitas dúvidas para entender como esta \"mágica\" de transformar uma quantidade grande de dados usados por anos em operações financeiras podem ser substituídos por uma \"chave\" ou QR Code, então vamos te explicar melhor nas sessões seguintes, ok?\n\n## Como os dados foram substuídos?\n\nPara que a substituição de dados como agência, conta, dígito, nome do portador e CPF pudessem ser simplificados, a aplicação usa o **DICT **e **SPI** como base para consulta e compensação.\n\nO **DICT **tem um papel fundamental em todo este processo, pois é ele quem cria uma camada de abstração de todos estes dados do domínio bancário para que possam ser lidos por meio de uma chave única.\n\nEle é também o que chamamos de _dicionário_ utilizado pelo Banco Central para correlacionar  \n e identificar as contas de origem e destino, bem como seus respectivos donos e as atuais chaves cadastradas.\n\nO **SPI** é o sistema de compensação instantânea do Banco Central e seu papel é agilizar a compensação de pagamentos que antes levavam até 3 dias corridos para ocorrerem em alguns casos.\n\n## O que são chaves Pix?\n\nAs chaves são os dados escolhidos capazes de te identificar e que podem substituir todos os campos que eram mencionados antes para completar a transação.  \nAs mais comuns aceitas para cadastro são: CPF/CNPJ, E-mail, telefone ou ainda a criação de uma chave aleatória.\n\nExiste a possibilidade de registrar mais de um e-mail ou telefone por exemplo, podendo-se chegar até a **cinco **chaves por pessoa física e **vinte **para pessoas jurídicas.\n\nUma chave aleatória possibilita o registro de chaves sem informar a ninguém seus dados pessoais.  \nGeralmente os próprios aplicativos onde são feitos os registros do PIX, permitem a criação de chaves aleatórias.\n\nAo mudar de entidade, um usuário pode ainda fazer a **portabilidade** de suas chaves ou **reivindicar **uma chave que possa ter pertencido a outra pessoa, como telefone por exemplo ou em outros casos ainda, solicitar a **exclusão** de suas chaves de determinada entidade.\n\n## Integrando Pix/Safe Baking na Konduto\n\nAgora que te demos várias definições sobre o PIX e Safe Baking, vamos entrar nos detalhes da integração técnica e os campos de API especialmente dedicados para este escopo.\n\nVocê observará que muitos dos fatores de risco atrelados a este produto estão relacionados diretamente à velocidade de escoamento dos valores que compõem as transações financeiras.  \nIsto ocorre justamente pela rapidez com que as negociações acontecem e torna-se bastante importante entender a **origem **e **destino **destas transações para uma análise completa. \n\nOs campos referentes ao **[cliente](https://docs.konduto.com/reference/customer)** deverão ser integrados referente aos dados do correntista da loja que integra conosco.\n\nSendo assim, vamos começar a falar sobre o nó **origin_account**, que representa a conta de origem em pagamentos do tipo `balance` e `pix`.  \nA tabela abaixo traz os campos que podem ser implementados para descrevê-lo e o script ao lado como o nó deve ser implementado:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(recomendado)_  \\nIdentificador único da conta.  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"key_type\",\n    \"1-1\": \"_(recomendado)_  \\nTipo de chave usada para identificar a conta. Atualmente suportamos `pix_cpf`, `pix_cnpj`, `pix_phone`, `pix_email`, `pix_evp`, `p2p` e `none`.\",\n    \"2-0\": \"key_value\",\n    \"2-1\": \"_(recomendado)_  \\nValor da chave usada para identificar a conta.  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"holder_name\",\n    \"3-1\": \"_(recomendado)_  \\nNome do titular da conta.  \\n**Max. 255 chars, string.**\",\n    \"4-0\": \"holder_tax_id\",\n    \"4-1\": \"_(recomendado)_  \\nCPF/CNPJ do titular da conta.  \\n**Max. 255 chars, string.**\",\n    \"5-0\": \"bank_code\",\n    \"5-1\": \"_(recomendado)_  \\nCódigo do banco ao qual a conta é vinculado.  \\n**Max. 255 chars, string.**\",\n    \"6-0\": \"bank_name\",\n    \"6-1\": \"_(recomendado)_  \\nNome do banco ao qual a conta é vinculado.  \\n**Max. 255 chars, string.**\",\n    \"7-0\": \"bank_branch\",\n    \"7-1\": \"_(recomendado)_  \\nAgência do banco ao qual a conta é vinculado.  \\n**Max. 255 chars, string.**\",\n    \"8-0\": \"bank_account\",\n    \"8-1\": \"_(recomendado)_  \\nNúmero da conta.  \\n**Max. 255 chars, string.**\",\n    \"9-0\": \"balance\",\n    \"9-1\": \"_(recomendado)_  \\nSaldo atual da conta.  \\n**Max. 10 chars, número.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 10,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nExemplo de request para o nó `origin_account`:\n\n```json\n{\n  \"origin_account\": {\n    \"id\": \"ABC123DEF\",\n    \"balance\": 250.0,\n    \"key_type\": \"pix_phone\",\n    \"key_value\": \"+5511912341234\",\n    \"bank_code\": \"00000000\",\n    \"bank_name\": \"Banco do Brasil\",\n    \"bank_branch\": \"0001\",\n    \"bank_account\": \"123123\",\n    \"holder_name\": \"Alberto Armando\",\n    \"holder_tax_id\": \"123.456.789-09\"\n  }\n}\n```\n```java JAVA\nKondutoBankOriginAccount originAccount = new KondutoBankOriginAccount();\noriginAccount.setId(\"ABC123DEF\");\noriginAccount.setBalance(250.0);\noriginAccount.setKeyType(KondutoBankDocumentType.PIX_PHONE);\noriginAccount.setKeyValue(\"+5511912341234\");\noriginAccount.setBankCode(\"00000000\");\noriginAccount.setBankName(\"Banco do Brasil\");\noriginAccount.setBankBranch(\"0001\");\noriginAccount.setBankAccount(\"123123\");\noriginAccount.setHolderName(\"Alberto Armando\");\noriginAccount.setHolderTaxId(\"123.456.789-09\");\n```\n\nO nó `destination_accounts` traz uma lista que representa as contas de destino em pagamentos do tipo `balance` e `pix` e a tabela abaixo sumariza os campos que podem ser implementados dentro deste nó:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(recomendado)_  \\nIdentificador único da conta.  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"key_type\",\n    \"1-1\": \"_(recomendado)_  \\nTipo de chave usada para identificar a conta. Atualmente suportamos `pix_cpf`, `pix_cnpj`, `pix_phone`, `pix_email`, `pix_evp`, `p2p` e `none`.  \\n**Max. 8 chars, string.**\",\n    \"2-0\": \"key_value\",\n    \"2-1\": \"_(recomendado)_  \\nValor da chave usada para identificar a conta.  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"holder_name\",\n    \"3-1\": \"_(recomendado)_  \\nNome do titular da conta.  \\n**Max. 255 chars, string.**\",\n    \"4-0\": \"holder_tax_id\",\n    \"4-1\": \"_(recomendado)_  \\nCPF do titular da conta.  \\n**Max. 255 chars, string.**\",\n    \"5-0\": \"bank_code\",\n    \"5-1\": \"_(recomendado)_  \\nCódigo do banco ao qual a conta é vinculado.  \\n**Max. 255 chars, string.**\",\n    \"6-0\": \"bank_name\",\n    \"6-1\": \"_(recomendado)_  \\nNome do banco ao qual a conta é vinculado.  \\n**Max. 255 chars, string.**\",\n    \"7-0\": \"bank_branch\",\n    \"7-1\": \"_(recomendado)_  \\nAgência do banco ao qual a conta é vinculado.  \\n**Max. 255 chars, string.**\",\n    \"8-0\": \"bank_account\",\n    \"8-1\": \"_(recomendado)_  \\nNúmero da conta.  \\n**Max. 255 chars, string.**\",\n    \"9-0\": \"amount\",\n    \"9-1\": \"_(recomendado)_  \\nQuantia enviada à conta.  \\n**Max. 10 chars, número.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 10,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nExemplo de request para o nó `destination_account`:\n\n```json\n{\n  \"destination_accounts\": [\n    {\n      \"id\": \"Conta 003\",\n      \"key_type\": \"pix_evp\",\n      \"key_value\": \"123e4567-e89b-12d3-a456-426655440000\",\n      \"bank_code\": \"17298092\",\n      \"bank_name\": \"Itaú BBA\",\n      \"bank_branch\": \"0001\",\n      \"bank_account\": \"01234-5\",\n      \"holder_name\": \"José Armando\",\n      \"holder_tax_id\": \"123.456-789-09\",\n      \"amount\": 200.0\n    },\n    {\n        \"id\": \"Conta 007\",\n        \"key_type\": \"pix_phone\",\n        \"key_value\": \"(11) 911112222\",\n        \"bank_code\": \"60872504\",\n        \"bank_name\": \"Banco Itaú\",\n        \"bank_branch\": \"0001\",\n        \"bank_account\": \"12345-6\",\n        \"holder_name\": \"Laura Armando\",\n        \"holder_tax_id\": \"046.123.123-13\",\n        \"amount\": 50.0\n      }\n  ]\n}\n```\n```java JAVA\nKondutoBankDestinationAccount sender = new KondutoBankDestinationAccount();\n sender.setId(\"Conta 003\");\n sender.setKeyType(KondutoBankDocumentType.PIX_EVP);\n sender.setKeyValue(\"123e4567-e89b-12d3-a456-426655440000\");\n sender.setBankCode(\"17298092\");\n sender.setBankName(\"Itaú BBA\");\n sender.setBankBranch(\"0001\");\n sender.setBankAccount(\"01234-5\");\n sender.setHolderName(\"Igor Francesco\");\n sender.setHolderTaxId(\"123.456.789-09\");\n sender.setAmount(200.0);\n       \n KondutoBankDestinationAccount receiver = new KondutoBankDestinationAccount();\n receiver.setId(\"Conta 007\");\n receiver.setKeyType(KondutoBankDocumentType.PIX_PHONE);\n receiver.setKeyValue(\"(11) 911112222\");\n receiver.setBankCode(\"60872504\");\n receiver.setBankName(\"Banco Itaú\");\n receiver.setBankBranch(\"0001\");\n receiver.setBankAccount(\"12345-6\");\n receiver.setHolderName(\"Ana Luna\");\n receiver.setHolderTaxId(\"046.123.123-13\");\n receiver.setAmount(500.0);\n       \n List<KondutoBankDestinationAccount> accounts = new ArrayList<>();\n accounts.add(sender);\n accounts.add(receiver);\n```\n\nO nó ´tenant\\` representa a plataforma (ou marketplace) no qual a transação pix está acontecendo.  \nVeja abaixo o que pode ser declarado dentro deste nó:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetro\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"id\",\n    \"0-1\": \"_(recomendado)_  \\nIdentificador único da plataforma.  \\n**Max. 255 chars, string.**\",\n    \"1-0\": \"name\",\n    \"1-1\": \"_(recomendado)_  \\nNome da plataforma.  \\n**Max. 255 chars, string.**\",\n    \"2-0\": \"created_at\",\n    \"2-1\": \"_(recomendado)_  \\nData de criação da plataforma, em formato AAAA-MM-DD (ISO 8601).  \\n**Max 10 chars, string.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 3,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nO script ao lado, mostra como o request figurará no momento de sua implementação.\n\nExemplo de request para o nó `tenant`:\n\n```json\n{\n   \"tenant\":{\n      \"id\":\"0001\",\n      \"name\":\"TikPay\",\n      \"created_at\":\"2014-12-31\"\n   }\n}\n```\n```java JAVA\nKondutoTenant tenant = new KondutoTenant();\n tenant.setId(\"0001\");\n tenant.setName(\"TikPay\");\n tenant.setCreatedAt(new Date(1433818800000L));\n```\n\nExemplo de request completo:\n\n```json\n{\n \"id\":\"10000000001\",\n \"visitor\":\"da39a3ee5e6b4\",\n \"total_amount\":100.00,\n \"shipping_amount\":20.00,\n \"tax_amount\":3.45,\n \"currency\":\"BRL\",\n \"installments\":2,\n \"ip\":\"189.68.156.100\",\n \"first_message\":\"2018-12-20T15:59:01Z\",\n \"messages_exchanged\":30,\n \"purchased_at\":\"2018-12-25T12:00:25Z\",\n \"analyze\":true,\n \"customer\":{ },\n \"payment\":[ ],\n \"billing\":{ },\n \"shipping\":{ },\n \"shopping_cart\":[ ],\n \"hotel\": { },\n \"travel\":{ },\n \"seller\":{ },\n \"events\":[ ],\n \"tenant\":{ },\n \"origin_account\": { },\n \"destination_accounts\": [ ]\n}\n```\n\n## Eventos mapeados no Pix\n\nExiste uma parte da integração com Pix/Safe Baking que mapeia determinados eventos durante a operação e pode agregar características importantes à análise de risco.\n\nEstes eventos funcionam como \"marcos\" da operação, capazes de sinalizar as etapas em que o pagador passou até a conclusão da transação.\n\nA Konduto está preparada para ler estes \"marcos\" e utilizar estas informações para compor a decisão de risco durante cada análise.\n\nPossuímos uma API de eventos especificamente para tratar esses \"marcos\" de forma a ajudar a compor a inteligência do nosso algoritmo.\n\n> 👍 \n> \n> Diferente de uma análise transacional, onde geramos **score **e **recomendação **e consequentemente **há **cobrança por pedido analisado, quando falamos da API de eventos, não atribuiremos um **score**, **recomendação** e também **NÃO** haverá cobrança por evento recebido.\n\nA tabela abaixo mostra os principais nó(s) dentro da API Eventos e os parâmetros e valores suportados. A seguir o descritivo detalhado sobre os nó(s) e seus parâmetros<br/><br/>\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Objetos\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"event_type\",\n    \"0-1\": \"_(obrigatório)_  \\nAbaixo segue os tipos de eventos permitidos para envio:  pix_register | pix_claim | pix_exclusion | pix_query | cashin | pix_portability | pix_reconciliation pix_update | pix_password_reset | pix_password_change  \\n  \\n** ver detalhes na tabela de _\\\"tipos de evento do nó event_type\\\"_**\",\n    \"1-0\": \"event_details\",\n    \"1-1\": \"_(obrigatório)_  \\nObjeto que contém as informações detalhadas relacionada ao evento.  \\n  \\n** ver detalhes na tabela de _\\\"tipos de evento do nó event_detail\\\"_**\",\n    \"2-0\": \"origin_account\",\n    \"2-1\": \"_(recomendado)_  \\nObjeto que contém as informações da conta de origem.  \\n  \\n** ver detalhes na tabela de _\\\"tipos de evento do nó event_detail\\\"_**\",\n    \"3-0\": \"customer\",\n    \"3-1\": \"_(recomendado)_  \\nObjeto que contém as informações sobre a pessoa relacionada ao evento.  \\n  \\n** ver detalhes na tabela de _\\\"tipos de evento do nó event_detail\\\"_**\"\n  },\n  \"cols\": 2,\n  \"rows\": 4,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\n<br />\n\n| Evento              | Descrição                            | Porque enviar?                                                                                                              |\n| :------------------ | :----------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |\n| pix_register        | Registro de chave                    | Sinaliza a entrada de um novo registro por meio de uma chave.                                                               |\n| pix_claim           | Reinvindicação de chave              | Sinaliza quando uma chave, mais comum para telefone é reivindicada para ser atrelada a outro pagador.                       |\n| pix_exclusion       | Exclusão de chave                    | Sinaliza a solicitação de exclusão de uma chave na entidade.                                                                |\n| pix_query           | Consulta de chave                    | Evidencia as consultas feitas às chaves registradas.                                                                        |\n| cashin              | Cash-in                              | Sinaliza a entrada de dinheiro atrelado a uma chave. Por meio desde evento identificamos mais facilmente padrões de ataque. |\n| pix_portability     | Pedido de portabilidade              | Sinaliza quando uma chave é requisitada para ser usada em outra entidade.                                                   |\n| pix_reconciliation  | Pedido de reconciliação              | O evento registra reconciliação de chaves.                                                                                  |\n| pix_update          | Atualização                          | Sinaliza sempre que uma chave é atualizada no perfil do pagador.                                                            |\n| pix_password_reset  | Registro de reset de senha           | Sinaliza quando uma chave é “resetada”. Por meio deste evento identificamos mais facilmente padrões de ataque.              |\n| pix_password_change | Registra troca de senhas entre chave | Sinaliza quando uma chave e seu respectivo valor (senha) é alterado.                                                        |\n\n<br />\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Parâmetros\",\n    \"h-1\": \"Descrição\",\n    \"0-0\": \"key_type\",\n    \"0-1\": \"_(obrigatório)_  \\nA String pode conter os seguintes tipos:  \\ncpf | cnpj | email | evp (número aleatório) | phone.\",\n    \"1-0\": \"key_value\",\n    \"1-1\": \"_(recomendado)_  \\nValor da chave usada para identificar a conta.   \\n**Max. 255 chars, string.**\",\n    \"2-0\": \"portability_source\",\n    \"2-1\": \"_(recomendado)_  \\nÚtil para o evento de portabilidade. Origem  \\n**Max. 255 chars, string.**\",\n    \"3-0\": \"last_change\",\n    \"3-1\": \"_(recomendado)_  \\nData da última alteração  \\n**Max. 255 chars, string.**\",\n    \"4-0\": \"new_key_value\",\n    \"4-1\": \"_(recomendado)_  \\nAtualização do Valor da chave para identificar a conta  \\n**Max. 255 chars, string.**\",\n    \"5-0\": \"cashin_amount\",\n    \"5-1\": \"_(recomendado)_  \\nValor do cashin  \\n**Min. 0 chars, Decimal.**\",\n    \"6-0\": \"cashin_source\",\n    \"6-1\": \"_(recomendado)_  \\nNome do recurso utilizado no cashin  \\n**Max. 255 chars, string.**\",\n    \"7-0\": \"origin_account\",\n    \"7-1\": \"_(recomendado)_  \\nObjeto que contém as informações da conta de origem do evento  \\n  \\n**Parâmetros do objeto:**  \\n  \\n- key_type (recomendado)  \\n  valores permitidos: cpf | cnpj | email | evp | Phone  \\n  **Max. 255 chars, string.**\\n\\n- key_value (recomendado)  \\n  **Max. 255 chars, string.**\\n\\n- bank_code (recomendado)  \\n  **Max. 255 chars, string.**\\n\\n- bank_name (recomendado)  \\n  **Max. 255 chars, string.**\\n\\n- bank_branch (recomendado)  \\n  **Max. 255 chars, string.**\\n\\n- bank_account (recomendado)  \\n  **Max. 255 chars, string.**\",\n    \"8-0\": \"customer\",\n    \"8-1\": \"_(recomendado)_  \\nObjeto que contem as informações de identificação do cliente  \\n  \\n**Parâmetros do objeto:**  \\n  \\n- id (obrigatório)  \\n  **Max. 100 chars, string.**\",\n    \"9-0\": \"timestamp\",\n    \"9-1\": \"_(obrigatório)_  \\nData do evento  \\n**Min. 1000000000 chars, Integer.**\"\n  },\n  \"cols\": 2,\n  \"rows\": 10,\n  \"align\": [\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nEsta API de Eventos suporta trabalhar com represamento/agrupamento de eventos para envio em lote também.  \nPara isso, é de suma importância informar: _data/hora_ do evento original no campo _timestamp_.\n\nO trecho ao lado traz um exemplo de request para aplicação desta integração.\n\n```json\n[\n    {\n        \"event_type\": [\"pix_register\",\"pix_claim\",\"pix_exclusion\",\"pix_portability\",\"pix_reconciliation\",\"pix_query\",\"pix_update\",\"cashin\",\"cashback\",\"pix_password_reset\",\"pix_password_change\"],\n        \"event_details\": {\n            \"key_type\": [\"email\",\"phone\",\"cpf\",\"cnpj\",\"evp\"],\n            \"key_value\": \"regina@exemplo.com.br\"\n            \"portability_source\": \"string\",\n            \"new_key_value\": \"mario2@exemplo.com.br\",\n            \"cashin_amount\": 10.99,\n            \"cashin_source\": \"bb\",\n            \"cashin_type\": \"deposit\",\n            \"timestamp\": 1632032190\n        }\n    },\n    { .. }\n]\n```\n\nExemplo de envio de evento do tipo `cashin`\n\n```json\n[\n  {\n    \"event_type\": \"cashin\",\n    \"event_details\": {\n      \"key_type\": \"email\",\n      \"key_value\": \"regina@exemplo.com.br\",\n      \"cashin_amount\": 10.99,\n      \"cashin_source\": \"BB continental\",\n      \"customer\": {\n        \"id\": \"a2sd1f321132a1dsf\"\n      },\n      \"origin_account\": {\n        \"key_type\": \"phone\",\n        \"key_value\": \"+5511912341234\",\n        \"bank_code\": \"00000000\",\n        \"bank_name\": \"Banco do Brasil\",\n        \"bank_branch\": \"0001\",\n        \"bank_account\": \"123123\"\n      },\n      \"timestamp\": 1632032190\n    }\n  }\n]\n```\n\nExemplo de envio de evento do tipo `pix_password_reset`\n\n```json\n[\n  {\n    \"event_type\": \"pix_password_reset\",\n    \"event_details\": {\n      \"key_type\": \"phone\",\n      \"key_value\": \"a2sd1f321132a1dsf\",\n      \"new_key_value\": \"11936188096\",\n      \"customer\": {\n        \"id\": \"${uid}\"\n      },\n      \"timestamp\": 1632032190\n    }\n  }\n]\n```"
+  },
+  "categorias-de-produtos-e-códigos": {
+    "title": "Categorias de produtos e Códigos",
+    "tables": [
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Animais & Bichos de Estimação",
+            "100"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Roupas em Geral",
+            "201"
+          ],
+          [
+            "Accessórios em Geral",
+            "202"
+          ],
+          [
+            "Fantasias e Acessórios",
+            "203"
+          ],
+          [
+            "Acessórios para Bolsas e Carteiras",
+            "204"
+          ],
+          [
+            "Bolsas, Carteiras e Malas",
+            "205"
+          ],
+          [
+            "Jóias",
+            "206"
+          ],
+          [
+            "Acessórios para Sapatos",
+            "207"
+          ],
+          [
+            "Sapatos",
+            "208"
+          ],
+          [
+            "Outros",
+            "299"
+          ],
+          [
+            "Arte e Entretenimento",
+            "300"
+          ],
+          [
+            "Bebês e Recém-nascidos",
+            "400"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Propaganda e Marketing",
+            "501"
+          ],
+          [
+            "Agricultura",
+            "502"
+          ],
+          [
+            "Construção",
+            "503"
+          ],
+          [
+            "Filme e Televisão",
+            "504"
+          ],
+          [
+            "Finanças e Seguros",
+            "505"
+          ],
+          [
+            "Serviços de Alimentação",
+            "506"
+          ],
+          [
+            "Madeireiras",
+            "507"
+          ],
+          [
+            "Maquinário Pesado",
+            "508"
+          ],
+          [
+            "Hotel e Hospedagem",
+            "509"
+          ],
+          [
+            "Armazém Industrial",
+            "510"
+          ],
+          [
+            "Equipamentos Militares",
+            "511"
+          ],
+          [
+            "Manufatura",
+            "512"
+          ],
+          [
+            "Movimentação de Material",
+            "513"
+          ],
+          [
+            "Medicina",
+            "514"
+          ],
+          [
+            "Mineração",
+            "515"
+          ],
+          [
+            "Piercing e tatuagem",
+            "516"
+          ],
+          [
+            "Varejo",
+            "517"
+          ],
+          [
+            "Ciência e Laboratórios",
+            "518"
+          ],
+          [
+            "Placas e Sinais",
+            "519"
+          ],
+          [
+            "Equipamentos de Segurança do Trabalho",
+            "520"
+          ],
+          [
+            "Outros",
+            "599"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Câmeras",
+            "601"
+          ],
+          [
+            "Acessórios de câmeras",
+            "602"
+          ],
+          [
+            "Fotografia",
+            "603"
+          ],
+          [
+            "Outros",
+            "604"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Impressoras 3D",
+            "701"
+          ],
+          [
+            "Áudio",
+            "702"
+          ],
+          [
+            "Componentes de Circuito",
+            "703"
+          ],
+          [
+            "Comunicação",
+            "704"
+          ],
+          [
+            "Componentes",
+            "705"
+          ],
+          [
+            "Computadores",
+            "706"
+          ],
+          [
+            "Acessórios Eletrônicos",
+            "707"
+          ],
+          [
+            "Aparelho GPS",
+            "708"
+          ],
+          [
+            "Acessórios de GPS",
+            "709"
+          ],
+          [
+            "Redes",
+            "711"
+          ],
+          [
+            "Impressão, Cópia, Scanner e Fax",
+            "712"
+          ],
+          [
+            "Acessórios de Impressão, Cópia, Scanner e Fax",
+            "713"
+          ],
+          [
+            "Vídeo",
+            "715"
+          ],
+          [
+            "Consoles de Vídeo Game",
+            "716"
+          ],
+          [
+            "Acessórios de Vídeo Game",
+            "717"
+          ],
+          [
+            "Outros",
+            "799"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Comidas, Bebidas e Cigarro",
+            "800"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Móveis",
+            "900"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Ferramentas",
+            "1000"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Saúde e Beleza",
+            "1100"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Casa e Jardim",
+            "1200"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Malas e Bagagens**",
+            "1300"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Adulto",
+            "1400"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Armas e Munição",
+            "1500"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Materiais de Escritório",
+            "1600"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Religião e Cerimoniais",
+            "1700"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Software de Computador",
+            "1801"
+          ],
+          [
+            "Bens e Moedas Digitais",
+            "1802"
+          ],
+          [
+            "Serviços Digitais",
+            "1803"
+          ],
+          [
+            "Jogos de Vídeo Games",
+            "1804"
+          ],
+          [
+            "Outros",
+            "1899"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Equipamento de Esporte",
+            "1900"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Brinquedos e Jogos",
+            "2000"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Veículos e Peças",
+            "2100"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Livros",
+            "2300"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "DVDs e Vídeos",
+            "2400"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Revistas e Jornais",
+            "2500"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "CDs e Vinil",
+            "2601"
+          ],
+          [
+            "Instrumentos Musicais",
+            "2602"
+          ],
+          [
+            "Música Digital",
+            "2603"
+          ],
+          [
+            "Outros",
+            "2699"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Descrição",
+          "Código"
+        ],
+        "rows": [
+          [
+            "Outras categorias não especificadas",
+            "9999"
+          ]
+        ]
+      }
+    ],
+    "body": "As tabelas dessa sessão, trarão as informações de categorias de produtos `(category)` separadas por segmentos de atuação.\n[block:api-header]\n{\n  \"title\": \"Animais & Bichos de Estimação\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Animais & Bichos de Estimação\",\n    \"0-1\": \"100\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Roupas e Acessórios\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Roupas em Geral\",\n    \"0-1\": \"201\",\n    \"1-1\": \"202\",\n    \"2-1\": \"203\",\n    \"3-1\": \"204\",\n    \"4-1\": \"205\",\n    \"5-1\": \"206\",\n    \"6-1\": \"207\",\n    \"7-1\": \"208\",\n    \"8-1\": \"299\",\n    \"9-1\": \"300\",\n    \"10-1\": \"400\",\n    \"1-0\": \"Accessórios em Geral\",\n    \"2-0\": \"Fantasias e Acessórios\",\n    \"3-0\": \"Acessórios para Bolsas e Carteiras\",\n    \"4-0\": \"Bolsas, Carteiras e Malas\",\n    \"5-0\": \"Jóias\",\n    \"6-0\": \"Acessórios para Sapatos\",\n    \"7-0\": \"Sapatos\",\n    \"8-0\": \"Outros\",\n    \"9-0\": \"Arte e Entretenimento\",\n    \"10-0\": \"Bebês e Recém-nascidos\"\n  },\n  \"cols\": 2,\n  \"rows\": 11\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Negócios e Indústria\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Propaganda e Marketing\",\n    \"1-0\": \"Agricultura\",\n    \"2-0\": \"Construção\",\n    \"3-0\": \"Filme e Televisão\",\n    \"4-0\": \"Finanças e Seguros\",\n    \"5-0\": \"Serviços de Alimentação\",\n    \"6-0\": \"Madeireiras\",\n    \"7-0\": \"Maquinário Pesado\",\n    \"8-0\": \"Hotel e Hospedagem\",\n    \"9-0\": \"Armazém Industrial\",\n    \"10-0\": \"Equipamentos Militares\",\n    \"11-0\": \"Manufatura\",\n    \"12-0\": \"Movimentação de Material\",\n    \"13-0\": \"Medicina\",\n    \"14-0\": \"Mineração\",\n    \"15-0\": \"Piercing e tatuagem\",\n    \"16-0\": \"Varejo\",\n    \"17-0\": \"Ciência e Laboratórios\",\n    \"18-0\": \"Placas e Sinais\",\n    \"19-0\": \"Equipamentos de Segurança do Trabalho\",\n    \"20-0\": \"Outros\",\n    \"0-1\": \"501\",\n    \"1-1\": \"502\",\n    \"2-1\": \"503\",\n    \"3-1\": \"504\",\n    \"4-1\": \"505\",\n    \"5-1\": \"506\",\n    \"6-1\": \"507\",\n    \"7-1\": \"508\",\n    \"8-1\": \"509\",\n    \"9-1\": \"510\",\n    \"10-1\": \"511\",\n    \"11-1\": \"512\",\n    \"12-1\": \"513\",\n    \"13-1\": \"514\",\n    \"14-1\": \"515\",\n    \"15-1\": \"516\",\n    \"16-1\": \"517\",\n    \"17-1\": \"518\",\n    \"18-1\": \"519\",\n    \"19-1\": \"520\",\n    \"20-1\": \"599\"\n  },\n  \"cols\": 2,\n  \"rows\": 21\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Câmeras e Óticas\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Câmeras\",\n    \"1-0\": \"Acessórios de câmeras\",\n    \"2-0\": \"Fotografia\",\n    \"3-0\": \"Outros\",\n    \"0-1\": \"601\",\n    \"1-1\": \"602\",\n    \"2-1\": \"603\",\n    \"3-1\": \"604\"\n  },\n  \"cols\": 2,\n  \"rows\": 4\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Eletrônicos\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Impressoras 3D\",\n    \"1-0\": \"Áudio\",\n    \"2-0\": \"Componentes de Circuito\",\n    \"3-0\": \"Comunicação\",\n    \"4-0\": \"Componentes\",\n    \"5-0\": \"Computadores\",\n    \"6-0\": \"Acessórios Eletrônicos\",\n    \"7-0\": \"Aparelho GPS\",\n    \"8-0\": \"Acessórios de GPS\",\n    \"9-0\": \"Redes\",\n    \"10-0\": \"Impressão, Cópia, Scanner e Fax\",\n    \"11-0\": \"Acessórios de Impressão, Cópia, Scanner e Fax\",\n    \"12-0\": \"Vídeo\",\n    \"13-0\": \"Consoles de Vídeo Game\",\n    \"14-0\": \"Acessórios de Vídeo Game\",\n    \"15-0\": \"Outros\",\n    \"0-1\": \"701\",\n    \"1-1\": \"702\",\n    \"2-1\": \"703\",\n    \"3-1\": \"704\",\n    \"4-1\": \"705\",\n    \"5-1\": \"706\",\n    \"6-1\": \"707\",\n    \"7-1\": \"708\",\n    \"8-1\": \"709\",\n    \"9-1\": \"711\",\n    \"10-1\": \"712\",\n    \"11-1\": \"713\",\n    \"12-1\": \"715\",\n    \"13-1\": \"716\",\n    \"14-1\": \"717\",\n    \"15-1\": \"799\"\n  },\n  \"cols\": 2,\n  \"rows\": 16\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Comidas, Bebidas e Cigarro\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Comidas, Bebidas e Cigarro\",\n    \"0-1\": \"800\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Móveis\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Móveis\",\n    \"0-1\": \"900\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Ferramentas\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Ferramentas\",\n    \"0-1\": \"1000\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Saúde e Beleza\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Saúde e Beleza\",\n    \"0-1\": \"1100\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Casa e Jardim\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Casa e Jardim\",\n    \"0-1\": \"1200\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Malas e Bagagens\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Malas e Bagagens**\",\n    \"0-1\": \"1300\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Adulto\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Adulto\",\n    \"0-1\": \"1400\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Armas e Munição\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Armas e Munição\",\n    \"0-1\": \"1500\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Materiais de Escritório\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Materiais de Escritório\",\n    \"0-1\": \"1600\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Religião e Cerimoniais\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Religião e Cerimoniais\",\n    \"0-1\": \"1700\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Software\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"0-0\": \"Software de Computador\",\n    \"1-0\": \"Bens e Moedas Digitais\",\n    \"2-0\": \"Serviços Digitais\",\n    \"3-0\": \"Jogos de Vídeo Games\",\n    \"4-0\": \"Outros\",\n    \"0-1\": \"1801\",\n    \"h-1\": \"Código\",\n    \"1-1\": \"1802\",\n    \"2-1\": \"1803\",\n    \"3-1\": \"1804\",\n    \"4-1\": \"1899\"\n  },\n  \"cols\": 2,\n  \"rows\": 5\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Equipamento de Esporte\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Equipamento de Esporte\",\n    \"0-1\": \"1900\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Brinquedos e Jogos\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"0-0\": \"Brinquedos e Jogos\",\n    \"h-1\": \"Código\",\n    \"0-1\": \"2000\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Veículos e Peças\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Veículos e Peças\",\n    \"0-1\": \"2100\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Livros\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"0-0\": \"Livros\",\n    \"h-1\": \"Código\",\n    \"0-1\": \"2300\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"DVDs e Vídeos\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"DVDs e Vídeos\",\n    \"0-1\": \"2400\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Revistas e Jornais\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"h-1\": \"Código\",\n    \"0-0\": \"Revistas e Jornais\",\n    \"0-1\": \"2500\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Música\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"0-0\": \"CDs e Vinil\",\n    \"1-0\": \"Instrumentos Musicais\",\n    \"2-0\": \"Música Digital\",\n    \"3-0\": \"Outros\",\n    \"0-1\": \"2601\",\n    \"1-1\": \"2602\",\n    \"2-1\": \"2603\",\n    \"3-1\": \"2699\",\n    \"h-1\": \"Código\"\n  },\n  \"cols\": 2,\n  \"rows\": 4\n}\n[/block]\n\n[block:api-header]\n{\n  \"title\": \"Outras categorias não especificadas\"\n}\n[/block]\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Descrição\",\n    \"0-0\": \"Outras categorias não especificadas\",\n    \"h-1\": \"Código\",\n    \"0-1\": \"9999\"\n  },\n  \"cols\": 2,\n  \"rows\": 1\n}\n[/block]"
+  },
+  "moedas-mais-comuns-1": {
+    "title": "Moedas mais comuns",
+    "tables": [
+      {
+        "headers": [
+          "Código",
+          "Moeda"
+        ],
+        "rows": [
+          [
+            "USD",
+            "Dólar Americano ($)"
+          ],
+          [
+            "BRL",
+            "Real Brasileiro (R$)"
+          ],
+          [
+            "ARS",
+            "Peso Argentino ($)"
+          ],
+          [
+            "AUD",
+            "Dólar Australiano($)"
+          ],
+          [
+            "CAD",
+            "Dólar Canadense($)"
+          ],
+          [
+            "CLP",
+            "Peso Chileno ($)"
+          ],
+          [
+            "EUR",
+            "Euro (€)"
+          ],
+          [
+            "GBP",
+            "Libra Esterlina (£)"
+          ],
+          [
+            "JPY",
+            "Yen Japonês (¥)"
+          ],
+          [
+            "MXP",
+            "Peso Mexicano ($)"
+          ]
+        ]
+      }
+    ],
+    "body": "Abaixo você encontrará a tabela com a relação de moedas `currency` a serem usados na integração API\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Código\",\n    \"h-1\": \"Moeda\",\n    \"0-0\": \"USD\",\n    \"1-0\": \"BRL\",\n    \"2-0\": \"ARS\",\n    \"3-0\": \"AUD\",\n    \"4-0\": \"CAD\",\n    \"5-0\": \"CLP\",\n    \"6-0\": \"EUR\",\n    \"7-0\": \"GBP\",\n    \"8-0\": \"JPY\",\n    \"9-0\": \"MXP\",\n    \"0-1\": \"Dólar Americano ($)\",\n    \"1-1\": \"Real Brasileiro (R$)\",\n    \"2-1\": \"Peso Argentino ($)\",\n    \"3-1\": \"Dólar Australiano($)\",\n    \"4-1\": \"Dólar Canadense($)\",\n    \"5-1\": \"Peso Chileno ($)\",\n    \"6-1\": \"Euro (€)\",\n    \"7-1\": \"Libra Esterlina (£)\",\n    \"8-1\": \"Yen Japonês (¥)\",\n    \"9-1\": \"Peso Mexicano ($)\"\n  },\n  \"cols\": 2,\n  \"rows\": 10\n}\n[/block]"
+  },
+  "resposta-da-análise": {
+    "title": "Resposta da Análise",
+    "tables": [
+      {
+        "headers": [
+          "Objeto",
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "-",
+            "**id**",
+            "Identificador único enviado na chamada."
+          ],
+          [
+            "-",
+            "**visitor**",
+            "Identificador do visitante enviado na chamada."
+          ],
+          [
+            "-",
+            "**score**",
+            "Score da transação entre `0` e `1`.      Para transações que não foram analisadas o valor `-1` é retornado (ver parâmetro order.analyze)."
+          ],
+          [
+            "-",
+            "**ip**",
+            "Endereço de IP do cliente."
+          ],
+          [
+            "-",
+            "**recommendation**",
+            "Ação recomendada para este pedido. Pode ser `APPROVE`, `REVIEW`ou `DECLINE`.      Para transações que não foram analisadas o valor `NONE` é retornado (ver parâmetro **order.analyze**)."
+          ],
+          [
+            "-",
+            "**status**",
+            "Status do pedido, podendo ser `APPROVED`, `PENDING` ou `DECLINED`."
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Objeto",
+          "Parâmetros",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "-",
+            "**triggered_rules**",
+            "Objeto contendo as regras disparadas no pedido."
+          ],
+          [
+            "triggered_rules",
+            "**name**",
+            "Nome da regra disparada."
+          ],
+          [
+            "triggered_rules",
+            "**decision**",
+            "O status que a regra aplicará para o pedido. Podendo ser `APPROVE`, `REVIEW` ou `DECLINE`."
+          ],
+          [
+            "triggered_rules",
+            "**priority**",
+            "Prioridade da camada em relação às demais (em caso de haver mais configuradas).   **Número, sem limite de chars.**"
+          ],
+          [
+            "triggered_rules",
+            "**analysis_type**",
+            "Tipo da análise. Podendo ser: PIX, Boleto, Credit Card, Voucher, P2P   **String, até 255 chars.**"
+          ]
+        ]
+      },
+      {
+        "headers": [
+          "Objeto",
+          "Parâmetro",
+          "Descrição"
+        ],
+        "rows": [
+          [
+            "-",
+            "**triggered_decision_list**",
+            "Objeto contendo a lista de decisão disparada no pedido."
+          ],
+          [
+            "triggered_decision_list",
+            "**trigger**",
+            "E-mail cadastrado na blacklist.   **String, até 255 chars.**"
+          ],
+          [
+            "triggered_decision_list",
+            "**type**",
+            "Tipo do valor.   **String, até 50 chars.**"
+          ],
+          [
+            "triggered_decision_list",
+            "**decision**",
+            "O status que será aplicado para o pedido. Podendo ser `APPROVE`, `REVIEW` ou `DECLINE`.   **String, até 255 chars.**"
+          ]
+        ]
+      }
+    ],
+    "body": "Iremos tratar nessa sessão a resposta da análise de um pedido.\n\nOs campos retornados dentro do objeto `order` estão descritos nas tabelas abaixo de forma separada para melhor compreensão de cada família de objetos sua importância:\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Objeto\",\n    \"h-1\": \"Parâmetro\",\n    \"h-2\": \"Descrição\",\n    \"0-0\": \"-\",\n    \"0-1\": \"**id**\",\n    \"0-2\": \"Identificador único enviado na chamada.\",\n    \"1-0\": \"-\",\n    \"1-1\": \"**visitor**\",\n    \"1-2\": \"Identificador do visitante enviado na chamada.\",\n    \"2-0\": \"-\",\n    \"2-1\": \"**score**\",\n    \"2-2\": \"Score da transação entre `0` e `1`.  \\n  \\nPara transações que não foram analisadas o valor `-1` é retornado (ver parâmetro order.analyze).\",\n    \"3-0\": \"-\",\n    \"3-1\": \"**ip**\",\n    \"3-2\": \"Endereço de IP do cliente.\",\n    \"4-0\": \"-\",\n    \"4-1\": \"**recommendation**\",\n    \"4-2\": \"Ação recomendada para este pedido. Pode ser `APPROVE`, `REVIEW`ou `DECLINE`.  \\n  \\nPara transações que não foram analisadas o valor `NONE` é retornado (ver parâmetro **order.analyze**).\",\n    \"5-0\": \"-\",\n    \"5-1\": \"**status**\",\n    \"5-2\": \"Status do pedido, podendo ser `APPROVED`, `PENDING` ou `DECLINED`.\"\n  },\n  \"cols\": 3,\n  \"rows\": 6,\n  \"align\": [\n    \"left\",\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros do objeto `triggered_rules` informa  as regras que foram ativadas no pedido.\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Objeto\",\n    \"h-1\": \"Parâmetros\",\n    \"h-2\": \"Descrição\",\n    \"0-0\": \"-\",\n    \"0-1\": \"**triggered_rules**\",\n    \"0-2\": \"Objeto contendo as regras disparadas no pedido.\",\n    \"1-0\": \"triggered_rules\",\n    \"1-1\": \"**name**\",\n    \"1-2\": \"Nome da regra disparada.\",\n    \"2-0\": \"triggered_rules\",\n    \"2-1\": \"**decision**\",\n    \"2-2\": \"O status que a regra aplicará para o pedido. Podendo ser `APPROVE`, `REVIEW` ou `DECLINE`.\",\n    \"3-0\": \"triggered_rules\",\n    \"3-1\": \"**priority**\",\n    \"3-2\": \"Prioridade da camada em relação às demais (em caso de haver mais configuradas).  \\n**Número, sem limite de chars.**\",\n    \"4-0\": \"triggered_rules\",\n    \"4-1\": \"**analysis_type**\",\n    \"4-2\": \"Tipo da análise. Podendo ser: PIX, Boleto, Credit Card, Voucher, P2P  \\n**String, até 255 chars.**\"\n  },\n  \"cols\": 3,\n  \"rows\": 5,\n  \"align\": [\n    \"left\",\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nO parâmetro do objeto `triggered_decision_list` informa a lista de decisão que foi  ativada no pedido.\n\n[block:parameters]\n{\n  \"data\": {\n    \"h-0\": \"Objeto\",\n    \"h-1\": \"Parâmetro\",\n    \"h-2\": \"Descrição\",\n    \"0-0\": \"-\",\n    \"0-1\": \"**triggered_decision_list**\",\n    \"0-2\": \"Objeto contendo a lista de decisão disparada no pedido.\",\n    \"1-0\": \"triggered_decision_list\",\n    \"1-1\": \"**trigger**\",\n    \"1-2\": \"E-mail cadastrado na blacklist.  \\n**String, até 255 chars.**\",\n    \"2-0\": \"triggered_decision_list\",\n    \"2-1\": \"**type**\",\n    \"2-2\": \"Tipo do valor.  \\n**String, até 50 chars.**\",\n    \"3-0\": \"triggered_decision_list\",\n    \"3-1\": \"**decision**\",\n    \"3-2\": \"O status que será aplicado para o pedido. Podendo ser `APPROVE`, `REVIEW` ou `DECLINE`.  \\n**String, até 255 chars.**\"\n  },\n  \"cols\": 3,\n  \"rows\": 4,\n  \"align\": [\n    \"left\",\n    \"left\",\n    \"left\"\n  ]\n}\n[/block]\n\n\nOs parâmetros do objeto `geolocation` informarão a localização física do seu cliente.\n\n| Objeto      | Parâmetro       | Descrição                                              |\n| :---------- | :-------------- | :----------------------------------------------------- |\n| -           | **geolocation** | Objeto contendo os dados de geolocalização do cliente. |\n| geolocation | **city**        | Cidade detectada.                                      |\n| geolocation | **state**       | Estado detectado.                                      |\n| geolocation | **country**     | País detectado.                                        |\n\nO objeto `navigation` corresponde a um dos itens de maior importância dentro do nosso conceito de comportamento, embora não seja o único.\n\nNesse conjunto de parâmetros, conseguimos analisar como seu cliente se comportou em seu site. Quanto tempo ele demorou, de onde ele veio (google, link de outra página...). Conseguimos informações de grande peso para a análise, portanto, leia com atenção a tabela seguinte para um entendimento mais aprimorado:\n\n| Objeto     | Parâmetro                | Descrição                                                                  |\n| :--------- | :----------------------- | :------------------------------------------------------------------------- |\n| -          | **navigation**           | Objeto contento os resumo de navegação do cliente.                         |\n| navigation | **session_time**         | Tempo da última sessão, em minutos.                                        |\n| navigation | **referrer**             | Origem da visita.                                                          |\n| navigation | **time_site_1d**         | Tempo gasto no site pelo usuário no último dia, em minutos.                |\n| navigation | **new_accounts_1d**      | Quantidade de contas criadas pelo usuário no último dia.                   |\n| navigation | **password_resets_1d**   | Quantidade de redefinições de senha do usuário no último dia.              |\n| navigation | **sales_declined_1d**    | Quantidade de pedidos negados feitos pelo cliente no último dia.           |\n| navigation | **sessions_1d**          | Número de visitas do usuário no último dia.                                |\n| navigation | **time_since_last_sale** | Tempo desde a última compra do usuário, em minutos.                        |\n| navigation | **time_site_7d**         | Tempo gasto no site pelo usuário nos últimos 7 dias, em minutos.           |\n| navigation | **time_per_page_7d**     | Tempo médio por página gasto pelo usuário nos últimos 7 dias, em minutos.  |\n| navigation | **new_accounts_7d**      | Quantidade de contas criadas pelo usuário na última semana.                |\n| navigation | **password_resets_7d**   | Quantidade de redefinições de senha do usuário na última semana.           |\n| navigation | **checkout_count_7d**    | Visualizações do carrinho de compras feitas pelo usuário na última semana. |\n| navigation | **sales_declined_7d**    | Quantidade de pedidos negados feitos pelo cliente na última semana.        |\n| navigation | **sessions_7d**          | Número de visitas do usuário na última semana.                             |\n\nO objeto `device` irá trazer informações da máquina que seu cliente está usando para efetuar a transação/operação em sua loja.\n\n| Objeto | Parâmetro       | Descrição                                               |\n| :----- | :-------------- | :------------------------------------------------------ |\n| -      | **device**      | Objeto contendo os dados coletados da máquina.          |\n| device | **user_id**     | Identificador único do visitante.                       |\n| device | **fingerprint** | Identificação do navegador.                             |\n| device | **platform**    | Tipo de dispositivo pelo cliente.                       |\n| device | **browser**     | Navegador do cliente.                                   |\n| device | **language**    | Idioma do navegador do cliente.                         |\n| device | **timezone**    | Fuso horário do cliente em GMT.                         |\n| device | **cookie**      | Flag indicando se o cliente tem Cookies habilitados.    |\n| device | **javascript**  | Flag indicando se o cliente tem JavaScript habilitados. |\n| device | **flash**       | Flag indicando se o cliente tem Flash habilitados.      |\n\nO objeto `bureaux_queries` é responsável trazer as informações consultadas no birô do e-mail do cliente.\n\n**Obs: O bureau é um serviço adicional,  caso queira contratar entre em contato com o suporte.** \n\n| Objeto          | Parâmetro                      | Descrição                                                 |\n| :-------------- | :----------------------------- | :-------------------------------------------------------- |\n| -               | **bureaux_queries**            | Objeto contendo os dados retornado pela consulta no birô. |\n| bureaux_queries | **service**                    | O nome do birô consultado.                                |\n| bureaux_queries | **response**                   | Objeto que retorna informações do e-mail do cliente.      |\n| response        | **email**                      | E-mail do cliente                                         |\n| response        | **name**                       | Nome do cliente e-mail do cliente nesse último pedido     |\n| response        | **email_first_seen_days**      | Período (Dias) que o e-mail foi criado.                   |\n| response        | **email_status**               | O status do e-mail.                                       |\n| response        | **email_total_hits**           | Quantidade total de vezes que o e-mail foi consultado.    |\n| response        | **email_unique_hits**          | Quantidade de vezes que o e-mail foi consultado no birô.  |\n| response        | **email_exists**               | Se o e-mail existe.                                       |\n| response        | **email_domain_exists**        | Se o domínio do e-mail existe.                            |\n| response        | **email_domain_is_corporate**  | Se o e-mail é corporativo.                                |\n| response        | **email_domain_other_info**    | Outras informações sobre este e-mail.                     |\n| response        | **email_domain_risk_level**    | Nível de risco do e-mail                                  |\n| response        | **email_domain_risky_country** | Se a origem deste e-mail é um país de risco.              |\n| response        | **email_exists**               | Se este e-mail existe.                                    |\n| response        | **email_first_seen_at**        | Data da primeira vez que o e-mail foi visto.              |\n| response        | **email_first_seen_days**      | Quantidade de dias que o e-mail foi visto a primeira vez. |\n| response        | **email_last_seen_at**         | Última vez que o e-mail foi visto.                        |\n| response        | **email_status**               | Status do e-mail.                                         |\n| response        | **email_total_hits**           | Quantidade total de vezes que o e-mail foi consultado.    |\n| response        | **email_unique_hits**          | Quantidade de vezes que o e-mail foi consultado no birô.  |\n| response        | **fraud_risk**                 | Risco de fraude.                                          |\n| response        | **gender**                     | Gênero.                                                   |\n| response        | **last_flagged_at**            | Sinalizado pela última vez.                               |\n| response        | **location**                   | Localização.                                              |\n| response        | **name**                       | Nome.                                                     |\n| response        | **reason_for_advice**          | Recomendação.                                             |\n| response        | **risk_band**                  | Faixa de risco.                                           |\n\n```json\n{\n \"status\": \"ok\",\n \"order\": {\n   \"id\": \"ORD1837213\",\n   \"visitor\": \"da39a3ee5e6b\",\n   \"score\": 0.07,\n   \"ip\": \"189.68.156.100\",\n   \"recommendation\": \"review\",\n   \"status\": \"declined\",\n   \"triggered_rules\": [\n     {\n      \"name\": \"Email is from a high risk domain address\",\n      \"decision\": \"decline\"\n     },\n     {\n      \"name\": \"Review orders with mispelled email domains\",\n      \"decision\": \"review\"\n     }\n   ],\n   \"triggered_decision_list\": [\n     {\n      \"trigger\": \"email\",\n      \"type\": \"email\",\n      \"decision\": \"decline\"\n     }\n   ],\n   \"geolocation\": {\n     \"city\": \"São Paulo\",\n     \"state\": \"SP\",\n     \"country\": \"BR\"\n   },\n   \"navigation\": {\n     \"time_site_7d\": 15.0,\n     \"time_per_page_7d\": 2.0,\n     \"new_accounts_7d\": 0,\n     \"password_resets_7d\": 1,\n     \"checkout_count_7d\": 0,\n     \"sales_declined_7d\": 0,\n     \"sessions_7d\": 3,\n     \"time_site_1d\": 45.0,\n     \"new_accounts_1d\": 0,\n     \"password_resets_1d\": 0,\n     \"sales_declined_1d\": 0,\n     \"sessions_1d\": 1,\n     \"session_time\": 45.0,\n     \"time_since_last_sale\": 121.0,\n     \"referrer\": \"www.google.com\"\n   },\n   \"device\": {\n     \"user_id\": \"405961fab2936\",\n     \"fingerprint\": \"e4f2c69097\",\n     \"platform\": \"MacIntel\",\n     \"browser\": \"Chrome\",\n     \"language\": \"pt_BR\",\n     \"timezone\": \"GMT -3\",\n     \"cookie\": true,\n     \"javascript\": true,\n     \"flash\": true\n   },\n   \"bureaux_queries\": [\n     {\n      \"service\": \"emailage\",\n      \"response\": {\n       \"advice\": \"Lower Fraud Risk\",\n       \"email\": \"susilva12@gmail.com\",\n       \"email_country\": \"US\",\n       \"email_domain\": \"gmail.com\",\n       \"email_domain_age\": \"1995-08-13T04:00:00Z\",\n       \"email_domain_category\": \"Webmail\",\n       \"email_domain_company\": \"Google\",\n       \"email_domain_country\": \"United States\",\n       \"email_domain_exists\": true,\n       \"email_domain_is_corporate\": false,\n       \"email_domain_other_info\": \"Valid Webmail\",\n       \"email_domain_risk_level\": \"Moderate\",\n       \"email_domain_risky_country\": false,\n       \"email_exists\": true,\n       \"email_first_seen_at\": \"2011-07-06T01:00:35Z\",\n       \"email_first_seen_days\": \"2750\",\n       \"email_last_seen_at\": \"2016-06-09T02:12:56Z\",\n       \"email_status\": \"Verified\",\n       \"email_total_hits\": 1,\n       \"email_unique_hits\": 1,\n       \"fraud_risk\": \"050 Very Low\",\n       \"gender\": \"M\",\n       \"last_flagged_at\": \"2015-09-16T05:42:58Z\",\n       \"location\": \"São Paulo\",\n       \"name\": \"Suzana Silva\",\n       \"reason_for_advice\": \"Good Level 1\",\n       \"risk_band\": \"Fraud Score 11 to 300,\"\n     }\n    }\n   ]\n  }\n}\n```"
+  }
+}

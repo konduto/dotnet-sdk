@@ -15,7 +15,7 @@ namespace KdtSdk.Models
         [JsonProperty("id", Required = Required.Always)]
         public String Id { get; set; }
 
-        [JsonProperty("visitor", Required = Required.Always)]
+        [JsonProperty("visitor", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(null)]
         public String Visitor { get; set; }
 
         [JsonProperty("timestamp", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue(0)]
